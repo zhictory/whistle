@@ -1245,7 +1245,7 @@ var Composer = React.createClass({
               value={method}
               onChange={onComposerChange}
               ref="method"
-              className="form-control w-com-method"
+              className="form-select w-com-method"
             >
               {METHODS.map(function (m) {
                 return <option value={m}>{m}</option>;
@@ -1370,7 +1370,7 @@ var Composer = React.createClass({
                     <ReqType value={type} disabled={pending} />
                     <button
                       disabled={pending}
-                      className="btn btn-default"
+                      className="btn btn-outline-secondary"
                       onClick={self.showCookiesDialog}
                     >
                       Cookies
@@ -1451,7 +1451,7 @@ var Composer = React.createClass({
                     <button
                       disabled={pending}
                       className={
-                        'btn btn-default' +
+                        'btn btn-outline-secondary' +
                         getHide(showPrettyBody || isHexText || showUpload)
                       }
                       onClick={self.formatJSON}
@@ -1521,7 +1521,7 @@ var Composer = React.createClass({
                   <button
                     onClick={onTabChange}
                     name="Request"
-                    className="btn btn-default w-com-back-btn"
+                    className="btn btn-outline-secondary w-com-back-btn"
                     title="Back to Request"
                   >
                     <Icon name="menu-left" />

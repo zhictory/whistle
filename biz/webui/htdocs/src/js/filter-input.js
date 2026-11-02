@@ -336,9 +336,9 @@ var FilterInput = React.createClass({
           onClick={self.clearFilterText}
           style={getHideStyle(!state.filterText)}
           type="button"
-          className="close w-clear-input"
+          className="btn-close w-clear-input"
           title={util.CMD + 'D'}
-        >&times;</button>
+        ></button>
       </div>
     );
   }

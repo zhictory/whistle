@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "bootstrap-icons";
+  src: url("../fonts/bootstrap-icons.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+}
+
+.bi {
+  display: inline-block;
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-weight: normal !important;
+  line-height: 1;
+  vertical-align: -0.125em;
+}
+
+.bi::before,
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  display: inline-block;
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-weight: normal !important;
+  line-height: 1;
+  vertical-align: -0.125em;
+}
+
+.bi-arrow-down::before { content: "\f128"; }
+.bi-arrow-clockwise::before { content: "\f116"; }
+.bi-arrow-left::before { content: "\f12f"; }
+.bi-arrow-left-right::before { content: "\f12b"; }
+.bi-arrow-repeat::before { content: "\f130"; }
+.bi-arrow-right::before { content: "\f138"; }
+.bi-arrow-up::before { content: "\f148"; }
+.bi-arrows-angle-expand::before { content: "\f14a"; }
+.bi-box-arrow-in-down::before { content: "\f1bc"; }
+.bi-box-arrow-up-right::before { content: "\f1c5"; }
+.bi-box-arrow-up::before { content: "\f1c6"; }
+.bi-bar-chart-line::before { content: "\f17c"; }
+.bi-check-circle::before { content: "\f26b"; }
+.bi-chevron-down::before { content: "\f282"; }
+.bi-chevron-left::before { content: "\f284"; }
+.bi-chevron-right::before { content: "\f285"; }
+.bi-chevron-up::before { content: "\f286"; }
+.bi-clipboard::before { content: "\f290"; }
+.bi-dash::before { content: "\f2ea"; }
+.bi-dash-lg::before { content: "\f63b"; }
+.bi-diagram-3::before { content: "\f2ee"; }
+.bi-download::before { content: "\f30a"; }
+.bi-eye::before { content: "\f341"; }
+.bi-file-earmark::before { content: "\f392"; }
+.bi-floppy::before { content: "\f7d8"; }
+.bi-folder::before { content: "\f3d7"; }
+.bi-folder-fill::before { content: "\f3d1"; }
+.bi-funnel::before { content: "\f3e1"; }
+.bi-gear::before { content: "\f3e5"; }
+.bi-globe2::before { content: "\f3ef"; }
+.bi-grid-3x3-gap-fill::before { content: "\f3f8"; }
+.bi-link-45deg::before { content: "\f470"; }
+.bi-list-ul::before { content: "\f478"; }
+.bi-lock::before { content: "\f47b"; }
+.bi-pencil::before { content: "\f4cb"; }
+.bi-plus-lg::before { content: "\f64d"; }
+.bi-question-circle::before { content: "\f505"; }
+.bi-send::before { content: "\f6c0"; }
+.bi-star-fill::before { content: "\f586"; }
+.bi-stop-fill::before { content: "\f592"; }
+.bi-terminal::before { content: "\f5c3"; }
+.bi-trash3::before { content: "\f78b"; }
+.bi-x-lg::before { content: "\f659"; }

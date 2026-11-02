@@ -1,9 +1,20 @@
 var $ = require('jquery');
+var Toast = require('bootstrap/js/dist/toast');
 
 var cache = {};
+var container;
+
+function getContainer() {
+  if (!container) {
+    container = $('<div class="toast-container w-message-container p-3"></div>');
+    container.appendTo(document.body);
+  }
+  return container;
+}
 
 $(document).on('click', '.w-message', function () {
-  $(this).stop(true, true).hide();
+  var toast = Toast.getInstance(this);
+  toast && toast.hide();
 });
 
 function showMessage(msg, level) {
@@ -14,14 +25,19 @@ function showMessage(msg, level) {
   }
   var elem = cache[level];
   if (!elem) {
-    elem = $('<div class="alert alert-' + level + ' w-message"></div>');
+    elem = $(
+      '<div class="toast w-message w-message-' + level + '" role="status" aria-live="polite" aria-atomic="true">' +
+        '<div class="toast-body"></div>' +
+      '</div>'
+    );
     cache[level] = elem;
   }
-  elem.appendTo(document.body);
-  elem.text(msg);
-  elem.stop(true, true).show();
-  elem.css('marginLeft', -elem[0].offsetWidth / 2);
-  elem.delay(2000).fadeOut(2000);
+  elem.find('.toast-body').text(msg);
+  elem.appendTo(getContainer());
+  Toast.getOrCreateInstance(elem[0], {
+    autohide: true,
+    delay: 3200
+  }).show();
   return elem;
 }
 

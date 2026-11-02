@@ -1,0 +1,91 @@
+/*
+ * Bootstrap 5.3 form-check compatibility for the legacy Bootstrap 3 markup.
+ * Visual rules mirror:
+ * https://getbootstrap.com/docs/5.3/forms/checks-radios/
+ */
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]),
+.modal :is(input[type="checkbox"], input[type="radio"]),
+:is(.form-check-input) {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  margin: 0 0.4em 0 0;
+  vertical-align: text-bottom;
+  appearance: none;
+  background-color: var(--morandi-surface);
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid var(--morandi-border-strong);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  cursor: pointer;
+}
+
+.w-ui-refresh input[type="checkbox"],
+.modal input[type="checkbox"],
+.form-check-input[type="checkbox"] {
+  border-radius: 0.25em;
+}
+
+.w-ui-refresh input[type="radio"],
+.modal input[type="radio"],
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+}
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]):active,
+.modal :is(input[type="checkbox"], input[type="radio"]):active,
+.form-check-input:active {
+  filter: brightness(90%);
+}
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]):focus,
+.modal :is(input[type="checkbox"], input[type="radio"]):focus,
+.form-check-input:focus {
+  border-color: var(--morandi-sage);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--ui-focus);
+}
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]):focus-visible,
+.modal :is(input[type="checkbox"], input[type="radio"]):focus-visible {
+  outline: 0;
+}
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]):checked,
+.modal :is(input[type="checkbox"], input[type="radio"]):checked,
+.form-check-input:checked {
+  background-color: var(--morandi-green);
+  border-color: var(--morandi-green);
+}
+
+.w-ui-refresh input[type="checkbox"]:checked,
+.modal input[type="checkbox"]:checked,
+.form-check-input:checked[type="checkbox"] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.w-ui-refresh input[type="radio"]:checked,
+.modal input[type="radio"]:checked,
+.form-check-input:checked[type="radio"] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+.w-ui-refresh input[type="checkbox"]:indeterminate,
+.modal input[type="checkbox"]:indeterminate,
+.form-check-input[type="checkbox"]:indeterminate {
+  background-color: var(--morandi-green);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
+  border-color: var(--morandi-green);
+}
+
+.w-ui-refresh :is(input[type="checkbox"], input[type="radio"]):disabled,
+.modal :is(input[type="checkbox"], input[type="radio"]):disabled,
+.form-check-input:disabled {
+  pointer-events: none;
+  filter: none;
+  opacity: 0.5;
+}

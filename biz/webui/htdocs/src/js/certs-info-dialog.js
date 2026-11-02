@@ -309,7 +309,7 @@ var CertsInfoDialog = React.createClass({
           {dataCenter.whistleId ? <button
             type="button"
             className="btn btn-warning"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             onClick={this.showService}
           >
             <Icon name="cloud" />

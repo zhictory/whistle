@@ -1597,6 +1597,7 @@ var ReqData = React.createClass({
     var composerReqId = self._curComposerReqId;
     var len = list.length;
     var hasChanged = !len;
+    var hasContentFilter = hasKeyword || !!filterText || !!state.filterType;
     self.startIndex = null;
     self.endIndex = null;
     self.visibleList = list;
@@ -1680,6 +1681,19 @@ var ReqData = React.createClass({
                 );
               }}
             </RV.AutoSizer>
+            {len ? null : (
+              <div className="w-network-empty">
+                <div className="w-network-empty-art" aria-hidden="true" />
+                <strong>
+                  {hasContentFilter ? 'No matching requests' : 'No traffic yet'}
+                </strong>
+                <span>
+                  {hasContentFilter
+                    ? 'Try clearing the filter to see more requests.'
+                    : 'Requests passing through Whistle will appear here.'}
+                </span>
+              </div>
+            )}
           </div>
         </div>
         <BackToBottomBtn ref="backBtn" hide={isTreeView} onClick={self.autoRefresh} />

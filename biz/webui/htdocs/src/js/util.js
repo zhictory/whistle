@@ -3553,7 +3553,7 @@ exports.hasShortcut = function(name) {
 };
 
 exports.noModal = function() {
-  return !$('.modal.in').length;
+  return !$('.modal.show').length;
 };
 
 var BACK_SLASH_RE = /\\+$/;

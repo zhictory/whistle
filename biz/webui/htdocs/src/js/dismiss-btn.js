@@ -5,8 +5,8 @@ var DismissBtn = React.createClass({
     return (
       <button
         type="button"
-        className="btn btn-default"
-        data-dismiss="modal"
+        className="btn btn-outline-secondary"
+        data-bs-dismiss="modal"
       >
         Close
       </button>

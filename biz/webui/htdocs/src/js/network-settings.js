@@ -418,7 +418,7 @@ var Settings = React.createClass({
           <fieldset className="w-ns-cols">
             <legend>
               <label>Network Columns</label>
-              <label onClick={self.resetColumns} className="btn btn-default">
+              <label onClick={self.resetColumns} className="btn btn-outline-secondary">
                 Reset
               </label>
             </legend>
@@ -458,7 +458,7 @@ var Settings = React.createClass({
                   {
                     name === 'path' ?
                     <select
-                      className="w-query-select"
+                      className="form-select w-query-select"
                       value={state.urlType || ''}
                       onChange={self.onUrlType}
                     >

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 210" fill="none">
+  <circle cx="286" cy="48" r="34" fill="#F1ECE2"/>
+  <circle cx="57" cy="165" r="24" fill="#DFE7DC"/>
+  <path d="M78 76c25-29 69-36 103-17" stroke="#B8C6B3" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 8"/>
+  <path d="M225 59c25 7 43 26 49 49" stroke="#D4C8B6" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 8"/>
+  <rect x="55" y="70" width="230" height="105" rx="17" fill="#FCFAF6" stroke="#C8CEC2" stroke-width="2"/>
+  <path d="M55 94h230" stroke="#E3DED4" stroke-width="2"/>
+  <circle cx="72" cy="82" r="4" fill="#A7B6A2"/>
+  <circle cx="85" cy="82" r="4" fill="#D8CBB9"/>
+  <circle cx="98" cy="82" r="4" fill="#C8CEC2"/>
+  <rect x="76" y="110" width="70" height="8" rx="4" fill="#E4EADF"/>
+  <rect x="76" y="126" width="110" height="8" rx="4" fill="#F0E9DD"/>
+  <rect x="76" y="142" width="82" height="8" rx="4" fill="#F0E9DD"/>
+  <rect x="214" y="111" width="13" height="41" rx="6.5" fill="#DFE7DC"/>
+  <rect x="234" y="122" width="13" height="30" rx="6.5" fill="#BACAB5"/>
+  <rect x="254" y="104" width="13" height="48" rx="6.5" fill="#8FA58B"/>
+  <circle cx="156" cy="55" r="15" fill="#E3EBDD"/>
+  <circle cx="156" cy="55" r="6" fill="#A7B6A2"/>
+  <circle cx="275" cy="111" r="17" fill="#E8E0D3"/>
+  <path d="M268 111h14M275 104v14" stroke="#8B9987" stroke-width="2" stroke-linecap="round"/>
+  <path d="M32 55h9M36.5 50.5v9M320 140h9M324.5 135.5v9" stroke="#B8C6B3" stroke-width="2" stroke-linecap="round"/>
+</svg>

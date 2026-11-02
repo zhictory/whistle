@@ -183,7 +183,7 @@ var HistoryData = React.createClass({
     return (
       <button
         type="button"
-        className="btn btn-default"
+        className="btn btn-outline-secondary"
         onClick={onClick}
       >
         {name}

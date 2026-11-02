@@ -8,7 +8,7 @@ var Tabs = React.createClass({
     var onChange = props.onChange;
 
     return (
-      <ul className="nav nav-tabs w-tabs">
+      <ul className="nav nav-tabs w-tabs" role="tablist">
         {
           tabs.map(function(tab, index) {
             var handleClick = function() {
@@ -17,11 +17,17 @@ var Tabs = React.createClass({
               }
             };
             return (
-              <li key={index} className={tab.active ? 'active' : ''}>
-                <a draggable="false" onClick={handleClick}>
+              <li key={index} className="nav-item" role="presentation">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={!!tab.active}
+                  className={'nav-link' + (tab.active ? ' active' : '')}
+                  onClick={handleClick}
+                >
                   {tab.icon ? <Icon name={tab.icon} /> : null}
                   {tab.name}
-                </a>
+                </button>
               </li>
             );
           })

@@ -1,13 +1,44 @@
 require('../css/dropdown.css');
 var React = require('react');
+var BootstrapDropdown = require('bootstrap/js/dist/dropdown');
 var util = require('./util');
 var Icon = require('./icon');
 
-var hover = util.createHover('hover');
-
 var DropDown = React.createClass({
   getInitialState: function () {
-    return {};
+    return { open: false };
+  },
+  componentDidMount: function () {
+    var self = this;
+    if (!self.refs.toggle) {
+      return;
+    }
+    self._dropdown = BootstrapDropdown.getOrCreateInstance(self.refs.toggle);
+    self._onShow = function () {
+      var onBeforeShow = self.props.onBeforeShow;
+      if (onBeforeShow) {
+        onBeforeShow();
+      }
+    };
+    self._onShown = function () {
+      self.setState({ open: true });
+    };
+    self._onHidden = function () {
+      self.setState({ open: false });
+    };
+    self.refs.toggle.addEventListener('show.bs.dropdown', self._onShow);
+    self.refs.toggle.addEventListener('shown.bs.dropdown', self._onShown);
+    self.refs.toggle.addEventListener('hidden.bs.dropdown', self._onHidden);
+  },
+  componentWillUnmount: function () {
+    if (this.refs.toggle) {
+      this.refs.toggle.removeEventListener('show.bs.dropdown', this._onShow);
+      this.refs.toggle.removeEventListener('shown.bs.dropdown', this._onShown);
+      this.refs.toggle.removeEventListener('hidden.bs.dropdown', this._onHidden);
+    }
+    if (this._dropdown) {
+      this._dropdown.dispose();
+    }
   },
   onChange: function (option) {
     var self = this;
@@ -21,14 +52,14 @@ var DropDown = React.createClass({
       });
     }
   },
-  onMouseEnter: function () {
-    var onBeforeShow = this.props.onBeforeShow;
-    if (onBeforeShow) {
-      onBeforeShow();
+  selectOption: function (option) {
+    this._dropdown && this._dropdown.hide();
+    if (option === this.getSelectedOption() || option === this.state.selectedOption) {
+      return;
     }
-    hover.show.call(this);
+    this.onChange(option);
+    this.setState({ open: false });
   },
-  onMouseLeave: hover.hide,
   getSelectedOption: function () {
     var props = this.props;
     var value = props.value;
@@ -53,10 +84,10 @@ var DropDown = React.createClass({
     return (
       <div
         className="dropdown w-dropdown"
-        onMouseEnter={self.onMouseEnter}
-        onMouseLeave={self.onMouseLeave}
       >
-        <div
+        <button
+          ref="toggle"
+          type="button"
           style={{
             color:
               selectedOption === firstOption
@@ -67,41 +98,49 @@ var DropDown = React.createClass({
           className={
             'dropdown-toggle w-dropdown-text' + (disabled ? ' w-disabled' : '')
           }
+          data-bs-toggle="dropdown"
+          aria-expanded={state.open}
+          disabled={disabled}
         >
           {selectedOption.icon ? <Icon name={selectedOption.icon} /> : null}
           {selectedOption.text}
           <span className="caret"></span>
-        </div>
+        </button>
         <ul
           style={{
-            display: !disabled && state.hover ? 'block' : 'none',
             padding: help ? null : 0
           }}
           className="dropdown-menu"
         >
           {options.map(function (option) {
             return (
-              <li
-                key={option.value}
-                title={option.text}
-                data-value={option.value}
-                onClick={function () {
-                  self.onMouseLeave();
-                  if (option === selectedOption) {
-                    return;
-                  }
-                  self.onChange(option);
-                }}
-              >
-                {option.icon ? <Icon name={option.icon} /> : null}
-                {option.text}
+              <li key={option.value}>
+                <button
+                  type="button"
+                  title={option.text}
+                  data-value={option.value}
+                  className="dropdown-item"
+                  onClick={function () {
+                    self.selectOption(option);
+                  }}
+                >
+                  {option.icon ? <Icon name={option.icon} /> : null}
+                  {option.text}
+                </button>
               </li>
             );
           })}
-          {help ? <li role="separator" className="divider"></li> : null}
+          {help ? <li><hr className="dropdown-divider" /></li> : null}
           {help ? (
-            <li style={{ padding: 0 }}>
-              <a href={help} target="_blank">
+            <li>
+              <a
+                className="dropdown-item"
+                href={help}
+                target="_blank"
+                onClick={function () {
+                  self._dropdown && self._dropdown.hide();
+                }}
+              >
                 <Icon name="question-sign" />
                 Help
               </a>

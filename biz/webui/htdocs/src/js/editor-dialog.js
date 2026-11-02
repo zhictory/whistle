@@ -473,7 +473,7 @@ var EditorDialog = React.createClass({
       <ModalHeader>
         {isKey ? 'Key Name' : title || 'Modify Copied Text'}
         {isKey ? self.renderKeys() : null}
-        {showUpload && session ? <button type="button" className="btn btn-sm btn-default ml-10" onClick={self.showSessionOptions}>
+        {showUpload && session ? <button type="button" className="btn btn-sm btn-outline-secondary ml-10" onClick={self.showSessionOptions}>
           <Icon name="import" className="mr-5" />
           {INSERT_BTN}
         </button> : null}
@@ -527,7 +527,7 @@ var EditorDialog = React.createClass({
         </ModalFooter> : <ModalFooter>
           <button
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             className="btn btn-primary w-copy-text-with-tips"
             data-clipboard-text={value}
             disabled={!value}
@@ -544,7 +544,7 @@ var EditorDialog = React.createClass({
             {
               SESSION_OPTIONS.map(function (name) {
                 return (
-                  <div key={name} className="btn btn-default plugin-mgr-btn" data-dismiss="modal" onClick={self.populate}>
+                  <div key={name} className="btn btn-outline-secondary plugin-mgr-btn" data-bs-dismiss="modal" onClick={self.populate}>
                     {name}
                   </div>
                 );

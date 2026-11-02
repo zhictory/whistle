@@ -2,6 +2,7 @@ var $ = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ModalFooter = require('./modal-footer');
+var bootstrapV5 = require('./bootstrap-v5');
 var isFunc = require('./util').isFunc;
 
 var Dialog = React.createClass({
@@ -21,16 +22,18 @@ var Dialog = React.createClass({
     if (isFunc(props.customRef)) {
       props.customRef(self);
     }
+    var element = container[0];
     if (isFunc(props.onClose)) {
-      container.on('hidden.bs.modal', props.onClose);
+      element.addEventListener('hidden.bs.modal', props.onClose);
     }
-    container.on('hide.bs.modal', function() {
+    element.addEventListener('hide.bs.modal', function() {
       self._isVisible = false;
-    }).on('show.bs.modal', function() {
+    });
+    element.addEventListener('show.bs.modal', function() {
       self._isVisible = true;
     });
     if (isFunc(props.onShow)) {
-      container.on('shown.bs.modal', function() {
+      element.addEventListener('shown.bs.modal', function() {
         props.onShow(self);
       });
     }
@@ -67,6 +70,7 @@ var Dialog = React.createClass({
     );
   },
   componentWillUnmount: function () {
+    this.container && bootstrapV5.dispose(this.container[0]);
     var container = this.container[0];
     ReactDOM.unmountComponentAtNode(container);
     document.body.removeChild(container);
@@ -74,28 +78,30 @@ var Dialog = React.createClass({
   show: function () {
     var self = this;
     var container = self.container;
-    if (container.hasClass('in')) {
+    if (container.hasClass('show')) {
       return;
     }
     self._isVisible = true;
-    container.modal(
-      self.props.disableBackdrop
-        ? {
-          show: true,
-          backdrop: false
-        }
-        : 'show'
-    );
+    bootstrapV5.show(container[0], {
+      backdrop: self.props.disableBackdrop ? false : true
+    });
   },
   isVisible: function () {
     return this._isVisible;
   },
   hide: function () {
-    this.container.modal('hide');
+    bootstrapV5.hide(this.container[0]);
   },
   destroy: function () {
-    this.hide();
-    this.container && this.componentWillUnmount();
+    var self = this;
+    if (self._isVisible) {
+      self.container.one('hidden.bs.modal', function() {
+        self.componentWillUnmount();
+      });
+      self.hide();
+    } else {
+      self.componentWillUnmount();
+    }
   },
   render: function () {
     return null;

@@ -110,7 +110,7 @@ var FiltersRule = React.createClass({
             var keyPlaceholder = option.keyPlaceholder;
             return (
               <div data-name="filters" className="w-form-value" data-index={filter.index} key={filter.index}>
-                <select data-name="type" value={type} className="form-control w-190" disabled={disabled} onChange={self.onChange}>
+                <select data-name="type" value={type} className="form-select w-190" disabled={disabled} onChange={self.onChange}>
                   <optgroup label="Include Filters">
                     {
                       self.getFilterOptions('Include')

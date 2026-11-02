@@ -428,7 +428,7 @@ var PropsEditor = React.createClass({
               cbBtnText ?
               <button
                 type="button"
-                className="btn btn-default"
+                className="btn btn-outline-secondary"
                 data-action="callback"
                 onClick={handle}
               >

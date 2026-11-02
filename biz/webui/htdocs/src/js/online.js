@@ -14,6 +14,8 @@ var Icon = require('./icon');
 var CloseBtn = require('./close-btn');
 var ModalHeader = require('./modal-header');
 var ModalFooter = require('./modal-footer');
+var uiSkin = require('./ui-skin');
+var bootstrapV5 = require('./bootstrap-v5');
 
 var showSysErr = util.showSysErr;
 var isFunc = util.isFunc;
@@ -27,10 +29,19 @@ var dialog;
 var curOrder;
 var curVerbatim = -1;
 var theme = 'light';
+document.documentElement.setAttribute('data-bs-theme', theme);
 var mediaMatches = false;
 var borderColor;
 var THEMES = ['auto', 'dark', 'light'];
-var SELECT_TAG = '<select class="form-control"></select>';
+var SELECT_TAG = '<select class="form-select"></select>';
+
+function createSkinSelect() {
+  return '<select class="form-select">' +
+    uiSkin.SKINS.map(function(skin) {
+      return '<option value="' + skin.value + '">' + skin.name + '</option>';
+    }).join('') +
+  '</select>';
+}
 
 var findElem = function(selector) {
   return dialog.find(selector);
@@ -41,6 +52,7 @@ var getDnsSelect = function() {
 
 var setTheme = function() {
   var newTheme = isDarkMode() ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-bs-theme', newTheme);
   if (theme === newTheme) {
     return;
   }
@@ -125,6 +137,7 @@ function updateIframeTheme(iframe) {
     var curTheme = doc.getAttribute('data-theme');
     if (theme !== curTheme) {
       doc.setAttribute('data-theme', theme);
+      doc.setAttribute('data-bs-theme', theme);
       if (isFunc(win.onWhistleThemeChange)) {
         win.onWhistleThemeChange(theme);
       }
@@ -207,10 +220,14 @@ function createDialog() {
       '<div class="modal fade w-online-dialog">' +
       '<div class="modal-dialog">' +
       '<div class="modal-content">' +
-      '<div class="modal-body">' +
-      '<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+      '<div class="modal-header">' +
+      '<h4 class="modal-title">Online Status</h4>' +
+      '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>' +
+      '</div>' +
+      '<div class="modal-body w-online-body">' +
       '<div class="w-online-ctn"></div>' +
       '<div class="w-online-info">' +  proxyInfoList.join('') + '</div>' +
+      '<h5 class="w-online-option w-skin"><strong>Skin:</strong>' + createSkinSelect() + '</h5>' +
       '<h5 class="w-online-option w-theme"><strong>Theme:</strong>' + createSelect(THEMES) + '</h5>'+
       '<h5 class="w-online-option w-dns-order"><strong>DNS Order:</strong>' + SELECT_TAG + '</h5>' +
       '<p><a class="w-view-dns">Clear DNS Cache</a></p>' +
@@ -221,6 +238,11 @@ function createDialog() {
       '<div class="modal-footer">' + win.DISSMISS_BTN +
       '</div></div></div></div>'
     ).appendTo(document.body);
+    var skinSelect = findElem('.w-skin select');
+    skinSelect.on('change', function(e) {
+      uiSkin.set(e.target.value);
+    });
+    skinSelect.val(uiSkin.getCurrent());
     var appearanceSelect = findElem('.w-theme select');
     appearanceSelect.on('change', function(e) {
       var val = e.target.value;
@@ -324,7 +346,7 @@ var Online = React.createClass({
   showServerInfo: function () {
     if (this.state.server) {
       this.updateServerInfo(dataCenter.getServerInfo());
-      dialog.modal('show');
+      bootstrapV5.show(dialog[0]);
     }
   },
   updateServerInfo: function (server) {
@@ -444,13 +466,13 @@ var Online = React.createClass({
         if (!pInfo) {
           if (!isHide) {
             isHide = true;
-            findElem('.w-online-info').hide();
+            findElem('.w-online-info').removeClass('w-online-info-visible');
           }
           return;
         }
         if (isHide) {
           isHide = false;
-          findElem('.w-online-info').show();
+          findElem('.w-online-info').addClass('w-online-info-visible');
         }
         var reqElem = findElem('#whistleRequests');
         var uiReqElem = findElem('#whistleAllRequests');
@@ -673,7 +695,7 @@ var Online = React.createClass({
           <ModalFooter>
             <button
               type="button"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               className="btn btn-primary w-copy-text-with-tips"
               data-clipboard-text={clientIps}
             >

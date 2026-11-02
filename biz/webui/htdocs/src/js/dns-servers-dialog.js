@@ -54,7 +54,7 @@ var DNSDialog = React.createClass({
         <ModalFooter>
           <button
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             className="btn btn-primary w-copy-text-with-tips"
             data-clipboard-text={servers}
           >

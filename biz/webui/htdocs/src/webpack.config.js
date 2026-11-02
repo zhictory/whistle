@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var PROJECT_ROOT = path.join(__dirname, '../../../..');
 
 module.exports = {
   entry: {
@@ -14,7 +15,10 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: [
+          path.join(__dirname, 'js'),
+          path.join(PROJECT_ROOT, 'node_modules/bootstrap/js/dist')
+        ],
         loader: 'babel-loader'
       },
       {

@@ -41,10 +41,10 @@ var BtnGroup = React.createClass({
       <div
         onDoubleClick={props.onDoubleClickBar}
         className={
-          'btn-group btn-group-sm ' +
-          (tabs ? 'w-tabs-sm' : 'w-btn-group-sm') +
+          (tabs ? 'nav w-tabs-sm' : 'btn-group btn-group-sm w-btn-group-sm') +
           (isSmall ? ' small' : '')
         }
+        role={tabs ? 'tablist' : null}
       >
         {list.map(function (btn) {
           btn.disabled = disabled;
@@ -59,10 +59,12 @@ var BtnGroup = React.createClass({
               key={btn.key}
               type="button"
               data-name={btn.name}
+              role={tabs ? 'tab' : null}
+              aria-selected={tabs ? !!btn.active : null}
               style={util.getHideStyle(btn.hide)}
               title={btn.title}
               className={
-                'btn btn-default' +
+                (tabs ? 'nav-link' : 'btn btn-outline-secondary') +
                 (btn.active && !disabled ? ' active' : '') +
                 (btn.className ? ' ' + btn.className : '')
               }

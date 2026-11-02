@@ -1,0 +1,241 @@
+/* Playful Flat skin */
+
+html[data-ui-skin="playful"] {
+  --morandi-bg: #f4f7ff;
+  --morandi-canvas: #f8faff;
+  --morandi-surface: #ffffff;
+  --morandi-surface-muted: #f1f5ff;
+  --morandi-sand: #e8eefb;
+  --morandi-sand-deep: #dde6f8;
+  --morandi-sage-soft: #eaf1ff;
+  --morandi-sage: #9fbcf8;
+  --morandi-green: #2f6fed;
+  --morandi-green-deep: #1e55c7;
+  --morandi-green-hover: #477feb;
+  --morandi-text: #233044;
+  --morandi-text-soft: #53627a;
+  --morandi-muted: #69788e;
+  --morandi-subtle: #9aa8bd;
+  --morandi-border: #dfe7f3;
+  --morandi-border-strong: #ced9ea;
+  --morandi-danger: #e45b58;
+  --morandi-danger-soft: #ffe8e5;
+  --morandi-warning: #c08a24;
+  --morandi-success: #29936f;
+  --morandi-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --morandi-radius-sm: 12px;
+  --morandi-radius-md: 16px;
+  --morandi-radius-lg: 22px;
+
+  --c-default: #233044;
+  --c-active: #ffffff;
+  --c-heavy: #233044;
+  --c-thin: #53627a;
+  --c-disabled: #9aa8bd;
+  --c-link: #2f6fed;
+  --c-link-hover: #1e55c7;
+  --c-border: #dfe7f3;
+  --c-error: #e45b58;
+  --c-risk: #e45b58;
+  --c-danger: #e45b58;
+  --c-ok: #29936f;
+  --c-has: #2f6fed;
+  --c-warn: #c08a24;
+  --c-success: #29936f;
+  --c-info: #3388b8;
+  --b-default: #ffffff;
+  --b-title: #f1f5ff;
+  --b-bar: #f8faff;
+  --b-hover: #edf3ff;
+  --b-active: #eaf1ff;
+  --b-btn-hover: #edf3ff;
+  --b-btn-active: #dce8ff;
+  --b-heavy: #e8eefb;
+  --b-heavy-active: #dde6f8;
+  --b-disabled: #f1f5ff;
+  --b-success: #e6f7f0;
+  --b-success-hover: #d8f1e7;
+  --b-error: #ffe8e5;
+  --b-error-hover: #ffdad6;
+  --b-warn: #fff5d9;
+  --b-alert-info: #e8f4ff;
+  --b-list-hover: #edf3ff;
+  --b-list-warn: #fff5d9;
+  --b-list-info: #e8f4ff;
+  --b-list-mark: #eaf1ff;
+  --b-list-danger-hover: #ffe3df;
+  --b-tl-dns: #ccefe3;
+  --b-tl-req: #fff0bd;
+  --b-tl-res: #ffe2cd;
+  --b-tl-load: #dce9ff;
+}
+
+html[data-ui-skin="playful"][data-theme="dark"] {
+  --morandi-bg: #101722;
+  --morandi-canvas: #131c29;
+  --morandi-surface: #182333;
+  --morandi-surface-muted: #1e2b3c;
+  --morandi-sand: #263548;
+  --morandi-sand-deep: #304157;
+  --morandi-sage-soft: #1c3556;
+  --morandi-sage: #688ac2;
+  --morandi-green: #7db0ff;
+  --morandi-green-deep: #abd0ff;
+  --morandi-green-hover: #91bdff;
+  --morandi-text: #e9f0fa;
+  --morandi-text-soft: #c4d0df;
+  --morandi-muted: #9bacc0;
+  --morandi-subtle: #71849b;
+  --morandi-border: #2d3d51;
+  --morandi-border-strong: #40536b;
+  --morandi-danger: #ff9b96;
+  --morandi-danger-soft: #3d2528;
+  --morandi-warning: #f1c766;
+  --morandi-success: #79d6b2;
+
+  --c-default: #e9f0fa;
+  --c-active: #ffffff;
+  --c-heavy: #e9f0fa;
+  --c-thin: #c4d0df;
+  --c-disabled: #71849b;
+  --c-link: #7db0ff;
+  --c-link-hover: #abd0ff;
+  --c-border: #2d3d51;
+  --c-error: #ff9b96;
+  --c-risk: #ff9b96;
+  --c-danger: #ff9b96;
+  --c-ok: #79d6b2;
+  --c-has: #9bc7ff;
+  --c-warn: #f1c766;
+  --c-success: #79d6b2;
+  --c-info: #83cbea;
+  --b-default: #182333;
+  --b-title: #1e2b3c;
+  --b-bar: #131c29;
+  --b-hover: #223044;
+  --b-active: #1c3556;
+  --b-btn-hover: #223044;
+  --b-btn-active: #28436b;
+  --b-heavy: #263548;
+  --b-heavy-active: #304157;
+  --b-disabled: #1e2b3c;
+  --b-success: #1b3b30;
+  --b-success-hover: #22483a;
+  --b-error: #3d2528;
+  --b-error-hover: #4b2d31;
+  --b-warn: #3b3320;
+  --b-alert-info: #193149;
+  --b-list-hover: #223044;
+  --b-list-warn: #3b3320;
+  --b-list-info: #193149;
+  --b-list-mark: #1c3556;
+  --b-list-danger-hover: #4b2d31;
+  --b-tl-dns: #1c4038;
+  --b-tl-req: #3c3420;
+  --b-tl-res: #432e23;
+  --b-tl-load: #1d314b;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh {
+  background:
+    radial-gradient(circle at 10% 5%, rgba(111, 155, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 94% 90%, rgba(255, 196, 173, 0.13), transparent 24%),
+    var(--morandi-bg);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh > .w-menu {
+  border-bottom-color: var(--morandi-border);
+  box-shadow: 0 3px 14px rgba(72, 103, 157, 0.06);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh > .w-menu :is(.w-import-menu, .w-export-menu, .w-replay-menu, .w-com-menu) :is(.glyphicon, .bi) {
+  color: #2f6fed;
+  background: #eaf1ff;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh > .w-menu :is(.w-save-menu, .w-create-menu, .w-edit-menu) :is(.glyphicon, .bi) {
+  color: #29936f;
+  background: #e0f5ed;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh > .w-menu :is(.w-remove-menu, .w-delete-menu, .w-scroll-menu) :is(.glyphicon, .bi) {
+  color: #e45b58;
+  background: #ffe8e5;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu .w-network-menu {
+  --skin-accent: #2f6fed;
+  --skin-soft: #eaf1ff;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu .w-rules-menu {
+  --skin-accent: #c08a24;
+  --skin-soft: #fff3d5;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu .w-values-menu {
+  --skin-accent: #e45b58;
+  --skin-soft: #ffe8e5;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu .w-plugins-menu {
+  --skin-accent: #29936f;
+  --skin-soft: #e0f5ed;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu a :is(.glyphicon, .bi) {
+  color: var(--skin-accent, #2f6fed);
+  background: var(--skin-soft, #eaf1ff);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu a.w-menu-selected {
+  color: var(--skin-accent, #2f6fed) !important;
+  background: var(--skin-soft, #eaf1ff) !important;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu a.w-menu-selected :is(.glyphicon, .bi) {
+  color: #ffffff;
+  background: var(--skin-accent, #2f6fed);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu a.w-menu-selected::after {
+  background: var(--skin-accent, #2f6fed);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-left-menu::after {
+  background-image: url("../../img/skins/playful-helper.svg");
+  opacity: 1;
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-network-empty::before {
+  background: rgba(234, 241, 255, 0.82);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-network-empty-art {
+  background-image: url("../../img/skins/playful-network-empty.svg");
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-empty-data::before {
+  background-image: url("../../img/skins/playful-empty-list.svg");
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-no-frames::before {
+  background-image: url("../../img/skins/playful-no-frames.svg");
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-textview-tips::before {
+  background-image: url("../../img/skins/playful-panel-empty.svg");
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .btn-primary,
+html[data-ui-skin="playful"] .modal .btn-primary {
+  box-shadow: 0 6px 16px rgba(47, 111, 237, 0.2);
+}
+
+html[data-ui-skin="playful"] .w-ui-refresh .w-editor .CodeMirror {
+  filter: none;
+}
+
+html[data-theme="dark"][data-ui-skin="playful"] .w-ui-refresh .w-left-menu a :is(.glyphicon, .bi) {
+  background: var(--skin-soft, #1c3556);
+}

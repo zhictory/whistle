@@ -52,7 +52,7 @@ var ComposerList = React.createClass({
           onClick={function () {
             self.showTab(pluginName);
           }}
-          className={'w-custom-tab-btn btn btn-default' + (activeTab ? ' active' : '')}
+          className={'w-custom-tab-btn btn btn-outline-secondary' + (activeTab ? ' active' : '')}
           title={pluginName}
         >
           {icon ? <img className="w-tab-icon" src={icon} /> : null}
@@ -77,7 +77,7 @@ var ComposerList = React.createClass({
               onClick={function () {
                 self.showTab(DEFAULT_TAB);
               }}
-              className={'btn btn-default' + (activeDefalut ? ' active' : '')}
+              className={'btn btn-outline-secondary' + (activeDefalut ? ' active' : '')}
             >
               <Icon name="send" />Default
             </button>

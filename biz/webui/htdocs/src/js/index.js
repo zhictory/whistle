@@ -1,6 +1,6 @@
+var uiSkin = require('./ui-skin');
+uiSkin.init();
 require('./base-css.js');
-require('../css/index.css');
-require('../css/theme.css');
 var $ = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -42,7 +42,18 @@ var Icon = require('./icon');
 var CloseBtn = require('./close-btn');
 var CreateRuleDialog = require('./create-rule');
 var TestRuleDialog = require('./test-rule');
+var ModalHeader = require('./modal-header');
 var ModalFooter = require('./modal-footer');
+var bootstrapV5 = require('./bootstrap-v5');
+require('../css/index.css');
+require('../css/theme.css');
+require('../css/visual-refresh.css');
+require('../css/skins/clean.css');
+require('../css/skins/playful.css');
+require('../css/skins/retro.css');
+require('../css/bootstrap-controls.css');
+require('../css/responsive-dialogs.css');
+require('../css/ui-consistency.css');
 
 var TEMP_LINK_RE = /^(?:[\w-]+:\/\/)?<?temp(?:\/([\da-z]{64}|blank))?(?:\.[\w-]+)?>?$/;
 var FILE_PATH_RE = /^(?:[\w-]+:\/\/)?<?((?:[a-z]:[\\/]|\/).+)>?$/i;
@@ -1363,10 +1374,10 @@ var Index = React.createClass({
             console.error(e); // eslint-disable-line
           }
         }
-        if ($('.w-show-upload-temp-file.in').length) {
+        if ($('.w-show-upload-temp-file.show').length) {
           return trigger('uploadTempFile', file);
         }
-        if ($('.w-import-dialog.in').length) {
+        if ($('.w-import-dialog.show').length) {
           return trigger('importFile', file);
         }
         var name = self.state.name;
@@ -1404,7 +1415,7 @@ var Index = React.createClass({
           var name = self.state.name;
           var activeElement = document.activeElement;
           var nodeName = activeElement && activeElement.nodeName;
-          if (nodeName !== 'INPUT' && nodeName !== 'TEXTAREA' && !$('.modal.in').length) {
+          if (nodeName !== 'INPUT' && nodeName !== 'TEXTAREA' && !$('.modal.show').length) {
             if (name === 'network') {
               if (!hasShortcut('focusNetworkSearchBox')) {
                 return;
@@ -1442,8 +1453,8 @@ var Index = React.createClass({
         if (e.keyCode == 27) {
           self.setMenuOptionsState();
           var dialog = $('.modal');
-          if (isFunc(dialog.modal)) {
-            dialog.modal('hide');
+          if (dialog.length) {
+            bootstrapV5.hide(dialog[0]);
           }
         }
       })
@@ -3432,7 +3443,7 @@ var Index = React.createClass({
     var dialog;
     if (state.disabledAllRules || (!e && (dialog = $('.w-win-dialog[data-confirm-flag=rules]')).is(':visible'))) {
       self.disableAllRules();
-      dialog && dialog.modal('hide');
+      dialog && bootstrapV5.hide(dialog[0]);
     } else {
       confirmMsg(DISABLE_RULES, function (sure) {
         sure && self.disableAllRules();
@@ -3446,7 +3457,7 @@ var Index = React.createClass({
     var dialog;
     if (state.disabledAllPlugins || (!e && (dialog = $('.w-win-dialog[data-confirm-flag=plugins]')).is(':visible'))) {
       self.disableAllPlugins();
-      dialog && dialog.modal('hide');
+      dialog && bootstrapV5.hide(dialog[0]);
     } else {
       confirmMsg(DISABLE_PLUGINS, function (sure) {
         sure && self.disableAllPlugins();
@@ -3732,6 +3743,8 @@ var Index = React.createClass({
     preventBlur(e);
     var self = this;
     var refs = self.refs;
+    clearTimeout(self._showHelpOptionsTimer);
+    self.setState({ showHelpOptions: !self.state.showHelpOptions });
     if (self.state.hasNewVersion) {
       refs.aboutDialog.showAboutInfo();
     }
@@ -4059,7 +4072,7 @@ var Index = React.createClass({
     return (
       <div
         className={
-          'main v-box' + (showLeftMenu ? ' w-show-left-menu' : '')
+          'main v-box w-ui-refresh' + (showLeftMenu ? ' w-show-left-menu' : '')
           + (isEditor && !rulesOnlyMode ? ' w-show-editor' : '') + (isRules ? ' w-show-rules' : '')
           + (rulesOnlyMode || rulesMode ? ' w-show-rules-mode' : '')
         }
@@ -4654,36 +4667,43 @@ var Index = React.createClass({
           onEnableHttp2={self.enableHttp2}
         />
         <Dialog ref="chooseFileType" wstyle="w-choose-file-type" onClose={self.onCloseChooseFileTypeDialog}>
+          <ModalHeader>
+            Export
+          </ModalHeader>
           <div className="modal-body">
-            <label className="w-choose-file-type-label">
-              Save as
-              <input
-                ref="sessionsName"
-                value={state.filename}
-                onChange={self.filterFilename}
-                onKeyDown={self.exportBySave}
-                placeholder="Enter filename (optional)"
-                className="form-control"
-                maxLength="64"
-              />
-              <select
-                ref="fileType"
-                className="form-control"
-                value={state.exportFileType}
-                onChange={self.chooseFileType}
-              >
-                <option value="whistle">*.txt</option>
-                <option value="har">*.har</option>
-                <option value="Fiddler">*.saz</option>
-              </select>
-            </label>
+            <div className="w-choose-file-type-label">
+              <span className="w-export-field-label">Save as</span>
+              <div className="input-group w-export-filename-group">
+                <input
+                  ref="sessionsName"
+                  value={state.filename}
+                  onChange={self.filterFilename}
+                  onKeyDown={self.exportBySave}
+                  placeholder="Enter filename (optional)"
+                  className="form-control"
+                  aria-label="Export filename"
+                  maxLength="64"
+                />
+                <select
+                  ref="fileType"
+                  className="form-select w-export-extension-select"
+                  value={state.exportFileType}
+                  aria-label="File extension"
+                  onChange={self.chooseFileType}
+                >
+                  <option value="whistle">*.txt</option>
+                  <option value="har">*.har</option>
+                  <option value="Fiddler">*.saz</option>
+                </select>
+              </div>
+            </div>
           </div>
           <ModalFooter>
             <button
               type="button"
               tabIndex="0"
               onMouseDown={preventInputBlur}
-              className="btn btn-default"
+              className="btn btn-outline-secondary"
               onClick={self.exportAll}
               disabled={!hasSession}
             >
@@ -4756,9 +4776,9 @@ var Index = React.createClass({
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-default"
+              className="btn btn-outline-secondary"
               onClick={self.donotShowAgain}
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
             >
               Skip
             </button>
@@ -4781,8 +4801,8 @@ var Index = React.createClass({
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-default"
-              data-dismiss="modal"
+              className="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
             >
               No
             </button>
@@ -4790,7 +4810,7 @@ var Index = React.createClass({
               type="button"
               className="btn btn-primary"
               onClick={self.reloadData}
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
             >
               Yes
             </button>

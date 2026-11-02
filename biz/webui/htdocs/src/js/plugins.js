@@ -759,7 +759,7 @@ var Home = React.createClass({
           <div className="modal-footer">
             {(registryList.length || registry) ? <label className="w-registry-list">
               <strong>--registry=</strong>
-              <select className="form-control" value={registry} onChange={self.onRegistry} style={selectStyle}>
+              <select className="form-select" value={registry} onChange={self.onRegistry} style={selectStyle}>
                 <option value="">None</option>
                 {
                   registryList.map(function(url) {
@@ -773,7 +773,7 @@ var Home = React.createClass({
               </select>
             </label> : <label className="w-registry-list">
               <strong>--registry=</strong>
-              <select className="form-control" value={registry} onChange={self.onRegistry} style={selectStyle}>
+              <select className="form-select" value={registry} onChange={self.onRegistry} style={selectStyle}>
                 <option value="">None</option>
                 <option value="+Add">+Add</option>
               </select>
@@ -782,7 +782,7 @@ var Home = React.createClass({
             {dataCenter.whistleId ? <button
               type="button"
               className="btn btn-warning"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               onClick={self.showService}
             >
               <Icon name="gift" />
@@ -791,7 +791,7 @@ var Home = React.createClass({
             <button
               type="button"
               className="btn btn-primary"
-              data-dismiss="modal"
+              data-bs-dismiss="modal"
               onClick={self.execCmd}
               disabled={disabledBtn}
             >

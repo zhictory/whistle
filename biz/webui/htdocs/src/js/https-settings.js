@@ -80,14 +80,14 @@ var HttpsSettings = React.createClass({
               >
                 Download RootCA
               </a>
-              <select className="w-rootca-type" value={caType} onChange={self.selectCAType}>
+              <select className="form-select w-rootca-type" value={caType} onChange={self.selectCAType}>
                 <option value="crt">rootCA.crt</option>
                 <option value="cer">rootCA.cer</option>
                 <option value="pem">rootCA.pem</option>
               </select>
             </div>
             <div className="w-rootca-url-wrap">
-              <select className="w-rootca-url" value={caFullUrl} onChange={self.selectCAUrl}>
+              <select className="form-select w-rootca-url" value={caFullUrl} onChange={self.selectCAUrl}>
                 <option value="">{caShortUrl} (Set proxy first)</option>
                 {props.caUrlList.map(function (url) {
                   url = url[0] === 'h' ? url : 'http://' + url + ':' + props.port;

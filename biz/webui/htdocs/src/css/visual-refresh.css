@@ -1,0 +1,1272 @@
+/*
+ * Morandi visual layer for the Whistle Web UI.
+ * Presentation only: existing React 15 and Bootstrap behavior is preserved.
+ */
+
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/cascadia-code-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/cascadia-code-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/cascadia-code-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Cascadia Code";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/cascadia-code-latin-700-normal.woff2") format("woff2");
+}
+
+:root {
+  --morandi-bg: #f2eee6;
+  --morandi-canvas: #f7f3ec;
+  --morandi-surface: #fcfaf6;
+  --morandi-surface-muted: #f3eee6;
+  --morandi-sand: #e9e1d5;
+  --morandi-sand-deep: #ddd2c2;
+  --morandi-sage-soft: #e2e9df;
+  --morandi-sage: #a7b6a2;
+  --morandi-green: #637861;
+  --morandi-green-deep: #50654f;
+  --morandi-green-hover: #556b53;
+  --morandi-text: #40433e;
+  --morandi-text-soft: #5f625c;
+  --morandi-muted: #7c7e77;
+  --morandi-subtle: #a0a197;
+  --morandi-border: #e0d9cd;
+  --morandi-border-strong: #d2cabd;
+  --morandi-danger: #986b64;
+  --morandi-danger-soft: #f1e5e1;
+  --morandi-warning: #9a8358;
+  --morandi-success: #687e67;
+  --morandi-shadow-sm: 0 1px 2px rgba(64, 67, 62, 0.04);
+  --morandi-shadow-md: 0 8px 28px rgba(64, 67, 62, 0.07);
+  --morandi-shadow-lg: 0 24px 64px rgba(64, 67, 62, 0.12);
+  --morandi-font: "Cascadia Code", "Cascadia Mono", "Segoe UI", monospace;
+  --morandi-mono: "Cascadia Code", "Cascadia Mono", Consolas, monospace;
+  --morandi-radius-sm: 9px;
+  --morandi-radius-md: 13px;
+  --morandi-radius-lg: 18px;
+
+  --ui-bg: var(--morandi-bg);
+  --ui-surface: var(--morandi-surface);
+  --ui-surface-muted: var(--morandi-surface-muted);
+  --ui-surface-strong: var(--morandi-sand);
+  --ui-border: var(--morandi-border);
+  --ui-border-subtle: #ebe5db;
+  --ui-border-strong: var(--morandi-border-strong);
+  --ui-text: var(--morandi-text);
+  --ui-text-muted: var(--morandi-muted);
+  --ui-text-subtle: var(--morandi-subtle);
+  --ui-accent: var(--morandi-green);
+  --ui-accent-strong: var(--morandi-green-deep);
+  --ui-accent-soft: var(--morandi-sage-soft);
+  --ui-accent-hover: #d6e0d2;
+  --ui-focus: rgba(99, 120, 97, 0.22);
+  --ui-hover: #f2eee7;
+  --ui-overlay: rgba(50, 52, 48, 0.34);
+  --ui-shadow-sm: var(--morandi-shadow-sm);
+  --ui-shadow-md: var(--morandi-shadow-md);
+  --ui-shadow-lg: var(--morandi-shadow-lg);
+  --ui-radius-sm: var(--morandi-radius-sm);
+  --ui-radius-md: var(--morandi-radius-md);
+  --ui-radius-lg: var(--morandi-radius-lg);
+  --ui-font: var(--morandi-font);
+  --ui-font-mono: var(--morandi-mono);
+
+  --c-default: #40433e;
+  --c-active: #fbf9f5;
+  --c-heavy: #40433e;
+  --c-thin: #5f625c;
+  --c-disabled: #a0a197;
+  --c-link: #637861;
+  --c-link-hover: #50654f;
+  --c-border: #e0d9cd;
+  --c-error: #986b64;
+  --c-risk: #986b64;
+  --c-danger: #986b64;
+  --c-ok: #687e67;
+  --c-has: #687e67;
+  --c-warn: #9a8358;
+  --c-success: #687e67;
+  --c-info: #768b80;
+  --c-tree-success: #687e67;
+  --c-tree-info: #768b80;
+  --c-tree-warning: #9a8358;
+  --c-tree-danger: #986b64;
+  --c-tree-forbidden: #9a8358;
+  --c-tree-mark: #7f9384;
+  --b-default: #fcfaf6;
+  --b-title: #f3eee6;
+  --b-bar: #f7f3ec;
+  --b-hover: #f2eee7;
+  --b-active: #e2e9df;
+  --b-btn-hover: #f2eee7;
+  --b-btn-active: #d6e0d2;
+  --b-heavy: #e9e1d5;
+  --b-heavy-active: #dfd6c8;
+  --b-disabled: #f3eee6;
+  --b-success: #e5eee2;
+  --b-success-hover: #dce8d8;
+  --b-error: #f1e3df;
+  --b-error-hover: #e9d8d3;
+  --b-warn: #f2ecdc;
+  --b-alert-info: #e7ede5;
+  --b-info: #dfe7dc;
+  --b-info-hover: #d6e0d2;
+  --b-primary: #637861;
+  --b-primary-hover: #556b53;
+  --b-list-hover: #f2eee7;
+  --b-list-warn: #f3ecdc;
+  --b-list-info: #e7ede5;
+  --b-list-mark: #dfe7dc;
+  --b-list-danger-hover: #f0e2de;
+  --b-tl-dns: #dce7e1;
+  --b-tl-req: #f1ebdc;
+  --b-tl-res: #eee2d7;
+  --b-tl-load: #dde5dc;
+}
+
+[data-theme="dark"]:root {
+  --morandi-bg: #1f231f;
+  --morandi-canvas: #232722;
+  --morandi-surface: #292d28;
+  --morandi-surface-muted: #30352f;
+  --morandi-sand: #3a3932;
+  --morandi-sand-deep: #454239;
+  --morandi-sage-soft: #303a30;
+  --morandi-sage: #849681;
+  --morandi-green: #9eb298;
+  --morandi-green-deep: #b8c9b3;
+  --morandi-green-hover: #8ea789;
+  --morandi-text: #e8e4dc;
+  --morandi-text-soft: #cfccc3;
+  --morandi-muted: #a5a79f;
+  --morandi-subtle: #7e827a;
+  --morandi-border: #3e443d;
+  --morandi-border-strong: #50574f;
+  --morandi-danger: #d09a91;
+  --morandi-danger-soft: #3b2a28;
+  --morandi-warning: #c4ae7f;
+  --morandi-success: #9bb59a;
+  --morandi-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.18);
+  --morandi-shadow-md: 0 10px 30px rgba(0, 0, 0, 0.24);
+  --morandi-shadow-lg: 0 28px 72px rgba(0, 0, 0, 0.38);
+
+  --ui-bg: var(--morandi-bg);
+  --ui-surface: var(--morandi-surface);
+  --ui-surface-muted: var(--morandi-surface-muted);
+  --ui-surface-strong: var(--morandi-sand);
+  --ui-border: var(--morandi-border);
+  --ui-border-subtle: #353b34;
+  --ui-border-strong: var(--morandi-border-strong);
+  --ui-text: var(--morandi-text);
+  --ui-text-muted: var(--morandi-muted);
+  --ui-text-subtle: var(--morandi-subtle);
+  --ui-accent: var(--morandi-green);
+  --ui-accent-strong: var(--morandi-green-deep);
+  --ui-accent-soft: var(--morandi-sage-soft);
+  --ui-accent-hover: #39463a;
+  --ui-focus: rgba(158, 178, 152, 0.28);
+  --ui-hover: #343932;
+  --ui-overlay: rgba(8, 10, 8, 0.66);
+  --ui-shadow-sm: var(--morandi-shadow-sm);
+  --ui-shadow-md: var(--morandi-shadow-md);
+  --ui-shadow-lg: var(--morandi-shadow-lg);
+
+  --c-default: #e8e4dc;
+  --c-active: #fbf9f5;
+  --c-heavy: #e8e4dc;
+  --c-thin: #cfccc3;
+  --c-disabled: #7e827a;
+  --c-link: #9eb298;
+  --c-link-hover: #b8c9b3;
+  --c-border: #3e443d;
+  --c-error: #d09a91;
+  --c-risk: #d09a91;
+  --c-danger: #d09a91;
+  --c-ok: #9bb59a;
+  --c-has: #b8c9b3;
+  --c-warn: #c4ae7f;
+  --c-success: #9bb59a;
+  --c-info: #9cb5aa;
+  --c-tree-success: #9bb59a;
+  --c-tree-info: #9cb5aa;
+  --c-tree-warning: #c4ae7f;
+  --c-tree-danger: #d09a91;
+  --c-tree-forbidden: #c4ae7f;
+  --c-tree-mark: #a5b6aa;
+  --b-default: #292d28;
+  --b-title: #30352f;
+  --b-bar: #232722;
+  --b-hover: #343932;
+  --b-active: #303a30;
+  --b-btn-hover: #343932;
+  --b-btn-active: #39463a;
+  --b-heavy: #3a3932;
+  --b-heavy-active: #454239;
+  --b-disabled: #30352f;
+  --b-success: #2c372c;
+  --b-success-hover: #344234;
+  --b-error: #3b2a28;
+  --b-error-hover: #493431;
+  --b-warn: #373225;
+  --b-alert-info: #2d3833;
+  --b-info: #303a30;
+  --b-info-hover: #39463a;
+  --b-primary: #71886e;
+  --b-primary-hover: #7d9579;
+  --b-list-hover: #343932;
+  --b-list-warn: #373225;
+  --b-list-info: #2d3833;
+  --b-list-mark: #303a30;
+  --b-list-danger-hover: #453330;
+  --b-tl-dns: #2e3b36;
+  --b-tl-req: #3a3529;
+  --b-tl-res: #40332d;
+  --b-tl-load: #303a32;
+}
+
+html,
+body,
+.w-ui-refresh {
+  font-family: var(--morandi-font);
+}
+
+.w-ui-refresh :is(.CodeMirror, .CodeMirror pre, .n-monospace) {
+  font-family: var(--morandi-mono);
+}
+
+body {
+  color: var(--morandi-text);
+  background: var(--morandi-bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scrollbar-color: #c8c0b4 transparent;
+  scrollbar-width: thin;
+}
+
+.w-ui-refresh {
+  background:
+    radial-gradient(circle at 7% 4%, rgba(167, 182, 162, 0.13), transparent 26%),
+    radial-gradient(circle at 94% 92%, rgba(221, 210, 194, 0.18), transparent 25%),
+    var(--morandi-bg);
+}
+
+.w-ui-refresh ::selection {
+  color: var(--morandi-green-deep);
+  background: #dce6d8;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 38px;
+  background: #c9c2b7;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ada69b;
+  background-clip: padding-box;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #4b514a;
+  background-clip: padding-box;
+}
+
+.w-ui-refresh :is(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--morandi-sage);
+  outline-offset: 2px;
+}
+
+.w-ui-refresh input[type="checkbox"],
+.w-ui-refresh input[type="radio"],
+.modal input[type="checkbox"],
+.modal input[type="radio"] {
+  accent-color: var(--morandi-green);
+}
+
+/* Airy toolbar with quiet, rounded controls. */
+.w-ui-refresh > .w-menu {
+  height: 48px;
+  padding: 0 96px 0 8px;
+  background: var(--morandi-surface);
+  border-bottom: 1px solid var(--morandi-border);
+  box-shadow: 0 1px 2px rgba(64, 67, 62, 0.035);
+}
+
+.w-ui-refresh > .w-menu > a,
+.w-ui-refresh > .w-menu > .w-menu-wrapper > a {
+  display: inline-flex;
+  height: 34px;
+  margin: 7px 1px;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--morandi-text-soft);
+  font-size: 13px;
+  line-height: 1;
+  border-radius: 10px;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.w-ui-refresh > .w-menu > a :is(.glyphicon, .bi),
+.w-ui-refresh > .w-menu > .w-menu-wrapper > a :is(.glyphicon, .bi) {
+  display: inline-flex;
+  width: 21px;
+  height: 21px;
+  margin-right: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--morandi-green);
+  background: var(--morandi-sage-soft);
+  border-radius: 7px;
+  font-size: 14px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.w-ui-refresh > .w-menu :is(.w-remove-menu, .w-delete-menu, .w-scroll-menu) :is(.glyphicon, .bi) {
+  color: var(--morandi-danger);
+  background: var(--morandi-danger-soft);
+}
+
+.w-ui-refresh > .w-menu .w-https-menu :is(.glyphicon, .bi) {
+  color: var(--morandi-warning);
+  background: #f3ecdd;
+}
+
+[data-theme="dark"] .w-ui-refresh > .w-menu .w-https-menu :is(.glyphicon, .bi) {
+  background: #3c3527;
+}
+
+.w-ui-refresh > .w-menu > :is(a, .w-menu-wrapper):hover > a,
+.w-ui-refresh > .w-menu > :is(a, .w-menu-wrapper):focus-within > a {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh > .w-menu .w-menu-selected {
+  color: var(--morandi-green-deep) !important;
+  background: var(--morandi-sage-soft) !important;
+  box-shadow: inset 0 0 0 1px rgba(99, 120, 97, 0.08);
+}
+
+[data-theme="dark"] .w-ui-refresh > .w-menu .w-menu-selected {
+  color: var(--morandi-green-deep) !important;
+}
+
+.w-ui-refresh > .w-menu .w-menu-wrapper {
+  height: 48px;
+}
+
+.w-ui-refresh > .w-menu .w-menu-wrapper-show > a {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh > .w-menu .w-menu-item {
+  top: 44px;
+  min-width: 164px;
+  padding: 6px;
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-md);
+  box-shadow: var(--morandi-shadow-md);
+}
+
+.w-ui-refresh > .w-menu .w-menu-item a {
+  display: block;
+  height: 31px;
+  max-width: 250px;
+  padding: 0 10px;
+  color: var(--morandi-text);
+  line-height: 31px;
+  border-radius: 8px;
+}
+
+.w-ui-refresh > .w-menu .w-menu-item a:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-input-menu,
+.w-ui-refresh .w-textarea-input {
+  padding: 6px;
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-md);
+  box-shadow: var(--morandi-shadow-md);
+}
+
+.w-ui-refresh > .w-menu .w-input-menu {
+  top: 45px;
+}
+
+.w-ui-refresh .w-input-menu input,
+.w-ui-refresh .w-textarea-input input {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--morandi-border);
+  border-radius: 8px 0 0 8px !important;
+}
+
+.w-ui-refresh .w-input-menu .btn,
+.w-ui-refresh .w-textarea-input .btn {
+  margin-left: -1px;
+  border-radius: 0 8px 8px 0 !important;
+}
+
+.w-ui-refresh .w-new-version-icon {
+  top: 7px;
+  left: 8px;
+  background: var(--morandi-danger);
+  box-shadow: 0 0 0 3px var(--morandi-surface);
+}
+
+/* Calm navigation rail with soft selection and room to breathe. */
+.w-ui-refresh > .w-container > .w-left-menu {
+  position: relative;
+  width: 60px;
+  padding: 8px 5px 58px;
+  background: var(--morandi-surface);
+  border: 0;
+  border-right: 1px solid var(--morandi-border);
+  box-shadow: 2px 0 12px rgba(64, 67, 62, 0.025);
+}
+
+.w-ui-refresh .w-left-menu a {
+  width: 50px;
+  height: 54px;
+  margin: 0 auto 4px;
+  padding: 7px 3px 5px;
+  color: var(--morandi-muted);
+  border-radius: 12px;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.w-ui-refresh .w-left-menu a :is(.glyphicon, .bi) {
+  display: flex;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 2px;
+  align-items: center;
+  justify-content: center;
+  color: var(--morandi-green);
+  background: var(--morandi-sage-soft);
+  border-radius: 9px;
+  font-size: 14px;
+}
+
+.w-ui-refresh .w-left-menu a .w-left-menu-name {
+  width: 44px;
+  margin: 0 auto;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  transform: none;
+}
+
+.w-ui-refresh .w-left-menu a:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-left-menu a.w-menu-selected {
+  color: var(--morandi-green-deep) !important;
+  background: var(--morandi-sage-soft) !important;
+}
+
+.w-ui-refresh .w-left-menu a.w-menu-selected :is(.glyphicon, .bi) {
+  color: #f8f5ef;
+  background: var(--morandi-green);
+}
+
+.w-ui-refresh .w-left-menu a.w-menu-selected::after {
+  position: absolute;
+  top: 19px;
+  right: 2px;
+  width: 3px;
+  height: 16px;
+  content: "";
+  background: var(--morandi-green);
+  border-radius: 999px;
+}
+
+.w-ui-refresh .w-left-menu::after {
+  position: absolute;
+  bottom: 12px;
+  left: 9px;
+  width: 40px;
+  height: 40px;
+  content: "";
+  background: url("../img/morandi-plant.svg") center / contain no-repeat;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.w-ui-refresh .w-left-menu-tips {
+  top: 12px;
+  left: 58px;
+  color: var(--morandi-text) !important;
+  background: var(--morandi-surface) !important;
+  border: 1px solid var(--morandi-border) !important;
+  border-radius: 9px;
+  box-shadow: var(--morandi-shadow-md);
+}
+
+.w-ui-refresh .w-menu-changed {
+  top: 5px;
+  left: 6px;
+  color: var(--morandi-danger);
+}
+
+/* Workspace surfaces and readable list hierarchy. */
+.w-ui-refresh > .w-container {
+  background: var(--morandi-canvas);
+}
+
+.w-ui-refresh .w-list-data,
+.w-ui-refresh .w-req-data-list,
+.w-ui-refresh .w-list-left {
+  background: var(--morandi-surface);
+}
+
+.w-ui-refresh .w-detail {
+  border-left: 1px solid var(--morandi-border);
+}
+
+.w-ui-refresh .w-detail-ctn {
+  background: var(--morandi-surface);
+}
+
+.w-ui-refresh .w-detail .w-props :is(th, td) {
+  background-color: var(--morandi-surface);
+}
+
+.w-ui-refresh .w-list-left a {
+  height: 36px;
+  padding-left: 13px;
+  color: var(--morandi-text);
+  line-height: 36px;
+  background: transparent;
+  border-bottom: 1px solid var(--ui-border-subtle);
+  border-left: 3px solid transparent;
+}
+
+.w-ui-refresh .w-list-left a:hover:not(.w-list-group) {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-list-left .w-active {
+  color: var(--morandi-green-deep) !important;
+  background: var(--morandi-sage-soft) !important;
+  border-left-color: var(--morandi-green);
+}
+
+.w-ui-refresh .w-list-left .w-list-group {
+  color: var(--morandi-muted);
+  background: var(--morandi-surface-muted);
+}
+
+.w-ui-refresh :is(
+  .w-frames-action,
+  .w-frames-com-action,
+  .w-log-action-bar,
+  .w-req-data-headers .table th,
+  .w-type-bar,
+  .w-detail-title,
+  .w-detail-webforms-title,
+  .w-plugins-tabs
+) {
+  background: var(--morandi-surface-muted);
+}
+
+.w-ui-refresh .w-frames-action,
+.w-ui-refresh .w-req-data-headers {
+  border-bottom: 1px solid var(--morandi-border);
+}
+
+.w-ui-refresh .w-req-data-headers .table th {
+  color: var(--morandi-muted);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.w-ui-refresh .w-req-data-list :is(th, td),
+.w-ui-refresh .w-table :is(th, td) {
+  border-bottom-color: var(--ui-border-subtle);
+}
+
+.w-ui-refresh .w-req-data-list td.method {
+  color: var(--morandi-green-deep);
+  font-family: var(--morandi-mono);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.w-ui-refresh .w-req-data-list :is(td.date, td.time, td.result, td.request, td.response) {
+  font-variant-numeric: tabular-nums;
+}
+
+.w-ui-refresh .w-req-data-list .w-hover-body tr:hover :is(th, td) {
+  background: var(--ui-hover) !important;
+}
+
+.w-ui-refresh .w-req-data-list .w-hover-body tr.w-selected :is(th, td) {
+  color: var(--morandi-green-deep) !important;
+  background: var(--morandi-sage-soft) !important;
+}
+
+.w-ui-refresh .tree-node:hover {
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .tree-node.w-selected {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-sage-soft);
+}
+
+.w-ui-refresh .w-type-bar span {
+  min-width: 36px;
+  color: var(--morandi-muted);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: 999px;
+}
+
+.w-ui-refresh .w-type-bar span:is(:active, .w-active) {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-sage-soft);
+  border-color: #c9d5c5;
+}
+
+/* Soft segmented tabs. */
+.w-ui-refresh .w-tabs-sm,
+.w-ui-refresh .w-btn-group-sm {
+  background: var(--morandi-surface);
+  border-color: var(--morandi-border);
+}
+
+.w-ui-refresh .w-tabs-sm .btn,
+.w-ui-refresh .w-btn-group-sm .btn {
+  flex: 0 0 auto;
+  color: var(--morandi-muted);
+  background: transparent;
+  border-color: var(--morandi-border);
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.w-ui-refresh .w-tabs-sm .btn {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.w-ui-refresh .w-tabs-sm .btn:hover,
+.w-ui-refresh .w-btn-group-sm .btn:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-tabs-sm .btn.active,
+.w-ui-refresh .w-btn-group-sm .btn.active,
+.w-ui-refresh .w-detail-tabs button.w-spec-active {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-sage-soft);
+  box-shadow: none;
+}
+
+.w-ui-refresh .w-tabs .nav-link {
+  color: var(--morandi-muted);
+  background: transparent;
+  border-color: transparent;
+  border-radius: var(--morandi-radius-sm) var(--morandi-radius-sm) 0 0;
+}
+
+.w-ui-refresh .w-tabs .nav-link:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-tabs .nav-link.active {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-surface);
+  border-color: var(--morandi-border) var(--morandi-border) var(--morandi-surface);
+}
+
+.w-ui-refresh .caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 3px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+/* Buttons and form controls: low contrast by default, deep green for action. */
+.w-ui-refresh .btn,
+.modal .btn {
+  min-height: 32px;
+  padding-right: 13px;
+  padding-left: 13px;
+  color: var(--morandi-text);
+  font-family: var(--morandi-font);
+  font-weight: 600;
+  background-color: var(--morandi-surface);
+  background-image: none;
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-sm);
+  box-shadow: var(--morandi-shadow-sm);
+  text-shadow: none;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.w-ui-refresh .btn-default,
+.modal .btn-default,
+.w-ui-refresh .btn-outline-secondary,
+.modal .btn-outline-secondary {
+  color: var(--morandi-text);
+  background: var(--morandi-surface);
+  border-color: var(--morandi-border);
+}
+
+.w-ui-refresh .btn-default:hover,
+.w-ui-refresh .btn-default:focus,
+.modal .btn-default:hover,
+.modal .btn-default:focus,
+.w-ui-refresh .btn-outline-secondary:hover,
+.w-ui-refresh .btn-outline-secondary:focus,
+.modal .btn-outline-secondary:hover,
+.modal .btn-outline-secondary:focus {
+  color: var(--morandi-text);
+  background: var(--morandi-sand);
+  border-color: var(--morandi-border-strong);
+}
+
+.w-ui-refresh .btn-outline-secondary.active,
+.modal .btn-outline-secondary.active {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-sage-soft);
+  border-color: var(--morandi-border-strong);
+}
+
+.w-ui-refresh .btn-primary,
+.modal .btn-primary {
+  color: #fbf9f5;
+  background: var(--morandi-green);
+  border-color: var(--morandi-green);
+  box-shadow: 0 3px 10px rgba(80, 101, 79, 0.16);
+}
+
+.w-ui-refresh .btn-primary:hover,
+.w-ui-refresh .btn-primary:focus,
+.modal .btn-primary:hover,
+.modal .btn-primary:focus {
+  color: #fbf9f5;
+  background: var(--morandi-green-hover);
+  border-color: var(--morandi-green-hover);
+}
+
+.w-ui-refresh .btn-info,
+.modal .btn-info {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-sage-soft);
+  border-color: #ced9ca;
+}
+
+.w-ui-refresh .btn-info:hover,
+.w-ui-refresh .btn-info:focus,
+.modal .btn-info:hover,
+.modal .btn-info:focus {
+  color: var(--morandi-green-deep);
+  background: var(--ui-accent-hover);
+  border-color: var(--morandi-sage);
+}
+
+.w-ui-refresh .btn-danger,
+.modal .btn-danger {
+  color: #fffaf8;
+  background: var(--morandi-danger);
+  border-color: var(--morandi-danger);
+}
+
+.w-ui-refresh .btn-warning,
+.modal .btn-warning {
+  color: var(--morandi-text);
+  background: #e4d6bb;
+  border-color: #d8c9aa;
+}
+
+.w-ui-refresh .btn:focus-visible,
+.modal .btn:focus-visible {
+  box-shadow: 0 0 0 3px var(--ui-focus);
+}
+
+.w-ui-refresh :is(.form-control, .form-select, .w-input-menu input, .w-textarea-input input, textarea:not([readonly]), select),
+.modal :is(.form-control, .form-select, textarea:not([readonly]), select) {
+  color: var(--morandi-text);
+  background-color: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: 9px;
+  box-shadow: none;
+  font-family: var(--morandi-font);
+}
+
+.w-ui-refresh :is(.form-control, .form-select, .w-input-menu input, .w-textarea-input input, textarea:not([readonly]), select):focus,
+.modal :is(.form-control, .form-select, textarea:not([readonly]), select):focus {
+  border-color: var(--morandi-sage);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ui-focus);
+}
+
+.w-ui-refresh .form-control,
+.modal .form-control,
+.w-ui-refresh .form-select,
+.modal .form-select {
+  height: 34px;
+  border-radius: 9px;
+}
+
+.w-ui-refresh select.form-control,
+.w-ui-refresh .w-https-dialog select,
+.modal select.form-control,
+.w-ui-refresh .form-select,
+.modal .form-select {
+  height: 34px;
+  padding: 0 28px 0 9px;
+  border-radius: 9px;
+}
+
+.w-ui-refresh textarea:not([readonly]),
+.modal textarea:not([readonly]) {
+  border-radius: 9px;
+}
+
+.w-ns-dialog .modal-content {
+  display: flex;
+  max-height: calc(100vh - 40px);
+  flex-direction: column;
+}
+
+.w-ns-dialog .modal-body {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.w-ns-dialog .modal-footer {
+  flex-shrink: 0;
+}
+
+body:has(.w-win-dialog.show) .modal-backdrop.show {
+  z-index: var(--z-modal-max);
+}
+
+.w-ui-refresh .w-filter-input {
+  height: 34px;
+  padding: 2px 11px;
+  color: var(--morandi-text);
+  background: var(--morandi-surface-muted);
+  border-top: 1px solid var(--morandi-border);
+  border-bottom: 1px solid var(--morandi-border);
+  font-family: var(--morandi-mono);
+}
+
+.w-ui-refresh .w-filter-input::placeholder {
+  color: var(--morandi-subtle);
+}
+
+.w-ui-refresh .w-filter-input:focus {
+  background: var(--morandi-surface);
+  outline: none;
+  box-shadow: inset 3px 0 0 var(--morandi-sage);
+}
+
+/* Floating panels use restrained depth rather than hard outlines. */
+.w-ui-refresh .w-ctx-list,
+.w-ctx-menu .w-ctx-list,
+.w-ui-refresh .dropdown-menu,
+.w-ui-refresh .w-filter-hint,
+.w-ui-refresh .w-layer {
+  padding: 6px;
+  color: var(--morandi-text);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-md);
+  box-shadow: var(--morandi-shadow-md);
+}
+
+.w-ui-refresh .w-ctx-item,
+.w-ctx-menu .w-ctx-item {
+  min-height: 31px;
+  padding: 0 10px;
+  color: var(--morandi-text);
+  line-height: 31px;
+  border-radius: 8px;
+}
+
+.w-ui-refresh .w-ctx-item:hover,
+.w-ctx-menu .w-ctx-item:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-ctx-item-sep,
+.w-ctx-menu .w-ctx-item-sep {
+  margin: 5px -6px;
+  border-top-color: var(--morandi-border);
+}
+
+.w-ui-refresh .w-ctx-item-disabled,
+.w-ctx-menu .w-ctx-item-disabled {
+  color: var(--morandi-subtle);
+}
+
+.w-ui-refresh .dropdown-menu {
+  top: calc(100% + 5px);
+  min-width: 156px;
+}
+
+.w-ui-refresh .dropdown-menu > li > a {
+  padding: 7px 10px;
+  color: var(--morandi-text);
+  border-radius: 8px;
+}
+
+.w-ui-refresh .dropdown-menu > li > a:hover,
+.w-ui-refresh .dropdown-menu > li > a:focus {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+/* Modals are quiet raised paper panels. */
+.modal-backdrop.show {
+  opacity: 1;
+  background: var(--ui-overlay);
+}
+
+.modal .modal-content {
+  overflow: hidden;
+  color: var(--morandi-text);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-lg);
+  box-shadow: var(--morandi-shadow-lg);
+}
+
+.modal .modal-header {
+  padding: 16px 20px;
+  background: var(--morandi-surface);
+  border-bottom: 1px solid var(--morandi-border);
+}
+
+.modal .modal-header h4,
+.modal .modal-title {
+  color: var(--morandi-text);
+  font-family: var(--morandi-font);
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.modal .modal-dialog .modal-body {
+  padding: 20px;
+}
+
+.modal .modal-dialog .modal-footer {
+  padding: 13px 20px;
+  background: var(--morandi-surface-muted);
+  border-top: 1px solid var(--morandi-border);
+}
+
+.modal .modal-footer .btn + .btn {
+  margin-left: 9px;
+}
+
+.modal .close {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  color: var(--morandi-muted);
+  background: var(--morandi-surface-muted);
+  border-radius: 9px;
+  text-shadow: none;
+  opacity: 1;
+}
+
+.modal .close:is(:hover, :focus) {
+  color: var(--morandi-text);
+  background: var(--morandi-sand);
+  opacity: 1;
+}
+
+.modal .btn-close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: var(--morandi-surface-muted);
+  background-size: 11px;
+  border-radius: 9px;
+  box-shadow: none;
+  opacity: 0.68;
+}
+
+.modal .btn-close:is(:hover, :focus) {
+  background-color: var(--morandi-sand);
+  opacity: 1;
+}
+
+[data-theme="dark"] .modal .btn-close {
+  filter: invert(1) grayscale(1) brightness(1.6);
+}
+
+.modal .modal-body :is(p, label) {
+  color: var(--morandi-text);
+}
+
+.w-ui-refresh .w-list-tips > span {
+  color: var(--morandi-text-soft);
+  background: var(--morandi-surface-muted);
+  border: 1px solid var(--morandi-border);
+  border-radius: 8px;
+}
+
+/* Spacious empty states with muted abstract networking illustrations. */
+.w-ui-refresh .w-req-data-list {
+  position: relative;
+}
+
+.w-ui-refresh .w-network-empty {
+  position: absolute;
+  z-index: 1;
+  inset: 50% auto auto 50%;
+  display: flex;
+  width: min(430px, calc(100% - 64px));
+  color: var(--morandi-text);
+  text-align: center;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.w-ui-refresh .w-network-empty::before {
+  position: absolute;
+  z-index: -1;
+  width: 390px;
+  height: 246px;
+  content: "";
+  background: rgba(226, 233, 223, 0.55);
+  border-radius: 48% 52% 55% 45%;
+}
+
+.w-ui-refresh .w-network-empty-art {
+  width: min(356px, 74vw);
+  height: 208px;
+  margin-bottom: 2px;
+  background: url("../img/morandi-network-empty.svg") center / contain no-repeat;
+}
+
+[data-theme="dark"] .w-ui-refresh .w-network-empty-art,
+[data-theme="dark"] .w-ui-refresh .w-left-menu::after {
+  filter: brightness(0.78) saturate(0.72);
+}
+
+.w-ui-refresh .w-network-empty strong {
+  color: var(--morandi-text);
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.w-ui-refresh .w-network-empty span {
+  max-width: 350px;
+  color: var(--morandi-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.w-ui-refresh :is(.w-empty, .w-empty-data, .w-no-frames, .w-textview-tips) {
+  color: var(--morandi-subtle);
+}
+
+.w-ui-refresh .w-empty-data,
+.w-ui-refresh .w-no-frames {
+  display: flex;
+  width: 190px;
+  min-height: 68px;
+  margin: -46px 0 0 -95px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.w-ui-refresh :is(.w-empty-data, .w-no-frames, .w-textview-tips)::before {
+  display: block;
+  content: "";
+  background: center / contain no-repeat;
+}
+
+.w-ui-refresh .w-empty-data::before {
+  width: 112px;
+  height: 72px;
+  margin: 0 auto;
+  background-image: url("../img/morandi-empty-list.svg");
+}
+
+.w-ui-refresh .w-no-frames::before {
+  width: 172px;
+  height: 108px;
+  background-image: url("../img/morandi-no-frames.svg");
+}
+
+.w-ui-refresh .w-textview-tips::before {
+  width: 138px;
+  height: 92px;
+  margin-bottom: -2px;
+  background-image: url("../img/morandi-panel-empty.svg");
+}
+
+.w-ui-refresh .w-textview-tips {
+  gap: 7px;
+  color: var(--morandi-subtle);
+}
+
+.w-ui-refresh .w-editor .CodeMirror {
+  filter: saturate(0.38) sepia(0.05);
+}
+
+.w-ui-refresh .form-select,
+.modal .form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%235f625c' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+html[data-theme="dark"] .w-ui-refresh .form-select,
+html[data-theme="dark"] .modal .form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cfccc3' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.w-message-container {
+  position: fixed;
+  z-index: calc(var(--z-max) + 2);
+  top: 24px;
+  left: 50%;
+  display: flex;
+  max-width: calc(100vw - 32px);
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.w-message-container .w-message {
+  min-width: 280px;
+  max-width: 460px;
+  padding: 0 !important;
+  color: var(--morandi-text) !important;
+  background: var(--morandi-surface) !important;
+  border: 1px solid var(--morandi-border) !important;
+  border-radius: var(--morandi-radius-md);
+  box-shadow: var(--morandi-shadow-md);
+  pointer-events: auto;
+}
+
+.w-message-container .toast-body {
+  padding: 10px 16px;
+}
+
+.w-message-container .w-message-danger {
+  border-left: 3px solid var(--morandi-danger) !important;
+}
+
+.w-message-container .w-message-warning {
+  border-left: 3px solid var(--morandi-warning) !important;
+}
+
+.w-message-container .w-message-success {
+  border-left: 3px solid var(--morandi-success) !important;
+}
+
+.w-ui-refresh .w-back-to-bottom {
+  width: 34px;
+  height: 34px;
+  color: var(--morandi-green-deep);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-border);
+  border-radius: 50%;
+  box-shadow: var(--morandi-shadow-md);
+  opacity: 1;
+}
+
+@media (max-width: 1180px) {
+  .w-ui-refresh > .w-menu > a,
+  .w-ui-refresh > .w-menu > .w-menu-wrapper > a {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .w-ui-refresh .w-network-empty-art {
+    width: 288px;
+    height: 168px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .w-ui-refresh *,
+  .w-ui-refresh *::before,
+  .w-ui-refresh *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -147,7 +147,7 @@ var KVDialog = React.createClass({
             <select
               value={state.selectedHistory || ''}
               onChange={this.selectHistory}
-              className="form-control w-kv-list"
+              className="form-select w-kv-list"
             >
               {state.hideDefaultOption ? null : <option value="">
                 Select history
@@ -230,7 +230,7 @@ var KVDialog = React.createClass({
           <DismissBtn />
           <button
             type="button"
-            className="btn btn-default"
+            className="btn btn-outline-secondary"
             disabled={!checkedCount}
             onClick={self.export}
           >

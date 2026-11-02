@@ -808,7 +808,7 @@ var List = React.createClass({
             <button className="btn btn-primary" onClick={disabled ? self.enableAllRules : self.showHttpsSettingsDialog}>
               {disabled ? 'Enable' : 'Settings'}
             </button>
-            {disabled ? null : <button className="btn btn-default ml-10" onClick={self.gotIt}>
+            {disabled ? null : <button className="btn btn-outline-secondary ml-10" onClick={self.gotIt}>
               Got it
             </button>}
           </div>

@@ -5,9 +5,21 @@ var util = require('./util');
 var ModalHeader = require('./modal-header');
 var ModalFooter = require('./modal-footer');
 
+function getDefaultSuffix(name) {
+  return name === 'console' || name === 'server' ? '.log' : '.txt';
+}
+
+function getDisplaySuffix(name, filename) {
+  var match = /(\.[a-z0-9]{1,10})$/i.exec(filename || '');
+  return match ? match[1].toLowerCase() : getDefaultSuffix(name);
+}
+
 var ExportDialog = React.createClass({
   getInitialState: function () {
-    return { filename: '' };
+    return {
+      filename: '',
+      suffix: getDefaultSuffix('network')
+    };
   },
   show: function (name, data) {
     var self = this;
@@ -19,7 +31,8 @@ var ExportDialog = React.createClass({
     self.setState({
       name: name,
       title: util.getDialogTitle(name, 'Export'),
-      data: data
+      data: data,
+      suffix: getDisplaySuffix(name, self.state.filename)
     });
   },
   getInputValue: function() {
@@ -27,10 +40,10 @@ var ExportDialog = React.createClass({
   },
   getFilename: function () {
     var name = this.state.name;
-    var suffix = name === 'console' || name === 'server' ? '.log' : '.txt';
+    var suffix = getDefaultSuffix(name);
     var filename = this.getInputValue();
     if (filename) {
-      if (!/\.(txt|json)/i.test(filename)) {
+      if (!/\.[a-z0-9]{1,10}$/i.test(filename)) {
         filename += suffix;
       }
       return filename;
@@ -79,7 +92,11 @@ var ExportDialog = React.createClass({
     self.refs.input.value = '';
   },
   filterFilename: function (e) {
-    this.setState({ filename: util.formatFilename(e.target.value) });
+    var filename = util.formatFilename(e.target.value);
+    this.setState({
+      filename: filename,
+      suffix: getDisplaySuffix(this.state.name, filename)
+    });
   },
   onShare: function(err) {
     if (!err) {
@@ -93,27 +110,38 @@ var ExportDialog = React.createClass({
     var state = self.state;
 
     return (
-      <Dialog ref="dialog" wstyle="w-ie-dialog">
+      <Dialog ref="dialog" wstyle="w-ie-dialog w-export-dialog">
         <ModalHeader>
           {state.title}
         </ModalHeader>
         <div className="modal-body">
-          <input
-            ref="input"
-            value={state.filename}
-            onChange={self.filterFilename}
-            onKeyDown={self.export}
-            placeholder="Enter filename (optional)"
-            className="form-control"
-            maxLength="64"
-          />
+          <div className="w-export-filename-row">
+            <div className="input-group w-export-filename-group">
+              <input
+                ref="input"
+                value={state.filename}
+                onChange={self.filterFilename}
+                onKeyDown={self.export}
+                placeholder="Enter filename (optional)"
+                className="form-control"
+                aria-label="Export filename"
+                maxLength="64"
+              />
+              <span className="input-group-text w-export-suffix">
+                {state.suffix}
+              </span>
+            </div>
+            <span className="w-export-filename-hint">
+              The extension is added automatically.
+            </span>
+          </div>
         </div>
         <ModalFooter>
           <ShareViaUrlBtn type={state.name} data={state.data} getFilename={self.getInputValue} onComplete={self.onShare} />
           <button
             type="button"
             className="btn btn-primary"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             onClick={self.export}
           >
             Export

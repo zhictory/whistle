@@ -190,7 +190,7 @@ var ToolBox = React.createClass({
             Inspect
           </button>
           <button
-            className="btn btn-default"
+            className="btn btn-outline-secondary"
             disabled={emptyJson}
             onClick={self.formatJSON}
           >
@@ -214,14 +214,14 @@ var ToolBox = React.createClass({
             Upload
           </button>
           <button
-            className="btn btn-default ml-10"
+            className="btn btn-outline-secondary ml-10"
             disabled={emptyCodec}
             onClick={self.encode}
           >
             Encode
           </button>
           <button
-            className="btn btn-default"
+            className="btn btn-outline-secondary"
             disabled={emptyCodec}
             onClick={self.decode}
           >

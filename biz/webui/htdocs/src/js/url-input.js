@@ -360,7 +360,7 @@ var UrlInput = React.createClass({
   showEditor: function (e) {
     var self = this;
     util.trigger('showEditorDialog', {
-      isKey: $(e.target).closest('button.btn-default').length,
+      isKey: $(e.target).closest('button.btn-outline-secondary').length,
       filename: self.state.url.replace(/\?.*$/, ''),
       session: self.props.session || null,
       callback: self.handleCallback
@@ -381,7 +381,7 @@ var UrlInput = React.createClass({
           disabled={disabled}
           value={protocol}
           onChange={self.onProtocolChange}
-          className="form-control w-url-protocol"
+          className="form-select w-url-protocol"
         >
           {state.protocols.map(function (p) {
             return <option value={p}>{p || 'Custom'}</option>;
@@ -404,7 +404,7 @@ var UrlInput = React.createClass({
         />
         <button
           disabled={disabled}
-          className={'btn btn-default w-url-params' + (isFile ? ' w-hide' : '')}
+          className={'btn btn-outline-secondary w-url-params' + (isFile ? ' w-hide' : '')}
           onClick={self.toggleParams}
         >
           Params
@@ -413,7 +413,7 @@ var UrlInput = React.createClass({
           <Icon name="plus" />
           File
         </button> : null}
-        {enableFile ? <button disabled={disabled} className="btn btn-default h-32 ml-5 w-add-file" onClick={self.showEditor}>
+        {enableFile ? <button disabled={disabled} className="btn btn-outline-secondary h-32 ml-5 w-add-file" onClick={self.showEditor}>
           <Icon name="plus" />
           Key
         </button> : null}

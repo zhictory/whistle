@@ -330,11 +330,11 @@ var RulesDialog = React.createClass({
           Enter Rules
         </ModalHeader> : <div className="modal-title">
           Select Rule File:
-          <select className="form-control" onChange={self.onRulesChange} value={state.rulesName}>
+          <select className="form-select" onChange={self.onRulesChange} value={state.rulesName}>
             {self.getSelectList()}
             <option value="">+Create</option>
           </select>
-          <button className="btn btn-default" onClick={self.showCreateRules}>+Create</button>
+          <button className="btn btn-outline-secondary" onClick={self.showCreateRules}>+Create</button>
           <CloseBtn />
         </div>}
         <div className="w-editor-wrap">

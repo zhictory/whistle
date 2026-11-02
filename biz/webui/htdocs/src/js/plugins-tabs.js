@@ -41,7 +41,7 @@ var PluginsTabs = React.createClass({
                 onClick={function () {
                   self.onSelect(tab);
                 }}
-                className={'btn btn-default' + (active == plugin ? ' active' : '')}
+                className={'btn btn-outline-secondary' + (active == plugin ? ' active' : '')}
                 title={'[' + plugin + '] ' + name}
               >
                 {name}

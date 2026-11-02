@@ -269,8 +269,8 @@ var TestRule = React.createClass({
               <label>
                 <Icon name="list" className="mr-10" />
                 Rules
-                {rules ? <CopyBtn value={rules} className="btn btn-default w-copy-rules" /> : null}
-                {state.rawRules ? <a className="btn btn-default w-copy-rules" onClick={self.showRawRules}>Raw Rules</a>  : null}
+                {rules ? <CopyBtn value={rules} className="btn btn-outline-secondary w-copy-rules" /> : null}
+                {state.rawRules ? <a className="btn btn-outline-secondary w-copy-rules" onClick={self.showRawRules}>Raw Rules</a>  : null}
               </label>
               <RulesMiniEditor
                 ref="rulesEditor"

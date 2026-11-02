@@ -75,14 +75,14 @@ var PluginsMgr = React.createClass({
           Select {isUpdate ? 'Updater' : 'Installer'}
         </ModalHeader>
         <div className="modal-body">
-          <div className="btn btn-primary plugin-mgr-btn" data-dismiss="modal" onClick={self.installPlugin}>
+          <div className="btn btn-primary plugin-mgr-btn" data-bs-dismiss="modal" onClick={self.installPlugin}>
             {actionText} <span>(Use Default)</span>
           </div>
           {
             list.map(function (item) {
               var moduleName = item.moduleName;
               return (
-                <div className="btn btn-default plugin-mgr-btn" data-dismiss="modal"
+                <div className="btn btn-outline-secondary plugin-mgr-btn" data-bs-dismiss="modal"
                   key={moduleName} onClick={self.installPluginExt.bind(self, item)}>
                   {actionText} <span>(Use plugin {util.getSimplePluginName(moduleName)})</span>
                 </div>

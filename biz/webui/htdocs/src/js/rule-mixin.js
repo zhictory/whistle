@@ -267,7 +267,7 @@ module.exports = {
       <button className="btn btn-primary ml-10 h-32" onClick={this.onAdd} disabled={disabled || isMax}>
         <Icon name="plus" />
       </button>,
-      <button className="btn btn-default w-delete ml-5 h-32" onClick={this.onRemove} disabled={disabled || (isMin && !action.value)}>
+      <button className="btn btn-outline-secondary w-delete ml-5 h-32" onClick={this.onRemove} disabled={disabled || (isMin && !action.value)}>
         <Icon name="minus" />
       </button>
     ];
@@ -370,7 +370,7 @@ module.exports = {
               return (
                 <div className="w-form-value" key={label}>
                   <label className="w-form-label w-80">{label}: </label>
-                  {label === 'SameSite' ? (<select className="form-control" name={label} value={value}>
+                  {label === 'SameSite' ? (<select className="form-select" name={label} value={value}>
                     <option>Select cookie same site</option>
                     <option value="None">None</option>
                     <option value="Lax">Lax</option>
@@ -396,7 +396,7 @@ module.exports = {
         <ModalFooter>
           <button
             type="button"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             className="btn btn-primary"
             disabled={!cookie || (!cookie.Name && !cookie.Value)}
             onClick={self.saveCookie}

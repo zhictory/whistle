@@ -9,9 +9,10 @@ var CloseBtn = React.createClass({
     var onClick = this.props.onClick;
     return <button
             type="button"
-            className={'close ' + (this.props.className || '')}
-            data-dismiss={onClick ? null : 'modal'}
-            onClick={onClick}>&times;</button>;
+            className={'btn-close ' + (this.props.className || '')}
+            data-bs-dismiss={onClick ? null : 'modal'}
+            aria-label="Close"
+            onClick={onClick}></button>;
   }
 });
 

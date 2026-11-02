@@ -1,0 +1,356 @@
+/* Retro Terminal skin */
+
+html[data-ui-skin="retro"] {
+  --morandi-bg: #d0c3a9;
+  --morandi-canvas: #e7ddc8;
+  --morandi-surface: #f3ebdc;
+  --morandi-surface-muted: #dfd2b8;
+  --morandi-sand: #d7c9ad;
+  --morandi-sand-deep: #c7b89a;
+  --morandi-sage-soft: #ddd4c1;
+  --morandi-sage: #8e897e;
+  --morandi-green: #20201d;
+  --morandi-green-deep: #11110f;
+  --morandi-green-hover: #37342f;
+  --morandi-text: #20201d;
+  --morandi-text-soft: #4f4b43;
+  --morandi-muted: #777064;
+  --morandi-subtle: #968f83;
+  --morandi-border: #8f8677;
+  --morandi-border-strong: #37342f;
+  --morandi-danger: #8c342c;
+  --morandi-danger-soft: #ead8d1;
+  --morandi-warning: #8a651f;
+  --morandi-success: #3f6045;
+  --morandi-shadow-sm: 1px 1px 0 #3d382f;
+  --morandi-shadow-md: 3px 3px 0 #3d382f;
+  --morandi-shadow-lg: 6px 6px 0 #3d382f;
+  --morandi-font: "Courier New", "Lucida Console", Consolas, monospace;
+  --morandi-mono: "Courier New", "Lucida Console", Consolas, monospace;
+  --morandi-radius-sm: 1px;
+  --morandi-radius-md: 2px;
+  --morandi-radius-lg: 2px;
+
+  --c-default: #20201d;
+  --c-active: #f3ebdc;
+  --c-heavy: #20201d;
+  --c-thin: #4f4b43;
+  --c-disabled: #968f83;
+  --c-link: #20201d;
+  --c-link-hover: #4f4b43;
+  --c-border: #8f8677;
+  --c-error: #8c342c;
+  --c-risk: #8c342c;
+  --c-danger: #8c342c;
+  --c-ok: #3f6045;
+  --c-has: #3f6045;
+  --c-warn: #8a651f;
+  --c-success: #3f6045;
+  --c-info: #586b68;
+  --b-default: #f3ebdc;
+  --b-title: #dfd2b8;
+  --b-bar: #e7ddc8;
+  --b-hover: #e1d6bf;
+  --b-active: #d3c6ab;
+  --b-btn-hover: #e1d6bf;
+  --b-btn-active: #d3c6ab;
+  --b-heavy: #dfd2b8;
+  --b-heavy-active: #cfc0a4;
+  --b-disabled: #e7ddc8;
+  --b-success: #e0eadc;
+  --b-success-hover: #d4e1ce;
+  --b-error: #ebd9d3;
+  --b-error-hover: #e0c8c1;
+  --b-warn: #eee4cd;
+  --b-alert-info: #e1e7e2;
+  --b-list-hover: #e1d6bf;
+  --b-list-warn: #eee4cd;
+  --b-list-info: #e1e7e2;
+  --b-list-mark: #d3c6ab;
+  --b-list-danger-hover: #e0c8c1;
+  --b-tl-dns: #dce7e1;
+  --b-tl-req: #f1ebdc;
+  --b-tl-res: #eee2d7;
+  --b-tl-load: #dde5dc;
+}
+
+html[data-ui-skin="retro"][data-theme="dark"] {
+  --morandi-bg: #11110f;
+  --morandi-canvas: #1a1916;
+  --morandi-surface: #25231e;
+  --morandi-surface-muted: #201e1a;
+  --morandi-sand: #302d27;
+  --morandi-sand-deep: #3a3730;
+  --morandi-sage-soft: #302d27;
+  --morandi-sage: #6a655b;
+  --morandi-green: #eee4cf;
+  --morandi-green-deep: #fff5df;
+  --morandi-green-hover: #d8ccb6;
+  --morandi-text: #eee4cf;
+  --morandi-text-soft: #cfc4af;
+  --morandi-muted: #a89e8c;
+  --morandi-subtle: #7f7769;
+  --morandi-border: #5b554b;
+  --morandi-border-strong: #c8bda8;
+  --morandi-danger: #e38b7d;
+  --morandi-danger-soft: #3b2a28;
+  --morandi-warning: #dec071;
+  --morandi-success: #9bc6a0;
+  --morandi-shadow-sm: 1px 1px 0 #080807;
+  --morandi-shadow-md: 3px 3px 0 #080807;
+  --morandi-shadow-lg: 6px 6px 0 #080807;
+
+  --c-default: #eee4cf;
+  --c-active: #20201d;
+  --c-heavy: #eee4cf;
+  --c-thin: #cfc4af;
+  --c-disabled: #7f7769;
+  --c-link: #eee4cf;
+  --c-link-hover: #fff5df;
+  --c-border: #5b554b;
+  --c-error: #e38b7d;
+  --c-risk: #e38b7d;
+  --c-danger: #e38b7d;
+  --c-ok: #9bc6a0;
+  --c-has: #c8bda8;
+  --c-warn: #dec071;
+  --c-success: #9bc6a0;
+  --c-info: #a9c1ba;
+  --b-default: #25231e;
+  --b-title: #201e1a;
+  --b-bar: #1a1916;
+  --b-hover: #302d27;
+  --b-active: #3a3730;
+  --b-btn-hover: #302d27;
+  --b-btn-active: #433f36;
+  --b-heavy: #302d27;
+  --b-heavy-active: #3a3730;
+  --b-disabled: #201e1a;
+  --b-success: #293328;
+  --b-success-hover: #334132;
+  --b-error: #3b2a28;
+  --b-error-hover: #493431;
+  --b-warn: #373225;
+  --b-alert-info: #293432;
+  --b-list-hover: #302d27;
+  --b-list-warn: #373225;
+  --b-list-info: #293432;
+  --b-list-mark: #3a3730;
+  --b-list-danger-hover: #493431;
+  --b-tl-dns: #2a3a35;
+  --b-tl-req: #3a3529;
+  --b-tl-res: #40332d;
+  --b-tl-load: #303a32;
+}
+
+html[data-ui-skin="retro"] body::after {
+  position: fixed;
+  z-index: 2147483000;
+  inset: 0;
+  content: "";
+  background: url("../../img/skins/retro-grain.svg") repeat;
+  background-size: 180px 180px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.08;
+}
+
+html[data-ui-skin="retro"][data-theme="dark"] body::after {
+  mix-blend-mode: screen;
+  opacity: 0.045;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh {
+  background-color: var(--morandi-canvas);
+  background-image: radial-gradient(circle, rgba(32, 32, 29, 0.13) 0.7px, transparent 0.9px);
+  background-size: 6px 6px;
+}
+
+html[data-ui-skin="retro"][data-theme="dark"] .w-ui-refresh {
+  background-image: radial-gradient(circle, rgba(238, 228, 207, 0.09) 0.7px, transparent 0.9px);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu {
+  height: 46px;
+  background-color: var(--morandi-surface-muted);
+  background-image: radial-gradient(circle, rgba(32, 32, 29, 0.08) 0.7px, transparent 0.9px);
+  background-size: 5px 5px;
+  border-bottom: 4px double var(--morandi-green);
+  box-shadow: 0 2px 0 rgba(32, 32, 29, 0.18);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu > a,
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu > .w-menu-wrapper > a {
+  height: 32px;
+  margin-top: 7px;
+  color: var(--morandi-text);
+  line-height: 30px;
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu > :is(a, .w-menu-wrapper):hover > a,
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu .w-menu-selected {
+  color: var(--morandi-surface) !important;
+  background: var(--morandi-green) !important;
+  border-color: var(--morandi-green);
+  box-shadow: 2px 2px 0 var(--morandi-sage);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu .w-menu-wrapper {
+  height: 46px;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu > a :is(.glyphicon, .bi),
+html[data-ui-skin="retro"] .w-ui-refresh > .w-menu > .w-menu-wrapper > a :is(.glyphicon, .bi) {
+  width: 18px;
+  height: 18px;
+  color: var(--morandi-green);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-green);
+  border-radius: 0;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu {
+  width: 58px;
+  background-color: var(--morandi-surface-muted);
+  background-image: radial-gradient(circle, rgba(32, 32, 29, 0.07) 0.7px, transparent 0.9px);
+  background-size: 5px 5px;
+  border-right: 3px double var(--morandi-green);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu a {
+  width: 48px;
+  height: 52px;
+  color: var(--morandi-text-soft);
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu a :is(.glyphicon, .bi) {
+  width: 30px;
+  height: 30px;
+  color: var(--morandi-green);
+  background: var(--morandi-surface);
+  border: 1px solid var(--morandi-green);
+  border-radius: 0;
+  box-shadow: 2px 2px 0 var(--morandi-sage);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu a.w-menu-selected {
+  color: var(--morandi-surface) !important;
+  background: var(--morandi-green) !important;
+  border-color: var(--morandi-green);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu a.w-menu-selected :is(.glyphicon, .bi) {
+  color: var(--morandi-green);
+  background: var(--morandi-surface);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu a.w-menu-selected::after {
+  width: 5px;
+  height: 5px;
+  background: var(--morandi-surface);
+  border-radius: 0;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-left-menu::after {
+  background-image: url("../../img/skins/retro-floppy.svg");
+  opacity: 1;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh :is(
+  .w-req-data-headers .table th,
+  .w-type-bar,
+  .w-detail-title,
+  .w-detail-webforms-title,
+  .w-frames-action,
+  .w-frames-com-action,
+  .w-log-action-bar,
+  .w-plugins-tabs
+) {
+  background-color: var(--morandi-surface-muted);
+  background-image: radial-gradient(circle, rgba(32, 32, 29, 0.055) 0.7px, transparent 0.9px);
+  background-size: 5px 5px;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-list-left .w-active,
+html[data-ui-skin="retro"] .w-ui-refresh .w-req-data-list .w-hover-body tr.w-selected :is(th, td) {
+  color: var(--morandi-surface) !important;
+  background: var(--morandi-green) !important;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-type-bar span {
+  border-radius: 0;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .btn,
+html[data-ui-skin="retro"] .modal .btn {
+  font-family: var(--morandi-mono);
+  border: 1px solid var(--morandi-green);
+  border-radius: 1px;
+  box-shadow: 2px 2px 0 var(--morandi-sage);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .btn-primary,
+html[data-ui-skin="retro"] .modal .btn-primary {
+  color: var(--morandi-surface);
+  background: var(--morandi-green);
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-input-menu,
+html[data-ui-skin="retro"] .w-ui-refresh .w-menu-item,
+html[data-ui-skin="retro"] .w-ui-refresh .w-ctx-list,
+html[data-ui-skin="retro"] .w-ctx-menu .w-ctx-list,
+html[data-ui-skin="retro"] .w-ui-refresh .dropdown-menu,
+html[data-ui-skin="retro"] .modal .modal-content {
+  border: 1px solid var(--morandi-green);
+  border-radius: 1px;
+  box-shadow: var(--morandi-shadow-md);
+}
+
+html[data-ui-skin="retro"] .modal .modal-content {
+  border-width: 2px;
+  outline: 1px solid var(--morandi-surface);
+  outline-offset: -6px;
+  box-shadow: var(--morandi-shadow-lg);
+}
+
+html[data-ui-skin="retro"] .modal .modal-header,
+html[data-ui-skin="retro"] .modal .modal-footer {
+  background: var(--morandi-surface-muted);
+  border-style: dashed;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-network-empty-art {
+  background-image: url("../../img/skins/retro-terminal-empty.svg");
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-empty-data::before {
+  background-image: url("../../img/skins/retro-paper-stack.svg");
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-no-frames::before {
+  background-image: url("../../img/skins/retro-no-signal.svg");
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-textview-tips::before {
+  background-image: url("../../img/skins/retro-floppy.svg");
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-network-empty::before {
+  background: var(--morandi-sand);
+  border: 1px dashed var(--morandi-border);
+  border-radius: 0;
+  opacity: 0.65;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-network-empty strong {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+html[data-ui-skin="retro"] .w-ui-refresh .w-editor .CodeMirror {
+  filter: grayscale(1) sepia(0.08);
+}

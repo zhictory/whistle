@@ -33,7 +33,7 @@ var Inspectors = React.createClass({
     return this.state.activeName === name;
   },
   getStyle: function (name) {
-    return 'btn btn-default' + (this.isActive(name) ? ' w-spec-active' : '');
+    return 'btn btn-outline-secondary' + (this.isActive(name) ? ' w-spec-active' : '');
   },
   render: function () {
     var self = this;

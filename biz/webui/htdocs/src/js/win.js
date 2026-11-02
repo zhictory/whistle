@@ -1,10 +1,11 @@
 var $ = require('jquery');
+var bootstrapV5 = require('./bootstrap-v5');
 
 var alertDialog;
 var confirmDialog;
 var handleConfirm;
 
-var DISSMISS_BTN = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+var DISSMISS_BTN = '<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>';
 
 exports.DISSMISS_BTN = DISSMISS_BTN;
 
@@ -29,7 +30,7 @@ function wrapDialog(body, footer) {
 
 function createAlert() {
   if (!alertDialog) {
-    var footer = DISSMISS_BTN + '<button type="button" class="btn btn-primary w-copy-text-with-tips" data-dismiss="modal"></button>';
+    var footer = DISSMISS_BTN + '<button type="button" class="btn btn-primary w-copy-text-with-tips" data-bs-dismiss="modal"></button>';
     alertDialog = $(wrapDialog('<pre class="alert alert-danger"></pre>', footer));
   }
   return alertDialog;
@@ -37,9 +38,9 @@ function createAlert() {
 
 function createConfirm() {
   if (!confirmDialog) {
-    var footer = '<button type="button" class="btn btn-default w-win-cancel" data-dismiss="modal">Cancel</button>' +
-        '<button type="button" class="btn btn-danger w-win-delete-all" data-dismiss="modal">Delete All</button>' +
-        '<button type="button" class="btn btn-primary w-win-confirm" data-dismiss="modal">Confirm</button>';
+    var footer = '<button type="button" class="btn btn-outline-secondary w-win-cancel" data-bs-dismiss="modal">Cancel</button>' +
+        '<button type="button" class="btn btn-danger w-win-delete-all" data-bs-dismiss="modal">Delete All</button>' +
+        '<button type="button" class="btn btn-primary w-win-confirm" data-bs-dismiss="modal">Confirm</button>';
     confirmDialog = $(wrapDialog('<pre></pre>', footer));
     confirmDialog.on('click', '.w-win-cancel', function () {
       if (isFunc(handleConfirm)) {
@@ -67,7 +68,7 @@ function mockAlert(msg, copyText, btnText, className) {
   createAlert();
   var pre = alertDialog.find('pre').text(msg)[0];
   pre.className = 'alert ' + (className || 'alert-danger');
-  alertDialog.modal('show');
+  bootstrapV5.show(alertDialog[0]);
   var btn = alertDialog.find('.w-copy-text-with-tips');
   if (copyText && isStr(copyText)) {
     btn.text(btnText || 'Copy');
@@ -85,7 +86,7 @@ function mockConfirm(msg, cb, removeAllBtn, flag) {
   confirmDialog.find('.w-win-delete-all')[removeAllBtn ? 'show' : 'hide']();
   handleConfirm = cb;
   confirmDialog.find('pre').text(msg);
-  confirmDialog.modal('show');
+  bootstrapV5.show(confirmDialog[0]);
   if (flag) {
     confirmDialog.attr('data-confirm-flag', flag);
   } else {

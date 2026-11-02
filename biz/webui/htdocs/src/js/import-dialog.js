@@ -147,8 +147,8 @@ var ImportDialog = React.createClass({
           {
             state.importCURL ? <button
             type="button"
-            className="btn btn-default"
-            data-dismiss="modal"
+            className="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
             onClick={self.showImportCURL}
           >
             <Icon name="file" />
@@ -158,7 +158,7 @@ var ImportDialog = React.createClass({
           {dataCenter.whistleId ? <button
             type="button"
             className="btn btn-warning"
-            data-dismiss="modal"
+            data-bs-dismiss="modal"
             onClick={self.showService}
           >
             <Icon name="cloud" />

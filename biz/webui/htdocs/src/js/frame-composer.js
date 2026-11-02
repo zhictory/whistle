@@ -138,7 +138,7 @@ var FrameComposer = React.createClass({
     }
     var params = {
       type: target.nodeName === 'A' ? 'bin' : 'text',
-      target: util.attr(target, 'data-target') ? 'server' : 'client',
+      target: util.attr(target, 'data-send-target') ? 'server' : 'client',
       text: value,
       base64: base64
     };
@@ -244,7 +244,7 @@ var FrameComposer = React.createClass({
               onMouseDown={preventBlur}
               onClick={self.onSend}
               type="button"
-              className="btn btn-default btn-sm"
+              className="btn btn-outline-secondary btn-sm"
             >
               <Icon name="arrow-left" />
               Send to Client
@@ -253,8 +253,8 @@ var FrameComposer = React.createClass({
               disabled={disabled}
               title={tips}
               type="button"
-              className="btn btn-default dropdown-toggle"
-              data-toggle="dropdown"
+              className="btn btn-outline-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -282,10 +282,10 @@ var FrameComposer = React.createClass({
               disabled={disabled}
               title={tips}
               onMouseDown={preventBlur}
-              data-target="server"
+              data-send-target="server"
               onClick={self.onSend}
               type="button"
-              className="btn btn-default btn-sm"
+              className="btn btn-outline-secondary btn-sm"
             >
               <Icon name="arrow-right" />
               Send to Server
@@ -294,8 +294,8 @@ var FrameComposer = React.createClass({
               disabled={disabled}
               title={tips}
               type="button"
-              className="btn btn-default dropdown-toggle"
-              data-toggle="dropdown"
+              className="btn btn-outline-secondary dropdown-toggle"
+              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -306,7 +306,7 @@ var FrameComposer = React.createClass({
               className={'dropdown-menu' + closed}
             >
               <li style={displayStyle}>
-                <a data-target="server" onClick={self.onSend}>
+                <a data-send-target="server" onClick={self.onSend}>
                   Send as Binary
                 </a>
               </li>
@@ -324,7 +324,7 @@ var FrameComposer = React.createClass({
             type="button"
             title="Format"
             onClick={self.format}
-            className="btn btn-default w-format-json-btn"
+            className="btn btn-outline-secondary w-format-json-btn"
           >
             Format
           </button>

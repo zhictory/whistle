@@ -119,7 +119,7 @@ var SyncDialog = React.createClass({
             onClick={self.syncValues}
             disabled={loadingValues || !isStr(state.valuesUrl)}
             type="button"
-            className="btn btn-default"
+            className="btn btn-outline-secondary"
           >
             <Icon name="folder-close" />{' '}
             {showLoading(loadingValues) ? 'Loading' : 'Sync'} Values

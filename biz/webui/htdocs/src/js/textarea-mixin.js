@@ -123,12 +123,12 @@ module.exports = {
         {showInput ? null : <button
           type="button"
           onClick={self.createTempFile}
-          className="btn btn-default"
+          className="btn btn-outline-secondary"
         >+File</button>}
         {showInput ? null : <button
           type="button"
           onClick={self.createRule}
-          className="btn btn-default"
+          className="btn btn-outline-secondary"
         >+Rule</button>}
       </div>
     );

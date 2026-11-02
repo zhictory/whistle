@@ -1,0 +1,186 @@
+/* Clean Modern skin */
+
+html[data-ui-skin="clean"] {
+  --morandi-bg: #f3f5f9;
+  --morandi-canvas: #f7f8fb;
+  --morandi-surface: #ffffff;
+  --morandi-surface-muted: #f5f7fa;
+  --morandi-sand: #e9edf3;
+  --morandi-sand-deep: #dfe5ed;
+  --morandi-sage-soft: #eaf1ff;
+  --morandi-sage: #a7bde8;
+  --morandi-green: #2f6fed;
+  --morandi-green-deep: #1e55c7;
+  --morandi-green-hover: #477feb;
+  --morandi-text: #1f2937;
+  --morandi-text-soft: #475569;
+  --morandi-muted: #64748b;
+  --morandi-subtle: #94a3b8;
+  --morandi-border: #dfe4ec;
+  --morandi-border-strong: #cbd5e1;
+  --morandi-danger: #c25c62;
+  --morandi-danger-soft: #f8e8e9;
+  --morandi-warning: #b7791f;
+  --morandi-success: #3c7a5a;
+  --morandi-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --morandi-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --morandi-radius-sm: 7px;
+  --morandi-radius-md: 10px;
+  --morandi-radius-lg: 14px;
+
+  --c-default: #1f2937;
+  --c-active: #ffffff;
+  --c-heavy: #1f2937;
+  --c-thin: #475569;
+  --c-disabled: #94a3b8;
+  --c-link: #2f6fed;
+  --c-link-hover: #1e55c7;
+  --c-border: #dfe4ec;
+  --c-error: #c25c62;
+  --c-risk: #c25c62;
+  --c-danger: #c25c62;
+  --c-ok: #3c7a5a;
+  --c-has: #2f6fed;
+  --c-warn: #b7791f;
+  --c-success: #3c7a5a;
+  --c-info: #4d7fa7;
+  --b-default: #ffffff;
+  --b-title: #f5f7fa;
+  --b-bar: #f8fafc;
+  --b-hover: #f1f5f9;
+  --b-active: #e8f0ff;
+  --b-btn-hover: #f1f5f9;
+  --b-btn-active: #e2ebfb;
+  --b-heavy: #eef2f7;
+  --b-heavy-active: #e2e8f0;
+  --b-disabled: #f5f7fa;
+  --b-success: #e8f4ed;
+  --b-success-hover: #dceee3;
+  --b-error: #f8e8e9;
+  --b-error-hover: #f1d9db;
+  --b-warn: #fbf3e5;
+  --b-alert-info: #e8f1fb;
+  --b-list-hover: #f1f5f9;
+  --b-list-warn: #fbf3e5;
+  --b-list-info: #e8f1fb;
+  --b-list-mark: #e8f0ff;
+  --b-list-danger-hover: #f4dede;
+  --b-tl-dns: #dcefe9;
+  --b-tl-req: #fbf5d9;
+  --b-tl-res: #fae9d8;
+  --b-tl-load: #dfeafa;
+}
+
+html[data-ui-skin="clean"][data-theme="dark"] {
+  --morandi-bg: #0d131b;
+  --morandi-canvas: #111923;
+  --morandi-surface: #151d27;
+  --morandi-surface-muted: #1b2430;
+  --morandi-sand: #242e3b;
+  --morandi-sand-deep: #2b3746;
+  --morandi-sage-soft: #172b46;
+  --morandi-sage: #5879a7;
+  --morandi-green: #68a7ff;
+  --morandi-green-deep: #9bc2ff;
+  --morandi-green-hover: #7cb5ff;
+  --morandi-text: #e7edf6;
+  --morandi-text-soft: #c1cbd8;
+  --morandi-muted: #9aa8ba;
+  --morandi-subtle: #718096;
+  --morandi-border: #2b3747;
+  --morandi-border-strong: #3a4a5f;
+  --morandi-danger: #e18d8d;
+  --morandi-danger-soft: #342126;
+  --morandi-warning: #dbb36a;
+  --morandi-success: #82b99a;
+
+  --c-default: #e7edf6;
+  --c-active: #ffffff;
+  --c-heavy: #e7edf6;
+  --c-thin: #c1cbd8;
+  --c-disabled: #718096;
+  --c-link: #68a7ff;
+  --c-link-hover: #9bc2ff;
+  --c-border: #2b3747;
+  --c-error: #e18d8d;
+  --c-risk: #e18d8d;
+  --c-danger: #e18d8d;
+  --c-ok: #82b99a;
+  --c-has: #8bb8ff;
+  --c-warn: #dbb36a;
+  --c-success: #82b99a;
+  --c-info: #85b7d8;
+  --b-default: #151d27;
+  --b-title: #1b2430;
+  --b-bar: #111923;
+  --b-hover: #1b2531;
+  --b-active: #172b46;
+  --b-btn-hover: #1b2531;
+  --b-btn-active: #1c3556;
+  --b-heavy: #242e3b;
+  --b-heavy-active: #2b3746;
+  --b-disabled: #1b2430;
+  --b-success: #1d3328;
+  --b-success-hover: #25402f;
+  --b-error: #342126;
+  --b-error-hover: #422a2f;
+  --b-warn: #342d1f;
+  --b-alert-info: #172b46;
+  --b-list-hover: #1b2531;
+  --b-list-warn: #342d1f;
+  --b-list-info: #172b46;
+  --b-list-mark: #1c3556;
+  --b-list-danger-hover: #422a2f;
+  --b-tl-dns: #1d3735;
+  --b-tl-req: #343022;
+  --b-tl-res: #382c24;
+  --b-tl-load: #1d2c3f;
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(47, 111, 237, 0.07), transparent 28%),
+    var(--morandi-bg);
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh :is(.w-network-empty-art, .w-left-menu::after) {
+  filter: none;
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-left-menu::after {
+  display: none;
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-network-empty-art {
+  background-image: url("../../img/skins/clean-network-empty.svg");
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-empty-data::before {
+  background-image: url("../../img/skins/clean-empty-list.svg");
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-no-frames::before {
+  background-image: url("../../img/skins/clean-no-frames.svg");
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-textview-tips::before {
+  background-image: url("../../img/skins/clean-panel-empty.svg");
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-network-empty::before {
+  background: rgba(234, 241, 255, 0.72);
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh > .w-menu .w-https-menu :is(.glyphicon, .bi) {
+  color: var(--morandi-warning);
+  background: var(--morandi-sand);
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .btn-info,
+html[data-ui-skin="clean"] .modal .btn-info {
+  border-color: var(--morandi-border);
+}
+
+html[data-ui-skin="clean"] .w-ui-refresh .w-editor .CodeMirror {
+  filter: none;
+}

@@ -1,0 +1,440 @@
+/*
+ * Shared sizing and layout rules for Bootstrap 5 components and legacy
+ * Whistle dialogs. This file intentionally loads after all visual skins.
+ */
+
+.w-ui-refresh,
+.modal {
+  font-size: 13px;
+}
+
+.w-ui-refresh :is(.btn, .form-control, .form-select),
+.modal :is(.btn, .form-control, .form-select, label, input, select, textarea) {
+  font-size: 13px;
+}
+
+.w-ui-refresh .w-tabs-sm .btn,
+.w-ui-refresh .w-btn-group-sm .btn {
+  font-size: 13px;
+}
+
+.w-ui-refresh .w-tabs-sm {
+  display: flex;
+  min-width: 0;
+  padding: 0 4px;
+  align-items: stretch;
+  gap: 3px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.w-ui-refresh .w-tabs-sm::-webkit-scrollbar {
+  display: none;
+}
+
+.w-ui-refresh .w-tabs-sm .nav-link {
+  min-height: 32px;
+  padding: 5px 9px;
+  color: var(--morandi-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.w-ui-refresh .w-tabs-sm .nav-link:hover {
+  color: var(--morandi-text);
+  background: var(--ui-hover);
+}
+
+.w-ui-refresh .w-tabs-sm .nav-link.active {
+  color: var(--morandi-green-deep);
+  background: var(--morandi-surface);
+  box-shadow: inset 0 -2px 0 var(--morandi-green);
+}
+
+.w-ui-refresh .w-tabs-sm .nav-link .glyphicon {
+  margin-right: 4px;
+}
+
+.w-ui-refresh .w-left-menu-name {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.w-ui-refresh > .w-menu > a,
+.w-ui-refresh > .w-menu > .w-menu-wrapper > a {
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* Dialogs: one content rhythm, a persistent top-right close action. */
+.modal .modal-content {
+  position: relative;
+}
+
+.modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal .modal-body > :is(fieldset, p, label, .w-editor-settings) {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.modal .modal-header {
+  padding-right: 58px;
+}
+
+.modal .modal-header > .btn-close {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+}
+
+.modal .modal-body > .btn-close {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  align-self: flex-end;
+  flex: 0 0 auto;
+  margin: -8px -4px 2px 0;
+}
+
+.modal .w-editor-settings p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.modal .modal-footer {
+  gap: 8px;
+}
+
+.modal .modal-footer .btn + .btn {
+  margin-left: 0;
+}
+
+/* Network settings uses a consistent responsive checkbox grid. */
+.w-ns-dialog .modal-body {
+  gap: 14px;
+}
+
+.w-ns-dialog .modal-body > fieldset {
+  margin: 0;
+}
+
+.w-ns-dialog .w-ns-own {
+  margin: 0 !important;
+}
+
+.w-ns-dialog .w-ns-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(146px, 1fr));
+  gap: 10px 16px;
+  padding: 14px;
+}
+
+.w-ns-dialog .w-ns-cols legend {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+}
+
+.w-ns-dialog .w-ns-cols > label {
+  display: flex !important;
+  width: auto !important;
+  height: auto;
+  min-height: 24px;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.w-ns-dialog .w-ns-cols > label :is(.glyphicon, .bi) {
+  margin-left: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* Preserve intentionally inline or full-height dialog bodies. */
+.w-replay-count .modal-body {
+  flex-direction: row;
+  align-items: center;
+}
+
+:is(.w-large-dialog, .w-iframe-dialog) .modal-body {
+  display: block;
+  gap: 0;
+}
+
+/* QR dialog must scale with the viewport instead of keeping a 320px canvas. */
+.w-qrcode-dialog .modal-dialog {
+  width: min(390px, calc(100vw - 24px));
+}
+
+.w-qrcode-dialog .modal-body {
+  align-items: center;
+  gap: 12px;
+}
+
+.w-qrcode-dialog :is(canvas, img) {
+  display: block;
+  width: min(320px, 100%) !important;
+  max-width: 100%;
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+}
+
+.w-qrcode-dialog .w-qrcode-url-wrap {
+  width: min(320px, 100%);
+}
+
+.w-qrcode-dialog input {
+  width: 100%;
+  max-width: 100%;
+}
+
+.w-https-dialog .modal-dialog {
+  width: min(390px, calc(100vw - 24px));
+}
+
+.w-https-dialog .w-qrcode-wrap {
+  width: min(320px, 100%) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1;
+}
+
+.w-https-dialog .w-qrcode-wrap img {
+  width: 100%;
+  height: 100%;
+}
+
+.w-https-dialog .w-rootca-url-wrap {
+  width: 100%;
+  min-width: 0;
+}
+
+.w-https-dialog .w-rootca-url {
+  width: auto !important;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.w-online-dialog .modal-dialog {
+  width: min(460px, calc(100vw - 24px));
+}
+
+.w-online-body {
+  gap: 12px;
+}
+
+.w-online-ctn {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.w-online-ctn h5 {
+  min-width: 0;
+  padding: 2px 0;
+  margin: 0;
+  color: var(--morandi-text);
+  font-size: 13px;
+}
+
+.w-online-ctn h5 strong {
+  font-weight: 600;
+}
+
+.w-online-ctn p {
+  margin: 0 0 3px 32px;
+  color: var(--morandi-muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.w-online-ctn .w-whistle-id-option {
+  font-size: 13px;
+}
+
+.w-online-info {
+  display: none;
+}
+
+.w-online-info.w-online-info-visible {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px;
+  background: var(--morandi-surface-muted);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-md);
+}
+
+.w-online-info h5 {
+  display: flex;
+  min-width: 0;
+  padding: 6px 8px;
+  margin: 0;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--morandi-muted);
+  background: var(--morandi-surface);
+  border-radius: 7px;
+  font-size: 12px;
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+.w-online-info h5 strong {
+  color: var(--morandi-text-soft);
+  font-weight: 600;
+}
+
+.w-online-info h5 span {
+  color: var(--morandi-text);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  text-align: right;
+  white-space: normal;
+}
+
+.w-online-option {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 42px;
+  padding: 7px 10px;
+  margin: 0;
+  align-items: center;
+  background: var(--morandi-surface-muted);
+  border: 1px solid var(--morandi-border);
+  border-radius: var(--morandi-radius-sm);
+}
+
+.w-online-option strong {
+  width: auto;
+  color: var(--morandi-text-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.w-online-option select {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.w-online-body > p {
+  margin: 0;
+}
+
+.w-online-body > :is(p, a) > a,
+.w-online-body > a {
+  display: block;
+  padding: 8px 10px;
+  color: var(--morandi-green-deep);
+  background: var(--morandi-surface-muted);
+  border-radius: var(--morandi-radius-sm);
+  text-decoration: none;
+}
+
+.w-online-body > :is(p, a) > a:hover,
+.w-online-body > a:hover {
+  color: var(--morandi-green-deep);
+  background: var(--ui-hover);
+}
+
+.w-export-dialog .modal-dialog,
+.w-choose-file-type .modal-dialog {
+  width: min(540px, calc(100vw - 24px));
+}
+
+.w-export-dialog .modal-body,
+.w-choose-file-type .modal-body {
+  padding: 20px;
+  background: var(--morandi-surface);
+}
+
+.w-export-filename-row,
+.w-choose-file-type-label {
+  display: flex;
+  width: 100% !important;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 400;
+  white-space: normal !important;
+}
+
+.w-export-field-label {
+  color: var(--morandi-text-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.w-export-filename-group {
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.w-export-filename-group > input {
+  width: 100% !important;
+  min-width: 0;
+  height: 36px;
+}
+
+.w-export-suffix {
+  min-width: 64px;
+  justify-content: center;
+  color: var(--morandi-text-soft);
+  background: var(--morandi-surface-muted);
+  border-color: var(--morandi-border);
+  font-family: var(--morandi-mono);
+  font-size: 12px;
+}
+
+.w-export-extension-select {
+  width: 94px !important;
+  flex: 0 0 94px;
+  padding-right: 28px;
+  text-align: center;
+}
+
+.w-export-filename-hint {
+  color: var(--morandi-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.w-choose-file-type .modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (max-width: 767px) {
+  .modal .modal-body {
+    gap: 12px;
+  }
+
+  .w-ns-dialog .w-ns-cols {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .w-online-info.w-online-info-visible {
+    grid-template-columns: 1fr;
+  }
+
+  .w-online-option {
+    grid-template-columns: 82px minmax(0, 1fr);
+  }
+}

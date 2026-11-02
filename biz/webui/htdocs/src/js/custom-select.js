@@ -185,7 +185,7 @@ var Select = React.createClass({
       options.push({ value: value, label: value });
     }
     return (
-      <select ref="select" disabled={props.disabled} className={'form-control ' + (props.className || '')} value={value}
+      <select ref="select" disabled={props.disabled} className={'form-select ' + (props.className || '')} value={value}
         onChange={self.onChange} onClick={props.onClick}>
         {selectPlaceholder ? <option value="">{selectPlaceholder}</option> : null}
         {self.renderOptions(options)}
