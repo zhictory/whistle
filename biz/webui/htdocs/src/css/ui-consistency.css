@@ -540,3 +540,60 @@
     grid-template-columns: 82px minmax(0, 1fr);
   }
 }
+
+/* ------------------------------------------------------------------
+   Detail panel chrome. Every tab's button row keeps its own height and
+   a margin to the content above and below, and the text panes stop
+   running into the panel edges. These rules only use shared layout
+   tokens, so every skin (morandi / clean / playful / retro) picks them
+   up unchanged.
+   ------------------------------------------------------------------ */
+.w-detail .w-tabs-sm {
+  flex: 0 0 auto;
+  padding-right: 24px;
+  margin-bottom: 4px;
+}
+
+/* The dock button sits on the tab bar's right edge; keep the last tab clear
+   of it instead of sliding underneath. */
+.w-detail .w-tabs-sm .nav-link {
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.w-ui-refresh .w-detail-tabs,
+.w-ui-refresh .w-com-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-height: 32px;
+  margin: 4px 0 6px;
+  padding: 0 12px !important;
+}
+
+/* The response header sits under the drag handle, so it needs a little
+   top padding to keep its arrow and label clear of the splitter. */
+.w-ui-refresh .w-detail-inspectors-res {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-height: 30px;
+  margin: 0 0 6px;
+  padding: 4px 12px 0 !important;
+}
+
+.w-ui-refresh .w-detail-ctn > .btn-group,
+.w-ui-refresh .w-tools > .btn-group {
+  flex: 0 0 auto;
+  margin: 6px 12px;
+}
+
+.w-ui-refresh .w-com-rules > .w-detail-title {
+  flex: 0 0 auto;
+}
+
+.w-ui-refresh .w-textarea {
+  margin: 0 12px 10px;
+}
