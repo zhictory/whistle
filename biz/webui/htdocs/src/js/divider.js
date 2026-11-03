@@ -2,6 +2,7 @@ require('../css/divider.css');
 var $ = require('jquery');
 var React = require('react');
 var util = require('./util');
+var uiScale = require('./ui-scale');
 
 var getHideStyle = util.getHideStyle;
 var getBool = util.getBool;
@@ -11,6 +12,10 @@ util.addDragEvent('.w-divider', function (target, x, y) {
   var con = target.parent();
   var isVertical = !con.hasClass('box');
   var isRight = target.hasClass('w-divider-right');
+  // Drag deltas are viewport pixels, the panes are sized in layout pixels.
+  var scale = uiScale.getScale() || 1;
+  x = x / scale;
+  y = y / scale;
   var size = isVertical
     ? target[0].offsetHeight - (isRight ? y : -y)
     : target[0].offsetWidth - (isRight ? x : -x);

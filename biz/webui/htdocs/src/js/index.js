@@ -1,5 +1,6 @@
 var uiSkin = require('./ui-skin');
 uiSkin.init();
+require('./ui-scale');
 require('./base-css.js');
 var $ = require('jquery');
 var React = require('react');

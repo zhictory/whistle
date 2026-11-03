@@ -38,6 +38,18 @@
 }
 
 /*
+ * Viewport-adaptive scale factor (see js/ui-scale.js). The shell is laid out
+ * in fixed pixels, so small windows kept pushing content out of view; the
+ * scale shrinks the whole shell a little instead. Dialogs also live in <body>
+ * and are scaled explicitly, while menus/toasts keep their natural size
+ * because they are placed from client coordinates.
+ */
+#container.main,
+.modal {
+  zoom: var(--ui-scale, 1);
+}
+
+/*
  * One tab language for every tab level: the detail panel's top tabs
  * (.w-tabs-sm) and the nested tab rows (.w-detail-tabs, .w-btn-group-sm,
  * .w-com-tab-list) share height, padding, radius, colors, hover and the
