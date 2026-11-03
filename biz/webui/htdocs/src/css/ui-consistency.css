@@ -18,10 +18,9 @@
   font-size: 13px;
 }
 
-.w-ui-refresh .w-tabs-sm {
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs) {
   display: flex;
   min-width: 0;
-  padding: 0 4px;
   align-items: stretch;
   gap: 3px;
   flex-wrap: nowrap;
@@ -30,34 +29,125 @@
   scrollbar-width: none;
 }
 
-.w-ui-refresh .w-tabs-sm::-webkit-scrollbar {
+.w-ui-refresh .w-tabs-sm {
+  padding: 0 4px;
+}
+
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs)::-webkit-scrollbar {
   display: none;
 }
 
-.w-ui-refresh .w-tabs-sm .nav-link {
+/*
+ * One tab language for every tab level: the detail panel's top tabs
+ * (.w-tabs-sm) and the nested tab rows (.w-detail-tabs, .w-btn-group-sm,
+ * .w-com-tab-list) share height, padding, radius, colors, hover and the
+ * active marker, so a tab reads the same wherever it sits in the hierarchy.
+ */
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) {
+  background: var(--morandi-surface);
+  border-color: var(--morandi-border);
+}
+
+.w-ui-refresh .w-btn-group-sm {
+  padding: 0 4px;
+  gap: 3px;
+}
+
+.w-ui-refresh .w-btn-group-sm > .fill {
+  width: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn) {
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: auto;
   min-height: 32px;
   padding: 5px 9px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   color: var(--morandi-muted);
   background: transparent;
   border: 0;
-  border-radius: 8px 8px 0 0;
+  border-radius: 8px 8px 0 0 !important;
+  box-shadow: none;
   font-size: 13px;
+  font-weight: 400;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
-.w-ui-refresh .w-tabs-sm .nav-link:hover {
+/* Legacy button-group rows force their own padding. */
+.w-ui-refresh .w-btn-group-sm .btn {
+  padding: 5px 9px !important;
+}
+
+/* The nested bars are legacy boxes and do not support `gap`. */
+.w-ui-refresh :is(.w-detail-tabs, .w-com-tab-list) > button {
+  margin-right: 3px;
+}
+
+/*
+ * Tab icons are flex items now: cancel the legacy glyph offsets that pushed
+ * them below the label's optical center, then lift the font glyphs by the
+ * sub-pixel bias of their ink so icon and label share one optical center.
+ * Only icons inside a tab button are touched, not the bar's tool buttons.
+ */
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn) :is(.glyphicon, .bi, img) {
+  position: static;
+  top: 0;
+  flex: 0 0 auto;
+  margin: 0;
+  line-height: 1;
+  vertical-align: 0;
+}
+
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn) :is(.glyphicon, .bi) {
+  transform: translateY(-1px);
+}
+
+/* The icon font compensates the baseline shift of body text; inside a
+ * centered tab that compensation is what leaves the glyph sitting low. */
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn) .bi::before {
+  vertical-align: 0;
+}
+
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn):hover {
   color: var(--morandi-text);
   background: var(--ui-hover);
 }
 
-.w-ui-refresh .w-tabs-sm .nav-link.active {
+.w-ui-refresh :is(.w-tabs-sm, .w-com-tabs, .w-detail-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link.active, .btn.active, .w-tab-btn.w-active, button.w-spec-active) {
   color: var(--morandi-green-deep);
   background: var(--morandi-surface);
-  box-shadow: inset 0 -2px 0 var(--morandi-green);
+  box-shadow: inset 0 -2px 0 var(--morandi-green) !important;
 }
 
-.w-ui-refresh .w-tabs-sm .nav-link .glyphicon {
-  margin-right: 4px;
+/* Plugin tab strips must line up with the tabs next to them. */
+.w-ui-refresh :is(.w-custom-tabs, .w-com-tab-list) {
+  height: auto;
+  min-height: 32px;
+}
+
+/* The composer's history mode squeezed the response tabs into 22px. */
+.w-ui-refresh .w-show-history .w-btn-group-sm {
+  height: auto;
+  min-height: 32px;
+}
+
+.w-ui-refresh .w-custom-tabs {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.w-ui-refresh .w-custom-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .w-ui-refresh .w-left-menu-name {

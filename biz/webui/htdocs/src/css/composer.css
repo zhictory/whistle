@@ -58,7 +58,6 @@
 
 .w-com-tabs {
   position: relative;
-  padding: 0 !important;
 }
 .w-com-tabs .btn {
   position: absolute;
@@ -68,24 +67,10 @@
   line-height: 14px;
 }
 
-.w-com-tabs button {
-  line-height: 16px;
-  padding: 0 10px !important;
-}
-.w-com-tabs button:hover {
-  background: var(--b-btn-hover);
-}
 .w-com-tabs .w-tab-btn {
   outline: none;
   border: none;
   background: transparent;
-  height: 100%;
-}
-.w-com-tabs .w-tab-btn:hover {
-  color: var(--c-link);
-}
-.w-com-tabs .w-tab-btn.w-active {
-  background: var(--b-active);
 }
 .w-com-tabs .w-tab-btn:disabled {
   color: var(--c-disabled) !important;
@@ -563,4 +548,111 @@
   border-radius: 3px;
   font-size: 12px;
   text-decoration: none!important;
+}
+
+/* ------------------------------------------------------------------ *
+ * Composer control rows.
+ * The refresh theme renders controls at 32px, so a row that hosts them
+ * needs its own height and a steady gap between controls; the old
+ * compact rows clipped their buttons and packed labels edge to edge.
+ * ------------------------------------------------------------------ */
+.w-ui-refresh .w-com-url {
+  gap: 8px;
+  padding: 2px 8px;
+}
+
+.w-ui-refresh .w-com-url > :is(.w-com-history-btn, .w-com-method, .w-com-execute) {
+  margin: 0 !important;
+}
+
+.w-ui-refresh .w-com-bar,
+.w-ui-refresh .w-com-body .w-com-bar {
+  display: flex;
+  height: auto;
+  min-height: 36px;
+  padding: 2px 8px;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.4;
+  overflow: visible;
+  text-align: left;
+}
+
+.w-ui-refresh .w-com-bar > label {
+  margin: 0;
+  gap: 6px;
+}
+
+/* These two were pinned with absolute offsets for the old fixed row. */
+.w-ui-refresh .w-com-bar > :is(.w-com-hex-text, .w-com-crlf) {
+  position: static;
+}
+
+.w-ui-refresh .w-com-bar .w-middle {
+  gap: 6px;
+  min-width: 0;
+}
+
+.w-ui-refresh .w-com-bar .w-middle > label {
+  flex: 0 0 auto;
+  margin-left: 0;
+  white-space: nowrap;
+}
+
+.w-ui-refresh .w-com-bar input[type="checkbox"],
+.w-ui-refresh .w-com-bar input[type="radio"],
+.w-ui-refresh .w-com-rules .w-detail-title input {
+  margin: 0;
+}
+
+.w-ui-refresh .w-com-bar .btn {
+  height: auto;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: var(--morandi-radius-sm);
+  font-size: 13px;
+  line-height: normal;
+  overflow: visible;
+}
+
+/* The body row pins its leading label left, the rest stays right. */
+.w-ui-refresh .w-com-body > .w-com-bar > .w-com-label {
+  position: static;
+  margin: 0 auto 0 0;
+  padding: 0 12px 0 0 !important;
+  border: 0;
+  border-right: var(--v-border);
+}
+
+/* Composer rules row: the filter toggles get the same rhythm. */
+.w-ui-refresh .w-com-rules .w-detail-title {
+  display: flex;
+  min-height: 26px;
+  padding: 0 10px !important;
+  align-items: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.w-ui-refresh .w-com-rules .w-detail-title > label {
+  flex: 0 0 auto;
+  margin: 0 !important;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.w-ui-refresh .w-com-rules .w-detail-title .w-com-proxy-rules {
+  padding-left: 0;
+}
+
+.w-ui-refresh .w-com-rules .w-detail-title .w-com-btns {
+  position: static;
+  display: flex;
+  flex: 0 0 auto;
+  margin-left: auto;
+  gap: 14px;
+}
+
+.w-ui-refresh .w-com-rules .w-detail-title .w-com-btns a {
+  margin: 0;
 }
