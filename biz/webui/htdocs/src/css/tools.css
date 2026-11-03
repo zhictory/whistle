@@ -2,7 +2,9 @@
   position: relative;
   min-width: 560px;
 }
-.w-tools ul,
+/* Exclude .dropdown-menu: the reset used to win over Bootstrap's
+   .dropdown-menu { display: none } and kept every menu expanded. */
+.w-tools ul:not(.dropdown-menu),
 .w-tools li {
   list-style: none;
   padding: 0;

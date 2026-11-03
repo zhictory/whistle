@@ -104,7 +104,6 @@ var DropDown = React.createClass({
         >
           {selectedOption.icon ? <Icon name={selectedOption.icon} /> : null}
           {selectedOption.text}
-          <span className="caret"></span>
         </button>
         <ul
           style={{

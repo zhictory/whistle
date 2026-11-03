@@ -145,6 +145,11 @@
   height: 20px;
   line-height: 19px;
 }
+.w-frames-com-action .dropdown-toggle::after {
+  /* The split buttons only contain the caret: drop Bootstrap's text gap. */
+  margin-left: 0;
+  vertical-align: 0;
+}
 .w-frames-com-action .dropdown-menu {
   min-width: 0;
   right: 0;

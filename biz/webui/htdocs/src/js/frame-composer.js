@@ -258,7 +258,6 @@ var FrameComposer = React.createClass({
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span className="caret"></span>
             </button>
             <ul
               style={leftStyle}
@@ -299,7 +298,6 @@ var FrameComposer = React.createClass({
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span className="caret"></span>
             </button>
             <ul
               style={leftStyle}
