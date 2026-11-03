@@ -720,3 +720,14 @@
   top: auto;
   right: auto;
 }
+
+/* The backdrop keeps its themed tint while it fades out: styling only the
+   `.show` state made the fading layer fall back to the default solid black,
+   which read as a black flash when a dialog closed. */
+.modal-backdrop {
+  background-color: var(--ui-overlay);
+}
+
+.modal-backdrop.show {
+  background-color: var(--ui-overlay);
+}
