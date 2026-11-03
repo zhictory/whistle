@@ -1326,6 +1326,16 @@ var Composer = React.createClass({
                 <button
                   onClick={onTabChange}
                   name="Request"
+                  style={{visibility: showResponse ? 'visible' : 'hidden'}}
+                  tabIndex={showResponse ? 0 : -1}
+                  className="btn btn-outline-secondary w-com-back-btn"
+                  title="Back to Request"
+                >
+                  <Icon name="menu-left" />
+                </button>
+                <button
+                  onClick={onTabChange}
+                  name="Request"
                   className={getTabClass(showRequest)}
                 >
                   <Icon name="edit" />
@@ -1518,14 +1528,6 @@ var Composer = React.createClass({
                   style={util.getHideStyle(!showResponse)}
                   className={'w-com-res w-com-res-' + getStatus(statusCode)}
                 >
-                  <button
-                    onClick={onTabChange}
-                    name="Request"
-                    className="btn btn-outline-secondary w-com-back-btn"
-                    title="Back to Request"
-                  >
-                    <Icon name="menu-left" />
-                  </button>
                   <Properties
                     modal={resProps}
                   />
