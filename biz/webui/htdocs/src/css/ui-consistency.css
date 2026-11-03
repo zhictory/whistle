@@ -550,49 +550,28 @@
    ------------------------------------------------------------------ */
 .w-detail .w-tabs-sm {
   flex: 0 0 auto;
-  padding-right: 24px;
+  padding: 0 24px 0 10px;
   margin-bottom: 4px;
 }
 
 /* The dock button sits on the tab bar's right edge; keep the last tab clear
    of it instead of sliding underneath. */
 .w-detail .w-tabs-sm .nav-link {
-  padding-left: 7px;
-  padding-right: 7px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 
+/* Sub tab strips reuse the primary tab bar look: same height, same side
+   padding, same top corners and the same underline for the active tab. */
 .w-ui-refresh .w-detail-tabs,
 .w-ui-refresh .w-com-tabs {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-end;
+  gap: 2px;
   flex: 0 0 auto;
-  min-height: 30px;
+  min-height: 32px;
   margin: 4px 0 6px;
   padding: 0 10px !important;
-}
-
-/* The response header sits under the drag handle, so it needs a little
-   top padding to keep its arrow and label clear of the splitter. */
-.w-ui-refresh .w-detail-inspectors-res {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 0 0 auto;
-  min-height: 30px;
-  margin: 0 0 6px;
-  padding: 4px 12px 0 !important;
-}
-
-.w-ui-refresh .w-detail-ctn > .btn-group,
-.w-ui-refresh .w-tools > .btn-group {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: 0 0 auto;
-  min-height: 30px;
-  margin: 6px 12px;
-  padding: 0;
 }
 
 /* The plugin tab strip is empty most of the time; let it collapse instead of
@@ -600,52 +579,60 @@
 .w-ui-refresh .w-detail-tabs > .w-custom-tabs {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
   min-height: 0;
   height: auto;
-  align-self: center;
+  align-self: flex-end;
 }
 
-/* Toolbar buttons borrow the tool box rhythm: 24px high chips with 10px
-   side padding in a 30px row, 6px apart. This covers the view switchers
-   (Raw/Headers/...), the Console/Server/Toolbox strip and the tab strips
-   inside the detail panel. */
-.w-ui-refresh :is(
-  .w-detail-tabs,
-  .w-com-tabs,
-  .w-detail-ctn > .btn-group,
-  .w-tools > .btn-group
-) > :is(.btn, .w-tab-btn) {
+/* The response header sits under the drag handle, so it needs a little top
+   padding to keep its arrow and label clear of the splitter. */
+.w-ui-refresh .w-detail-inspectors-res {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-height: 32px;
+  margin: 4px 0 6px;
+  padding: 4px 10px 0 !important;
+}
+
+.w-ui-refresh .w-detail-ctn > .btn-group,
+.w-ui-refresh .w-tools > .btn-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  flex: 0 0 auto;
+  min-height: 32px;
+  margin: 4px 0 6px;
+  padding: 0 10px;
+}
+
+/* Action buttons follow the tool box textarea box: 24px high with 10px side
+   padding, so a row of buttons keeps the same 4px/10px inset and the same
+   size as the tool box controls. Tab strips keep their own look. */
+.w-ui-refresh .w-detail .btn:not(.w-tabs-sm .btn):not(.w-com-tabs .btn):not(.w-detail-tabs .btn):not(.w-btn-group-sm .btn):not(.w-com-tab-list .btn) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  height: 24px !important;
-  min-height: 24px !important;
-  margin: 0;
-  padding: 0 10px !important;
+  height: 24px;
+  min-height: 24px;
+  padding: 0 10px;
   font-size: 12px;
   line-height: 1;
-  border: 0;
-  border-radius: var(--morandi-radius-sm) !important;
-  box-shadow: none;
+  border-radius: var(--morandi-radius-sm);
 }
 
-.w-ui-refresh :is(
-  .w-detail-tabs,
-  .w-com-tabs,
-  .w-detail-ctn > .btn-group,
-  .w-tools > .btn-group
-) > :is(.btn.active, .w-tab-btn.w-active) {
-  background: var(--morandi-surface);
-  box-shadow: inset 0 0 0 1px var(--morandi-green) !important;
-}
-
-/* Square icon button, back to the request editor. */
+/* Square icon button in the composer tab strip, back to the request editor. */
 .w-ui-refresh .w-com-tabs > .w-com-back-btn {
   position: static;
+  align-self: center;
   width: 24px;
+  height: 24px;
+  min-height: 24px;
   padding: 0 !important;
+  border-radius: var(--morandi-radius-sm) !important;
 }
 
 .w-ui-refresh .w-com-rules > .w-detail-title {
@@ -653,5 +640,31 @@
 }
 
 .w-ui-refresh .w-textarea {
-  margin: 0 12px 10px;
+  margin: 4px 10px 10px;
+}
+
+/* The log filter bar is a toolbar too: same 24px controls as the rest. */
+.w-ui-refresh .w-log-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0 10px;
+  line-height: 1;
+}
+
+.w-ui-refresh .w-log-action-bar .dropdown-toggle {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  min-height: 24px;
+  padding: 0 8px;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: var(--morandi-radius-sm);
+}
+
+.w-ui-refresh .w-log-action-bar .dropdown-toggle:hover {
+  background: var(--ui-hover);
 }
