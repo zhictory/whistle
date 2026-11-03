@@ -1,7 +1,7 @@
 var React = require('react');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var Textarea = require('./textarea');
-var CloseBtn = require('./close-btn');
 var ModalFooter = require('./modal-footer');
 
 var TextDialog = React.createClass({
@@ -21,11 +21,11 @@ var TextDialog = React.createClass({
     var value = state.value;
     return (
       <Dialog ref="dialog" wstyle="w-text-dialog">
+        <ModalHeader>{state.name || 'Text'}</ModalHeader>
         <div className="modal-body">
-          <CloseBtn />
           <div
             className="v-box"
-            style={{ width: 860, height: 560, marginTop: 22 }}
+            style={{ width: 860, height: 560 }}
           >
             <Textarea
               className="fill"

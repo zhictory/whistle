@@ -1,11 +1,11 @@
 require('../css/about.css');
 var React = require('react');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var dataCenter = require('./data-center');
 var storage = require('./storage');
 var util = require('./util');
 var Icon = require('./icon');
-var CloseBtn = require('./close-btn');
 var ModalFooter = require('./modal-footer');
 
 var isElectron = util.isElectron;
@@ -120,8 +120,8 @@ var About = React.createClass({
         {state.hasUpdate ? <i className="w-new-version-icon" /> : null}
         <Icon name="info-sign" />About
         <Dialog ref="dialog" wstyle="w-about-dialog">
+          <ModalHeader>About</ModalHeader>
           <div className="modal-body w-about-has-plugins">
-            <CloseBtn />
             <img alt="logo" src="img/whistle.png?v=2016" />
             <span className="w-about-dialog-ctn">
               <span className="w-about-dialog-title">

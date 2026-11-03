@@ -1,6 +1,6 @@
 var React = require('react');
 var Dialog = require('./dialog');
-var CloseBtn = require('./close-btn');
+var ModalHeader = require('./modal-header');
 var util = require('./util');
 
 var CookiesDialog = React.createClass({
@@ -27,8 +27,8 @@ var CookiesDialog = React.createClass({
     var cookies = self.state.cookies;
     return (
       <Dialog ref="dialog" wstyle="w-com-cookies" closable>
+        <ModalHeader>Cookies</ModalHeader>
         <div className="modal-body">
-          <CloseBtn onClick={self.hide} />
           <table className="table">
             <thead>
               <th className="w-com-cookie-order">#</th>

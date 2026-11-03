@@ -6,8 +6,8 @@ var storage = require('./storage');
 var util = require('./util');
 var Icon = require('./icon');
 var HelpIcon = require('./help-icon');
-var CloseBtn = require('./close-btn');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 
 function getCAType(type) {
   if (type === 'crt' || type === 'pem') {
@@ -68,8 +68,8 @@ var HttpsSettings = React.createClass({
 
     return (
       <Dialog ref="dialog" wstyle="w-https-dialog" closable>
+          <ModalHeader>HTTPS</ModalHeader>
           <div className="modal-body">
-            <CloseBtn />
             <div style={{marginBottom: 10}}>
               <HelpIcon docsUrl="gui/https.html" />
               <a

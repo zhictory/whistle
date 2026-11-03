@@ -2,13 +2,13 @@ require('../css/certs.css');
 var React = require('react');
 var util = require('./util');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var TipsDialog = require('./tips-dialog');
 var win = require('./win');
 var dataCenter = require('./data-center');
 var message = require('./message');
 var Icon = require('./icon');
 var HelpIcon = require('./help-icon');
-var CloseBtn = require('./close-btn');
 var ModalFooter = require('./modal-footer');
 
 var MAX_CERT_SIZE = 128 * 1024;
@@ -231,12 +231,11 @@ var CertsInfoDialog = React.createClass({
     var list = self.state.list || [];
     return (
       <Dialog ref="dialog" wstyle="w-certs-dialog">
+        <ModalHeader>
+          <HelpIcon docsUrl="gui/https.html#custom-certs" />
+          Custom Certs Settings
+        </ModalHeader>
         <div className="modal-body">
-          <CloseBtn onClick={self.hide} />
-          <h4 className="w-certs-title">
-            <HelpIcon docsUrl="gui/https.html#custom-certs" />
-            Custom Certs Settings
-          </h4>
           <table className="table w-hover-body">
             <thead>
               <th className="w-certs-order">#</th>

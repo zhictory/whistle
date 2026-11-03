@@ -1,6 +1,7 @@
 require('../css/sync-dialog.css');
 var React = require('react');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var util = require('./util');
 var dataCenter = require('./data-center');
 var KVDialog = require('./kv-dialog');
@@ -105,6 +106,7 @@ var SyncDialog = React.createClass({
     var loadingValues = self.loadingValues;
     return (
       <Dialog ref="dialog" wstyle="w-sync" closable>
+        <ModalHeader>Sync Rules &amp; Values</ModalHeader>
         <div className="modal-body">
           <button
             onClick={self.syncRules}

@@ -5,7 +5,7 @@ var Header = React.createClass({
   render: function () {
     return (
       <div className="modal-header">
-        <h4>{this.props.children}</h4>
+        <h4 className="modal-title">{this.props.children}</h4>
         <CloseBtn />
       </div>
     );

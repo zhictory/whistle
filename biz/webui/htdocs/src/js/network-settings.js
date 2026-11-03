@@ -3,6 +3,7 @@ var $ = require('jquery');
 var React = require('react');
 var NetworkModal = require('./network-modal');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var columns = require('./columns');
 var dataCenter = require('./data-center');
 var util = require('./util');
@@ -10,7 +11,6 @@ var win = require('./win');
 var storage = require('./storage');
 var Icon = require('./icon');
 var HelpIcon = require('./help-icon');
-var CloseBtn = require('./close-btn');
 var Prompt = require('./prompt');
 var message = require('./message');
 var ModalFooter = require('./modal-footer');
@@ -367,8 +367,8 @@ var Settings = React.createClass({
 
     return (
       <Dialog ref="dialog" wstyle="w-ns-dialog">
+        <ModalHeader>Network Settings</ModalHeader>
         <div onChange={onNetworkSettingsChange} className="modal-body">
-          <CloseBtn />
           <fieldset className="w-ns-filter">
             <legend>
               <label>
@@ -529,8 +529,8 @@ var Settings = React.createClass({
           </button>
         </ModalFooter>
         <Dialog ref="editCol" wstyle="w-ns-edit">
+          <ModalHeader>Column</ModalHeader>
           <div onChange={onNetworkSettingsChange} className="modal-body">
-            <CloseBtn />
             <label>
               <span>Column Name:</span>
               <input

@@ -1,10 +1,10 @@
 var React = require('react');
 var Dialog = require('./dialog');
+var ModalHeader = require('./modal-header');
 var JSONView = require('./json-viewer');
 var FilterInput = require('./filter-input');
 var util = require('./util');
 var FbBtn = require('./forward-back-btn');
-var CloseBtn = require('./close-btn');
 
 var KV_RE = /^(k|v):/;
 var stringify = util.stringify;
@@ -157,6 +157,7 @@ var JSONDialog = React.createClass({
 
     return (
       <Dialog ref="jsonDialog" wstyle="w-json-dialog" closable>
+        <ModalHeader>JSON</ModalHeader>
         <div className="modal-body">
           <FbBtn
             disabledBack={historyIndex <= 0}
@@ -164,10 +165,9 @@ var JSONDialog = React.createClass({
             onBack={self.onBack}
             onForward={self.onForward}
           />
-          <CloseBtn />
           <div
             className="v-box"
-            style={{ width: 880, height: 560, marginTop: 22, background: self._keywordObj ? 'var(--b-filtered)' : null }}
+            style={{ width: 880, height: 560, background: self._keywordObj ? 'var(--b-filtered)' : null }}
           >
             <JSONView keyPath={state.keyPath} dialog data={state.curData || state.data} viewSource={true} session={state.session} />
           </div>
