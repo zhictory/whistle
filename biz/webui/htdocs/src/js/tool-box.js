@@ -205,7 +205,7 @@ var ToolBox = React.createClass({
           placeholder="Enter JSON text"
           onKeyDown={self.onFormat}
         />
-        <div className="w-detail-title" style={{ height: 20 }}>
+        <div className="w-detail-title">
           <Icon name="eye-close" />Base64
           <button
             className="btn btn-primary ml-10"

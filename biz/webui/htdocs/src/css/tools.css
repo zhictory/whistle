@@ -163,31 +163,49 @@
   vertical-align: text-bottom;
 }
 
+/* The tool box stacks sections vertically and shares the spare height
+   between the editors, so it fits the panel instead of always scrolling. */
+.w-tool-box {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-bottom: 12px;
+}
 .w-tool-box-ctn {
   display: block;
+  flex: 1 1 0;
   width: 100%;
-  height: 160px;
+  min-height: 84px;
+  height: auto;
   border: var(--v-border);
   padding: 5px;
 }
-.w-tool-box {
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding-bottom: 20px;
-}
 .w-tool-box .w-detail-title {
-  border: none;
-  border-right: var(--v-border);
-  line-height: 20px;
+  display: flex;
+  flex: 0 0 auto;
+  min-height: 30px;
+  padding: 0 10px !important;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  line-height: 1.4;
 }
 
 .w-tool-box .w-detail-title button {
-  height: 18px;
-  line-height: 16px;
-  font-size: 12px;
-  float: right;
+  float: none;
+  flex: 0 0 auto;
+  height: 24px;
+  min-height: 24px;
+  margin: 0;
   padding: 0 10px;
-  margin-top: 1px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Keep the actions on the right edge, like the old floats did. */
+.w-tool-box .w-detail-title button:first-of-type {
+  margin-left: auto;
 }
 
 .w-tool-box-base64 {
@@ -248,6 +266,8 @@
 }
 
 .w-generate-cert button {
+  height: var(--h-field);
+  min-height: 0;
   border-radius: 0;
 }
 
