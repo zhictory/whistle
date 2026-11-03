@@ -578,9 +578,14 @@
   text-align: left;
 }
 
+/* Base.css gave labels display:inline-flex but no gap, so radio/checkbox
+   marks sat right against their text once the input margins were reset. */
+.w-ui-refresh .w-com-bar label {
+  gap: 6px;
+}
+
 .w-ui-refresh .w-com-bar > label {
   margin: 0;
-  gap: 6px;
 }
 
 /* These two were pinned with absolute offsets for the old fixed row. */
@@ -589,14 +594,20 @@
 }
 
 .w-ui-refresh .w-com-bar .w-middle {
-  gap: 6px;
+  gap: 4px;
   min-width: 0;
 }
 
 .w-ui-refresh .w-com-bar .w-middle > label {
   flex: 0 0 auto;
   margin-left: 0;
+  gap: 4px;
   white-space: nowrap;
+}
+
+/* The type row is the tightest one in the bar: keep it inside the panel. */
+.w-ui-refresh .w-com-bar .w-middle > .w-com-label {
+  padding-right: 8px !important;
 }
 
 .w-ui-refresh .w-com-bar input[type="checkbox"],

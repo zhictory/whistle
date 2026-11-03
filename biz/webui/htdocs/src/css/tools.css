@@ -175,9 +175,10 @@
 .w-tool-box-ctn {
   display: block;
   flex: 1 1 0;
-  width: 100%;
+  width: auto;
   min-height: 84px;
   height: auto;
+  margin: 4px 10px;
   border: var(--v-border);
   padding: 5px;
 }
@@ -203,9 +204,9 @@
   line-height: 1;
 }
 
-/* Keep the actions on the right edge, like the old floats did. */
-.w-tool-box .w-detail-title button:first-of-type {
-  margin-left: auto;
+/* .ml-10 is !important but the row gap already spaces the actions. */
+.w-tool-box .w-detail-title button.ml-10 {
+  margin-left: 0 !important;
 }
 
 .w-tool-box-base64 {
@@ -256,11 +257,21 @@
   min-height: 674px;
 }
 
+.w-generate-cert {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 10px 0;
+}
+
 .w-generate-cert input {
+  flex: 1 1 0;
+  width: auto;
   line-height: var(--h-field);
   height: var(--h-field);
   padding: 5px;
-  border-radius: 0;
+  border-radius: var(--morandi-radius-sm);
   border: var(--v-border);
   display: block;
 }
@@ -268,7 +279,7 @@
 .w-generate-cert button {
   height: var(--h-field);
   min-height: 0;
-  border-radius: 0;
+  border-radius: var(--morandi-radius-sm);
 }
 
 .w-tools .w-custom-tabs {
@@ -418,18 +429,19 @@
   right: 5px;
 }
 
+/* Protocol, URL and Params used to be glued into one outlined block; they
+   are separate controls now, so they get the same gap as the rest of the row. */
 .w-url-input {
   display: flex;
   align-items: center;
   position: relative;
   flex: 1;
+  gap: 8px;
 }
 
 .w-url-input input {
-  border-radius: 0;
-  border-left-width: 0.5px;
-  border-right-width: 0.5px;
-  padding: 0 6px;
+  border-radius: var(--morandi-radius-sm);
+  padding: 0 8px;
 }
 
 .w-url-input .form-control, .w-create-rule .form-control {
@@ -441,27 +453,24 @@
 .w-url-input .w-url-protocol {
   width: 76px;
   padding: 0 3px;
-  border-radius: 4px 0 0 4px;
-  border-right-width: 0.5px;
+  border-radius: var(--morandi-radius-sm);
   margin-right: 0;
 }
 
 .w-url-input .w-url-params {
-  border-radius: 0;
   margin-left: 0;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-radius: var(--morandi-radius-sm);
   background-color: var(--b-bar);
   font-size: 12px;
   height: var(--h-field);
-  padding: 0 10px;
-  border-left-width: 0.5px;
   padding: 6px 8px;
 }
 
 .w-url-input .w-file-input {
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-radius: var(--morandi-radius-sm);
+}
+
+/* .ml-10/.ml-5 would double the row gap on the File/Key buttons. */
+.w-url-input .w-add-file {
+  margin-left: 0 !important;
 }
