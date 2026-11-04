@@ -52,6 +52,7 @@ require('../css/visual-refresh.css');
 require('../css/skins/clean.css');
 require('../css/skins/playful.css');
 require('../css/skins/retro.css');
+require('../css/skins/looseleaf.css');
 require('../css/bootstrap-controls.css');
 require('../css/responsive-dialogs.css');
 require('../css/ui-consistency.css');

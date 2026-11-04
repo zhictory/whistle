@@ -18,6 +18,10 @@ var SKINS = [
   {
     name: 'Retro Terminal',
     value: 'retro'
+  },
+  {
+    name: 'Looseleaf',
+    value: 'looseleaf'
   }
 ];
 var SKIN_MAP = {};

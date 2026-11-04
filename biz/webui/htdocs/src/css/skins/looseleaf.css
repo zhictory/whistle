@@ -1,0 +1,245 @@
+/* Looseleaf skin
+ * Paper-and-pencil look borrowed from Looseleaf (kevintngo.github.io/looseleaf):
+ * sage desk, warm paper cards, pencil-grey outlines, marker-orange ink,
+ * lemon highlights, 3px corners and a hand-written UI face.
+ */
+
+html[data-ui-skin="looseleaf"] {
+  --morandi-bg: #a8c8bb;
+  --morandi-canvas: #b3d0c4;
+  --morandi-surface: #fbf6e9;
+  --morandi-surface-muted: #f8f5ee;
+  --morandi-sand: #ece6da;
+  --morandi-sand-deep: #ded5c2;
+  --morandi-sage-soft: #dfe9d8;
+  --morandi-sage: #7fa37c;
+  --morandi-green: #df6b3c;
+  --morandi-green-deep: #b34f24;
+  --morandi-green-hover: #c9562b;
+  --morandi-text: #2a2420;
+  --morandi-text-soft: #4a423b;
+  --morandi-muted: #6b6259;
+  --morandi-subtle: #8e887f;
+  --morandi-border: #8e887f;
+  --morandi-border-strong: #6b6660;
+  --morandi-danger: #c2412d;
+  --morandi-danger-soft: #f7e0d9;
+  --morandi-warning: #a4502a;
+  --morandi-success: #3b7a4b;
+  --morandi-font: "Kevin Sans Hand", "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+  --morandi-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  --morandi-radius-sm: 3px;
+  --morandi-radius-md: 4px;
+  --morandi-radius-lg: 6px;
+  --ui-overlay: rgba(58, 44, 30, 0.32);
+
+  --c-default: #2a2420;
+  --c-active: #fbf6e9;
+  --c-heavy: #2a2420;
+  --c-thin: #4a423b;
+  --c-disabled: #a9a294;
+  --c-link: #2c4f9e;
+  --c-link-hover: #1f3b7a;
+  --c-border: #8e887f;
+  --c-error: #c2412d;
+  --c-risk: #c2412d;
+  --c-danger: #c2412d;
+  --c-ok: #3b7a4b;
+  --c-has: #df6b3c;
+  --c-warn: #a4502a;
+  --c-success: #3b7a4b;
+  --c-info: #2c4f9e;
+  --b-default: #fbf6e9;
+  --b-title: #f8f5ee;
+  --b-bar: #fbf8f1;
+  --b-hover: #f2ecdf;
+  --b-active: #f7ecc4;
+  --b-btn-hover: #f2ecdf;
+  --b-btn-active: #eadfc6;
+  --b-heavy: #ece6da;
+  --b-heavy-active: #ded5c2;
+  --b-disabled: #f1ece1;
+  --b-success: #e6f0e0;
+  --b-success-hover: #d8e8cf;
+  --b-error: #f7e0d9;
+  --b-error-hover: #f0cdc3;
+  --b-warn: #fbf0d5;
+  --b-alert-info: #e3edf7;
+  --b-list-hover: #f2ecdf;
+  --b-list-warn: #fbf0d5;
+  --b-list-info: #e3edf7;
+  --b-list-mark: #f7ecc4;
+  --b-list-danger-hover: #f0cdc3;
+  --b-tl-dns: #dfe9d8;
+  --b-tl-req: #f7ecc4;
+  --b-tl-res: #fbe6d8;
+  --b-tl-load: #e3edf7;
+}
+
+html[data-ui-skin="looseleaf"][data-theme="dark"] {
+  --morandi-bg: #232821;
+  --morandi-canvas: #262c25;
+  --morandi-surface: #2f2b24;
+  --morandi-surface-muted: #33302a;
+  --morandi-sand: #3a352d;
+  --morandi-sand-deep: #464036;
+  --morandi-sage-soft: #2f3a33;
+  --morandi-sage: #6f8f74;
+  --morandi-green: #e2834f;
+  --morandi-green-deep: #f0a077;
+  --morandi-green-hover: #d1713f;
+  --morandi-text: #ece6d9;
+  --morandi-text-soft: #c9c3b6;
+  --morandi-muted: #a9a294;
+  --morandi-subtle: #8e887f;
+  --morandi-border: #5c574f;
+  --morandi-border-strong: #7d766b;
+  --morandi-danger: #e07a5f;
+  --morandi-danger-soft: #3a2622;
+  --morandi-warning: #d9a15e;
+  --morandi-success: #7fb08a;
+  --ui-overlay: rgba(12, 10, 6, 0.62);
+
+  --c-default: #ece6d9;
+  --c-active: #2f2b24;
+  --c-heavy: #ece6d9;
+  --c-thin: #c9c3b6;
+  --c-disabled: #7d766b;
+  --c-link: #8fb6e8;
+  --c-link-hover: #b4cdf0;
+  --c-border: #5c574f;
+  --c-error: #e07a5f;
+  --c-risk: #e07a5f;
+  --c-danger: #e07a5f;
+  --c-ok: #7fb08a;
+  --c-has: #e2834f;
+  --c-warn: #d9a15e;
+  --c-success: #7fb08a;
+  --c-info: #8fb6e8;
+  --b-default: #2f2b24;
+  --b-title: #33302a;
+  --b-bar: #37332c;
+  --b-hover: #3a352d;
+  --b-active: #4a4030;
+  --b-btn-hover: #3a352d;
+  --b-btn-active: #464036;
+  --b-heavy: #3a352d;
+  --b-heavy-active: #464036;
+  --b-disabled: #2b2822;
+  --b-success: #26332a;
+  --b-success-hover: #2d3d31;
+  --b-error: #38251f;
+  --b-error-hover: #452e26;
+  --b-warn: #38301f;
+  --b-alert-info: #22303f;
+  --b-list-hover: #3a352d;
+  --b-list-warn: #38301f;
+  --b-list-info: #22303f;
+  --b-list-mark: #4a4030;
+  --b-list-danger-hover: #452e26;
+  --b-tl-dns: #2a3730;
+  --b-tl-req: #3d3728;
+  --b-tl-res: #3c2f26;
+  --b-tl-load: #24313f;
+}
+
+/* The sage desk the paper sits on, with a faint linen weave. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh {
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 0%, rgba(255, 253, 246, 0.22), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.022) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.018) 0 1px, transparent 1px 3px),
+    var(--morandi-bg);
+}
+
+/* Paper panels keep a pencil outline, not a shadow-heavy card. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-menu, .w-list, .w-detail, .w-com, .w-tools) {
+  border-color: var(--morandi-border);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-tabs-sm, .w-detail-tabs, .w-com-tabs) {
+  background: var(--morandi-surface-muted);
+  border-bottom: 1px solid var(--morandi-border);
+}
+
+/* Drawn-by-hand presses: no glossy gradients, a hair of lift instead. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh .btn,
+html[data-ui-skin="looseleaf"] .modal .btn {
+  border-width: 1px;
+  border-color: var(--morandi-border-strong);
+  box-shadow: 0 1px 0 rgba(58, 44, 30, 0.12);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .btn:active,
+html[data-ui-skin="looseleaf"] .modal .btn:active {
+  box-shadow: inset 0 1px 2px rgba(58, 44, 30, 0.18);
+  transform: translateY(0.5px);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .btn-primary,
+html[data-ui-skin="looseleaf"] .modal .btn-primary {
+  border-color: var(--morandi-green-deep);
+}
+
+/* Marker-orange stays on the active marker, so tabs read like the sketch. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.nav-link.active, .w-tab-btn.w-active),
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-btn-group-sm, .w-detail-tabs) > .btn.active {
+  color: var(--morandi-text);
+  background: var(--morandi-surface);
+  box-shadow: inset 0 -3px 0 var(--morandi-green) !important;
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .CodeMirror {
+  filter: none;
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-network-empty, .w-empty-data, .w-no-frames, .w-textview-tips) {
+  color: var(--morandi-muted);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .w-left-menu::after {
+  filter: none;
+}
+
+/* The desk is the shell; the sheets are the panels. */
+html[data-ui-skin="looseleaf"] #container.main,
+html[data-ui-skin="looseleaf"] .w-ui-refresh > .w-menu {
+  background: var(--morandi-bg);
+}
+
+html[data-ui-skin="looseleaf"] #container.main {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(255, 253, 246, 0.3), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(42, 36, 32, 0.03), rgba(42, 36, 32, 0.03) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(42, 36, 32, 0.022), rgba(42, 36, 32, 0.022) 1px, transparent 1px, transparent 3px),
+    var(--morandi-bg);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .w-container {
+  background:
+    radial-gradient(ellipse at 50% -12%, rgba(255, 253, 246, 0.3), transparent 62%),
+    repeating-linear-gradient(0deg, rgba(42, 36, 32, 0.03), rgba(42, 36, 32, 0.03) 1px, transparent 1px, transparent 3px),
+    repeating-linear-gradient(90deg, rgba(42, 36, 32, 0.022), rgba(42, 36, 32, 0.022) 1px, transparent 1px, transparent 3px),
+    var(--morandi-canvas);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh > .w-menu {
+  border-bottom: 1px solid var(--morandi-border-strong);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh > .w-menu :is(a, span, .glyphicon, .bi) {
+  color: var(--morandi-text);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-tabs-sm, .w-detail-tabs, .w-com-tabs, .w-btn-group-sm, .w-com-tab-list) :is(.nav-link, .btn, .w-tab-btn) {
+  border-radius: 3px 3px 0 0 !important;
+}
+
+/* Text panes are paper, not white: the sketch never uses pure white stock. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-textarea > .fill, .w-textarea .CodeMirror, .w-textarea .CodeMirror-gutters) {
+  background: var(--morandi-surface-muted);
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .CodeMirror {
+  color: var(--morandi-text);
+}
