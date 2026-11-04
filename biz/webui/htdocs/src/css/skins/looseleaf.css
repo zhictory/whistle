@@ -26,7 +26,7 @@ html[data-ui-skin="looseleaf"] {
   --morandi-danger-soft: #f7e0d9;
   --morandi-warning: #a4502a;
   --morandi-success: #3b7a4b;
-  --morandi-font: "Kevin Sans Hand", "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
+  --morandi-font: "Avenir Next", "Avenir", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
   --morandi-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   --morandi-radius-sm: 3px;
   --morandi-radius-md: 4px;
