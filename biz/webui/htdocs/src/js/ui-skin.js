@@ -1,6 +1,6 @@
 var storage = require('./storage');
 
-var DEFAULT_SKIN = 'morandi';
+var DEFAULT_SKIN = 'looseleaf';
 var STORAGE_KEY = 'uiSkin';
 var SKINS = [
   {
