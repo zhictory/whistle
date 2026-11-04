@@ -243,3 +243,35 @@ html[data-ui-skin="looseleaf"] .w-ui-refresh :is(.w-textarea > .fill, .w-textare
 html[data-ui-skin="looseleaf"] .w-ui-refresh .CodeMirror {
   color: var(--morandi-text);
 }
+
+/* Hand-drawn outlines (js/ink). The CSS border steps aside so the pencil line
+   is the only edge; the drawn underline replaces the flat marker rule. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh :is(button.btn, button.w-tab-btn, button.nav-link, a.nav-link, input.form-control, input.fill, select.form-select).ink-decorated,
+html[data-ui-skin="looseleaf"] .modal :is(button.btn, input.form-control, select.form-select).ink-decorated {
+  position: relative;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html[data-ui-skin="looseleaf"] .ink-outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  color: var(--morandi-border-strong);
+  z-index: 1;
+}
+
+html[data-ui-skin="looseleaf"] :is(input, select).ink-decorated > .ink-outline {
+  color: var(--morandi-border);
+}
+
+html[data-ui-skin="looseleaf"] .ink-outline-mark {
+  color: var(--morandi-green);
+}
+
+html[data-ui-skin="looseleaf"] .ink-decorated > .ink-outline-mark {
+  stroke: var(--morandi-green);
+}

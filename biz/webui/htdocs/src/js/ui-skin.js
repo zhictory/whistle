@@ -50,6 +50,8 @@ function getQuerySkin() {
 function apply(value) {
   var skin = normalize(value) || DEFAULT_SKIN;
   document.documentElement.setAttribute('data-ui-skin', skin);
+  // The looseleaf skin needs the hand-drawn outlines; every other skin skips it.
+  require('./ink/ink-layer').sync(skin);
   return skin;
 }
 
