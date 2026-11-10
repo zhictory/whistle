@@ -44,7 +44,6 @@ var Icon = require('./icon');
 var CloseBtn = require('./close-btn');
 var CreateRuleDialog = require('./create-rule');
 var TestRuleDialog = require('./test-rule');
-var ModalHeader = require('./modal-header');
 var ModalFooter = require('./modal-footer');
 var bootstrapV5 = require('./bootstrap-v5');
 require('../css/index.css');
