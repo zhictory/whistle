@@ -24,6 +24,7 @@ var storage = require('./storage');
 var Dialog = require('./dialog');
 var ListDialog = require('./list-dialog');
 var FilterBtn = require('./filter-btn');
+var ModalHeader = require('./modal-header');
 var message = require('./message');
 var UpdateAllBtn = require('./update-all-btn');
 var ContextMenu = require('./context-menu');
@@ -85,6 +86,8 @@ var hideMenus = !!(query.hideMenus || query.hideMenu);
 var hideLeftMenu;
 var showTreeView;
 var dataUrl;
+var setFilterImport;
+var handleDataUrl;
 var TABS = ['network', 'rules', 'values', 'plugins'];
 var TEXT_SUFFIX_RE = /[\w-]\.(?:txt|csv|tsv|json|xml|yaml|yml|ini|conf|log|html|htm|css|js|py|java|c|cpp|h|sh|php|sql|md|markdown|rtf|tex|bib|vcf)(>)?$/i;
 var findDOMNode = ReactDOM.findDOMNode;
@@ -113,6 +116,7 @@ var noModal = util.noModal;
 var toKeys = util.toKeys;
 var CMD = util.CMD;
 var isCtrl = util.isCtrl;
+var getDataUrl = util.getDataUrl;
 var formatFilename = util.formatFilename;
 var createHover = util.createHover;
 var focus = util.focus;
@@ -132,6 +136,9 @@ var DEL_VALUE = CMF_DEL_MSG + 'all follow values or group?';
 var DISABLE_TIPS = 'Do you confirm disabling all ';
 var DISABLE_RULES = DISABLE_TIPS + 'rules?';
 var DISABLE_PLUGINS = DISABLE_TIPS + 'plugins?';
+var addNetworkList = dataCenter.addNetworkList;
+var rulesCgi = dataCenter.rules;
+var valuesCgi = dataCenter.values;
 
 function getSelectedClass(selected) {
   return selected ? ' w-menu-selected' : '';
@@ -183,12 +190,13 @@ function preventInputBlur(e) {
   e.target.nodeName != 'INPUT' && preventBlur(e);
 }
 
-globalWin.setWhistleDataUrl = function(url) {
-  if (url = trimStr(url)) {
-    if (dataCenter.handleDataUrl) {
-      dataCenter.handleDataUrl(url);
+globalWin.setWhistleDataUrl = function(url, filterImport) {
+  if (url = url && getDataUrl(url)) {
+    if (handleDataUrl) {
+      handleDataUrl(url, filterImport);
     } else {
       dataUrl = url;
+      setFilterImport = filterImport;
     }
     return true;
   }
@@ -867,10 +875,10 @@ var Index = React.createClass({
       }
     };
     if (isRules) {
-      dataCenter.rules.list(handleResponse);
+      rulesCgi.list(handleResponse);
       trigger('reloadRulesRecycleBin');
     } else {
-      dataCenter.values.list(handleResponse);
+      valuesCgi.list(handleResponse);
       trigger('reloadValuesRecycleBin');
     }
   },
@@ -977,7 +985,7 @@ var Index = React.createClass({
       break;
     }
   },
-  onCloseChooseFileTypeDialog: function() {
+  onCloseChooseFileType: function() {
     this.setState({ selectedSessions: null });
   },
   componentDidMount: function () {
@@ -1217,7 +1225,7 @@ var Index = React.createClass({
         if (!sure) {
           return;
         }
-        dataCenter.rules.add(
+        rulesCgi.add(
           {
             name: filename,
             value: data.data,
@@ -1252,7 +1260,7 @@ var Index = React.createClass({
         if (!sure) {
           return;
         }
-        dataCenter.values.add(
+        valuesCgi.add(
           {
             name: filename,
             value: data.data,
@@ -2090,10 +2098,10 @@ var Index = React.createClass({
         });
       }
     } catch (e) {}
-    self.handleDataUrl(dataUrl || util.getDataUrl());
-    dataCenter.handleDataUrl = self.handleDataUrl;
-    dataUrl = null;
-
+    handleDataUrl = function(url, filterImport) {
+      self.importSessionsFromUrl(url, filterImport === true);
+    };
+    handleDataUrl(dataUrl || getDataUrl(), !dataUrl || setFilterImport);
     var INTERVAL = 6000;
     var curNetworkSettings;
     var curRulesSettings;
@@ -2160,16 +2168,6 @@ var Index = React.createClass({
       util.openInNewWin(editorWin.getEditorValue() || '');
     } catch (e) {}
   },
-  handleDataUrl: function(url) {
-    if (url = trimStr(url)) {
-      var self = this;
-      dataCenter.getRemoteData(url, function(err, data) {
-        if (!err) {
-          self.importAnySessions(data);
-        }
-      });
-    }
-  },
   importAnySessions: function (data) {
     if (data && !handleImportData(data)) {
       var isArray = isArr(data);
@@ -2178,7 +2176,7 @@ var Index = React.createClass({
         data = [data];
       }
       if (isArr(data)) {
-        dataCenter.addNetworkList(data);
+        addNetworkList(data);
       } else {
         this.importHarSessions(data);
       }
@@ -2335,21 +2333,15 @@ var Index = React.createClass({
       return dataCenter.pauseNetworkRecord();
     }
     var refresh = type === 'refresh';
-    if (refresh) {
-      trigger('changeRecordState');
-    } else {
-      trigger('changeRecordState', 'stop');
-    }
+    trigger('changeRecordState', refresh ? '' : 'stop');
     dataCenter.stopNetworkRecord(!refresh);
-    if (refresh) {
-      return self.autoRefresh();
-    }
+    refresh && self.autoRefresh();
   },
   showNetwork: function (e, cb) {
     var self = this;
     if (self.state.name == 'network') {
       e && !self.state.showLeftMenu && self.showNetworkOptions();
-      return;
+      return isFunc(cb) && cb();
     }
     self.setMenuOptionsState();
     self.setState(
@@ -2363,9 +2355,7 @@ var Index = React.createClass({
           self._isAtBottom = false;
           self.autoRefresh && self.autoRefresh();
         }
-        if (isFunc(cb)) {
-          cb();
-        }
+        isFunc(cb) && cb();
       }
     );
     changePageName('network');
@@ -2445,11 +2435,14 @@ var Index = React.createClass({
       return self.showAndActiveValues({ id: 'exportValues', selectedList: getExportNames(state.values, curItem) });
     }
   },
-  importSessionsFromUrl: function (url) {
+  importSessionsFromUrl: function (url, filterImport) {
     var self = this;
     url && dataCenter.getRemoteData(url, function (err, data) {
-      if (!err) {
-        self.importAnySessions(data);
+      if (!err && data) {
+        self.showNetwork(null, function() {
+          self.importAnySessions(data);
+          filterImport && trigger('filterImport');
+        });
       }
     });
   },
@@ -2506,7 +2499,7 @@ var Index = React.createClass({
       var name = item.name;
 
       if (!modal.exists(name)) {
-        dataCenter.values.add({ name: name }, function (data, xhr) {
+        valuesCgi.add({ name: name }, function (data, xhr) {
           if (data && data.ec === 0) {
             var item = modal.add(name);
             self.setValuesActive(name);
@@ -2826,7 +2819,7 @@ var Index = React.createClass({
     } else if (groupItem) {
       params.groupName = groupItem.name;
     }
-    dataCenter.rules.add(params, function (data, xhr) {
+    rulesCgi.add(params, function (data, xhr) {
       if (data && data.ec === 0) {
         var item = modal[addToTop ? 'unshift' : 'add'](name);
         target.value = '';
@@ -2898,7 +2891,7 @@ var Index = React.createClass({
     } else if (groupItem) {
       params.groupName = groupItem.name;
     }
-    dataCenter.values.add(params, function (data, xhr) {
+    valuesCgi.add(params, function (data, xhr) {
       if (data && data.ec === 0) {
         var item = modal.add(name);
         target.value = '';
@@ -2993,7 +2986,7 @@ var Index = React.createClass({
       return;
     }
     var curName = activeItem.name;
-    dataCenter.rules.rename(
+    rulesCgi.rename(
       { name: curName, newName: name },
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3033,7 +3026,7 @@ var Index = React.createClass({
       return;
     }
     var curName = activeItem.name;
-    dataCenter.values.rename(
+    valuesCgi.rename(
       { name: curName, newName: name },
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3075,7 +3068,7 @@ var Index = React.createClass({
       return;
     }
     var self = this;
-    dataCenter.rules[item.isDefault ? 'enableDefault' : 'select'](
+    rulesCgi[item.isDefault ? 'enableDefault' : 'select'](
       item,
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3091,7 +3084,7 @@ var Index = React.createClass({
               'Rules are currently disabled. Enable them now?',
               function (sure) {
                 if (sure) {
-                  dataCenter.rules.disableAllRules(
+                  rulesCgi.disableAllRules(
                     { disabledAllRules: 0 },
                     function (data, xhr) {
                       if (data && data.ec === 0) {
@@ -3119,7 +3112,7 @@ var Index = React.createClass({
   },
   unselectRules: function (item) {
     var self = this;
-    dataCenter.rules[item.isDefault ? 'disableDefault' : 'unselect'](
+    rulesCgi[item.isDefault ? 'disableDefault' : 'unselect'](
       item,
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3152,7 +3145,7 @@ var Index = React.createClass({
       return;
     }
     var self = this;
-    dataCenter.values.add(item, function (data, xhr) {
+    valuesCgi.add(item, function (data, xhr) {
       if (data && data.ec === 0) {
         self.setSelected(self.state.values, item.name);
         self.triggerValuesChange('save');
@@ -3250,7 +3243,7 @@ var Index = React.createClass({
   },
   removeRulesBatch: function(list) {
     var self = this;
-    dataCenter.rules.remove({ list: list }, function (data, xhr) {
+    rulesCgi.remove({ list: list }, function (data, xhr) {
       if (data && data.ec === 0) {
         var nextItem;
         var modal = self.state.rules;
@@ -3273,7 +3266,7 @@ var Index = React.createClass({
   },
   removeValuesBatch: function(list) {
     var self = this;
-    dataCenter.values.remove({ list: list }, function (data, xhr) {
+    valuesCgi.remove({ list: list }, function (data, xhr) {
       if (data && data.ec === 0) {
         var nextItem;
         var modal = self.state.values;
@@ -3471,7 +3464,7 @@ var Index = React.createClass({
     var self = this;
     var state = self.state;
     var checked = !state.disabledAllRules;
-    dataCenter.rules.disableAllRules(
+    rulesCgi.disableAllRules(
       { disabledAllRules: checked ? 1 : 0 },
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3556,7 +3549,7 @@ var Index = React.createClass({
   },
   setMultipleCohice: function (checked) {
     var self = this;
-    dataCenter.rules.allowMultipleChoice(
+    rulesCgi.allowMultipleChoice(
       { allowMultipleChoice: checked ? 1 : 0 },
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3574,7 +3567,7 @@ var Index = React.createClass({
   },
   setBackRulesFirst: function (checked) {
     var self = this;
-    dataCenter.rules.enableBackRulesFirst(
+    rulesCgi.enableBackRulesFirst(
       { backRulesFirst: checked ? 1 : 0 },
       function (data, xhr) {
         if (data && data.ec === 0) {
@@ -3624,7 +3617,7 @@ var Index = React.createClass({
       entry = util.harToSession(entry);
       entry && sessions.push(entry);
     });
-    dataCenter.addNetworkList(sessions);
+    addNetworkList(sessions);
   },
   uploadSessionsForm: function (data) {
     if (!(data instanceof FormData)) {
@@ -3657,7 +3650,7 @@ var Index = React.createClass({
       });
       return;
     }
-    dataCenter.upload.importSessions(data, dataCenter.addNetworkList);
+    dataCenter.upload.importSessions(data, addNetworkList);
   },
   getExportSessions: function() {
     var self = this;
@@ -4079,7 +4072,7 @@ var Index = React.createClass({
           + (rulesOnlyMode || rulesMode ? ' w-show-rules-mode' : '')
         }
       >
-        <div className={'w-menu w-' + name + '-menu-list' + hideStyle + (showLeftMenu ? '' : ' w-top')} onContextMenu={self.onTopContextMenu}>
+        <div className={'w-menu w-middle w-' + name + '-menu-list' + hideStyle + (showLeftMenu ? '' : ' w-top')} onContextMenu={self.onTopContextMenu}>
           <a
             onClick={self.toggleLeftMenu}
             draggable="false"
@@ -4668,10 +4661,8 @@ var Index = React.createClass({
           onEnableHttps={self.interceptHttpsConnects}
           onEnableHttp2={self.enableHttp2}
         />
-        <Dialog ref="chooseFileType" wstyle="w-choose-file-type" onClose={self.onCloseChooseFileTypeDialog}>
-          <ModalHeader>
-            Export
-          </ModalHeader>
+        <Dialog ref="chooseFileType" wstyle="w-choose-file-type" onClose={self.onCloseChooseFileType}>
+          <ModalHeader>Export Sessions</ModalHeader>
           <div className="modal-body">
             <div className="w-choose-file-type-label">
               <span className="w-export-field-label">Save as</span>
@@ -4837,6 +4828,7 @@ var Index = React.createClass({
         />
         <ListDialog
           ref="selectRulesDialog"
+          title="Export Rules"
           name="rules"
           modal={state.rules}
           list={state.rules.list}

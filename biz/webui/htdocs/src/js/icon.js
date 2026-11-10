@@ -49,14 +49,6 @@ var BOOTSTRAP_ICONS = {
 };
 
 var Icon = React.createClass({
-  shouldComponentUpdate: function (nextProps) {
-    var props = this.props;
-    return props.name !== nextProps.name || props.className !== nextProps.className
-      || props['data-name'] !== nextProps['data-name']
-      || props['data-clipboard-text'] !== nextProps['data-clipboard-text']
-      || props.title !== nextProps.title
-      || props.onClick !== nextProps.onClick;
-  },
   render: function() {
     var props = this.props;
     var className = props.className;
