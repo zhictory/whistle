@@ -5,7 +5,6 @@ var localSource = require('../../../lib/local-source').get();
 
 module.exports = function(req, res) {
   var version = config.version;
-  var isLocal = !!localSource;
   var doNotShowAgainVersion = properties.get('doNotShowAgainVersion');
   var latestVersion = properties.getLatestVersion('latestVersion');
   var latestClientVersion = properties.getLatestVersion('latestClientVersion');
@@ -13,11 +12,11 @@ module.exports = function(req, res) {
 
   res.json({
     ec: 0,
-    showUpdate: !isLocal && !config.disableUpdateTips && hasNewVersion > 1 && common.compareVersion(latestVersion, doNotShowAgainVersion) > 1,
-    hasNewVersion: !isLocal && hasNewVersion > 0,
+    showUpdate: !config.disableUpdateTips && hasNewVersion > 1 && common.compareVersion(latestVersion, doNotShowAgainVersion) > 1,
+    hasNewVersion: hasNewVersion > 0,
     hasUpdater: config.hasUpdater,
     version: config.version,
-    latestVersion: isLocal ? '' : latestVersion,
+    latestVersion: latestVersion,
     latestClientVersion: latestClientVersion,
     localSource: localSource
   });

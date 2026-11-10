@@ -21,11 +21,6 @@ var About = React.createClass({
   hasNewVersion: function (data) {
     var clientVersion = this.props.clientVersion;
     var state = this.state;
-    if (data.localSource) {
-      state._hasNewWhistle = 0;
-      state._hasNewClient = 0;
-      return 0;
-    }
     var latestVersion = data.latestVersion;
     var latestClientVersion = data.latestClientVersion;
     var flag = compareVersion(latestVersion, data.version);

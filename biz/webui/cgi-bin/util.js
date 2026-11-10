@@ -58,7 +58,7 @@ exports.getServerInfo = function(req) {
     baseDir: baseDir,
     username: config.whistleName && config.username ? config.username + ' (' + config.whistleName + ')' : (config.username || config.whistleName),
     nodeVersion: process.version,
-    latestVersion: localSource ? '' : properties.getLatestVersion('latestVersion'),
+    latestVersion: properties.getLatestVersion('latestVersion'),
     latestClientVersion: properties.getLatestVersion('latestClientVersion'),
     localSource: localSource,
     host: util.hostname(),

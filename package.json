@@ -67,7 +67,7 @@
   "scripts": {
     "dev": "webpack --config ./biz/webui/htdocs/src/webpack.config -w",
     "build:web": "webpack --config ./biz/webui/htdocs/src/webpack.config.js",
-    "w2u": "git pull --ff-only && npm run build:web && w2 restart",
+    "w2u": "git fetch upstream --tags && git merge --no-edit upstream/master && npm run build:web && w2 restart",
     "w2u:deps": "npm install",
     "start": "node bin/whistle.js run",
     "test": "npm run lintfix && node test/index.test.js",
