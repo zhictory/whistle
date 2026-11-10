@@ -21,3 +21,9 @@
 .w-about-menu {
   position: relative;
 }
+
+.w-about-dialog .w-local-source {
+  margin-left: 5px;
+  color: var(--morandi-muted);
+  cursor: help;
+}

@@ -3,6 +3,7 @@ var config = require('../../../lib/config');
 var proc = require('../../../lib/util/process');
 var rulesUtil = require('../../../lib/rules/util');
 var padLeft = require('../../../lib/util/common').padLeft;
+var localSource = require('../../../lib/local-source').get();
 
 var properties = rulesUtil.properties;
 var rules = rulesUtil.rules;
@@ -57,8 +58,9 @@ exports.getServerInfo = function(req) {
     baseDir: baseDir,
     username: config.whistleName && config.username ? config.username + ' (' + config.whistleName + ')' : (config.username || config.whistleName),
     nodeVersion: process.version,
-    latestVersion: properties.getLatestVersion('latestVersion'),
+    latestVersion: localSource ? '' : properties.getLatestVersion('latestVersion'),
     latestClientVersion: properties.getLatestVersion('latestClientVersion'),
+    localSource: localSource,
     host: util.hostname(),
     isWin: util.isWin,
     port: config.port,

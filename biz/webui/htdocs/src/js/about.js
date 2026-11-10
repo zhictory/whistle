@@ -21,6 +21,11 @@ var About = React.createClass({
   hasNewVersion: function (data) {
     var clientVersion = this.props.clientVersion;
     var state = this.state;
+    if (data.localSource) {
+      state._hasNewWhistle = 0;
+      state._hasNewClient = 0;
+      return 0;
+    }
     var latestVersion = data.latestVersion;
     var latestClientVersion = data.latestClientVersion;
     var flag = compareVersion(latestVersion, data.version);
@@ -41,6 +46,7 @@ var About = React.createClass({
         version: data.version,
         latestVersion: data.latestVersion,
         latestClientVersion: data.latestClientVersion,
+        localSource: data.localSource,
         hasUpdate: self.checkUpdate(self.hasNewVersion(data))
       });
     };
@@ -87,6 +93,7 @@ var About = React.createClass({
           version: data.version,
           latestVersion: latestVersion,
           latestClientVersion: latestClientVersion,
+          localSource: data.localSource,
           hasUpdate: self.checkUpdate(self.hasNewVersion(data))
         });
       }
@@ -105,6 +112,7 @@ var About = React.createClass({
     var version = state.version;
     var latest = state.latestVersion;
     var latestClient = state.latestClientVersion;
+    var localSource = state.localSource;
     var clientVersion = self.props.clientVersion;
     var hasNewWhistle = state._hasNewWhistle;
     var hasNewClient = state._hasNewClient;
@@ -161,6 +169,15 @@ var About = React.createClass({
               >
                 (NEW: {latest})
               </a> : null}
+              {localSource ? <span
+                className="w-local-source"
+                title={'Built from ' + localSource.root +
+                  (localSource.branch ? ' on ' + localSource.branch : '') +
+                  (localSource.commit ? ' (' + localSource.commit + '),' : ',') +
+                  ' run npm run w2u there to update'}
+              >
+                (local source)
+              </span> : null}
               <br />
               Visit{' '}
               <a

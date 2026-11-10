@@ -6,6 +6,7 @@ var fs = require('fs');
 var config = require('../lib/config');
 var common = require('../lib/util/common');
 var colors = require('colors/safe');
+var localSourceUtil = require('../lib/local-source');
 var path = require('path');
 var extend = require('extend');
 var createHmac = require('crypto').createHmac;
@@ -71,32 +72,8 @@ function showKillError() {
 
 exports.showKillError = showKillError;
 
-var localSource;
-
-function getGitBranch(root) {
-  try {
-    return cp.execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
-      cwd: root,
-      timeout: 1000,
-      stdio: ['ignore', 'pipe', 'ignore']
-    }).toString().trim();
-  } catch (e) {}
-}
-
-function getLocalSource() {
-  if (localSource === undefined) {
-    var root = path.resolve(__dirname, '..');
-    var isGit = false;
-    try {
-      isGit = fs.existsSync(path.join(root, '.git'));
-    } catch (e) {}
-    localSource = isGit ? { root: root, branch: getGitBranch(root) } : null;
-  }
-  return localSource;
-}
-
 function showLocalSource() {
-  var local = getLocalSource();
+  var local = localSourceUtil.get();
   if (!local) {
     return;
   }

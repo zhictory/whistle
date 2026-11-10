@@ -5,6 +5,7 @@ var config = require('../../../lib/config');
 var rulesUtil = require('../../../lib/rules/util');
 var ca = require('../../../lib/https/ca');
 var proxy = require('../lib/proxy');
+var localSource = require('../../../lib/local-source').get();
 
 var properties = rulesUtil.properties;
 var logger = proxy.logger;
@@ -29,7 +30,7 @@ module.exports = function(req, res) {
     mrulesTime: config.mrulesTime,
     mvaluesClientId: config.mvaluesClientId,
     mvaluesTime: config.mvaluesTime,
-    latestVersion: properties.getLatestVersion('latestVersion'),
+    latestVersion: localSource ? '' : properties.getLatestVersion('latestVersion'),
     latestClientVersion: properties.getLatestVersion('latestClientVersion'),
     server: util.getServerInfo(req),
     rules: getRules(),
@@ -40,6 +41,7 @@ module.exports = function(req, res) {
     disabledPlugins: !config.notAllowedDisablePlugins && properties.get('disabledPlugins') || {},
     disabledAllPlugins: !config.notAllowedDisablePlugins && properties.get('disabledAllPlugins'),
     disabledAllRules: !config.notAllowedDisableRules && properties.get('disabledAllRules'),
-    localUIHost: config.localUIHost
+    localUIHost: config.localUIHost,
+    localSource: localSource
   });
 };
