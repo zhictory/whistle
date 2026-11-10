@@ -72,18 +72,38 @@ function showKillError() {
 
 exports.showKillError = showKillError;
 
+function repeat(str, count) {
+  var result = '';
+  while (count-- > 0) {
+    result += str;
+  }
+  return result;
+}
+
 function showLocalSource() {
   var local = localSourceUtil.get();
   if (!local) {
     return;
   }
-  var msg = '[i] Running from local source: ' + colors.bold(local.root);
-  if (local.branch && local.branch !== 'HEAD') {
-    msg += ' (' + local.branch + ')';
+  var ref = local.branch || 'detached HEAD';
+  if (local.commit) {
+    ref += ' @ ' + local.commit;
   }
-  info(msg);
-  info('    The web UI is compiled from this checkout, run ' + colors.bold('npm run w2u') +
-    ' there after pulling changes');
+  var rows = [
+    colors.bold(local.root) + '  (' + ref + ')',
+    'The web UI is built from this checkout, run ' + colors.bold('npm run w2u') +
+      ' after pulling changes.'
+  ];
+  var inner = Math.max.apply(null, rows.map(function(row) {
+    return colors.stripColors(row).length;
+  })) + 2;
+  var head = '+-- local source ';
+  console.log(colors.cyan(head + repeat('-', inner + 3 - head.length) + '+'));
+  rows.forEach(function(row) {
+    var pad = repeat(' ', inner - colors.stripColors(row).length);
+    console.log(colors.cyan('| ') + row + pad + colors.cyan(' |'));
+  });
+  console.log(colors.cyan('+' + repeat('-', inner + 2) + '+'));
 }
 
 function showUsage(isRunning, options, restart) {
