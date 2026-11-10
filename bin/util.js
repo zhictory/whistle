@@ -71,6 +71,44 @@ function showKillError() {
 
 exports.showKillError = showKillError;
 
+var localSource;
+
+function getGitBranch(root) {
+  try {
+    return cp.execFileSync('git', ['rev-parse', '--abbrev-ref', 'HEAD'], {
+      cwd: root,
+      timeout: 1000,
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).toString().trim();
+  } catch (e) {}
+}
+
+function getLocalSource() {
+  if (localSource === undefined) {
+    var root = path.resolve(__dirname, '..');
+    var isGit = false;
+    try {
+      isGit = fs.existsSync(path.join(root, '.git'));
+    } catch (e) {}
+    localSource = isGit ? { root: root, branch: getGitBranch(root) } : null;
+  }
+  return localSource;
+}
+
+function showLocalSource() {
+  var local = getLocalSource();
+  if (!local) {
+    return;
+  }
+  var msg = '[i] Running from local source: ' + colors.bold(local.root);
+  if (local.branch && local.branch !== 'HEAD') {
+    msg += ' (' + local.branch + ')';
+  }
+  info(msg);
+  info('    The web UI is compiled from this checkout, run ' + colors.bold('npm run w2u') +
+    ' there after pulling changes');
+}
+
 function showUsage(isRunning, options, restart) {
   var rcConf;
   if (isRunning) {
@@ -89,6 +127,7 @@ function showUsage(isRunning, options, restart) {
       info('[i] Load configuration from ~/.whistlerc: ' + rcStr);
     }
     info('[i] ' + config.appName + '@' + config.version + (restart ? ' restarted' : ' started'));
+    showLocalSource();
   }
   options = options ? extend({}, rcConf, options) : rcConf;
   options = formatOptions(options);
