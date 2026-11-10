@@ -92,7 +92,9 @@ function showLocalSource() {
   var rows = [
     colors.bold(local.root) + '  (' + ref + ')',
     'The web UI is built from this checkout, run ' + colors.bold('npm run w2u') +
-      ' after pulling changes.'
+      ' after pulling changes.',
+    'To go back to the published release:',
+    '  ' + colors.bold('npm rm -g whistle && npm i -g whistle')
   ];
   var inner = Math.max.apply(null, rows.map(function(row) {
     return colors.stripColors(row).length;
