@@ -28,6 +28,7 @@ var CodeMirror = require('codemirror');
 var message = require('./message');
 var util = require('./util');
 var dataCenter = require('./data-center');
+var uiScale = require('./ui-scale');
 
 var themes = util.EDITOR_THEMES;
 var isFunc = util.isFunc;
@@ -167,6 +168,32 @@ var Editor = React.createClass({
     if (self._editor) {
       self.refs.editor.style.fontSize = fontSize || DEFAULT_FONT_SIZE;
     }
+  },
+  // The shell is shrunk with CSS `zoom` (see ui-scale.js). CodeMirror measures
+  // its character width with getBoundingClientRect, which already includes the
+  // ancestor zoom, so its internal cursor math is correct -- but the browser
+  // then re-applies the same zoom to the *rendered* glyphs, so the caret ends
+  // up offset from the text. Counter-zoom the editor by 1/scale and scale its
+  // font down by scale so the rendered size still matches the rest of the UI
+  // while CodeMirror again measures at a clean 1:1 ratio.
+  applyUiScale: function () {
+    var self = this;
+    var editor = self._editor;
+    if (!editor) {
+      return;
+    }
+    var wrapper = editor.getWrapperElement();
+    if (!wrapper) {
+      return;
+    }
+    var scale = uiScale.getScale() || 1;
+    if (scale === self._uiScale) {
+      return;
+    }
+    self._uiScale = scale;
+    wrapper.style.zoom = String(1 / scale);
+    wrapper.style.fontSize = (parseFloat(DEFAULT_FONT_SIZE) * scale) + 'px';
+    editor.refresh();
   },
   showLineNumber: function (show) {
     this.setOpt('lineNumbers', isTrue(show));
@@ -327,6 +354,7 @@ var Editor = React.createClass({
     });
     self._init(true);
     $(elem).find('.CodeMirror').addClass('fill');
+    self.applyUiScale();
     setTimeout(resize, 10);
     $(globalWin).on('resize', resetThrottle);
     addEvent('editorResize', resetThrottle);
@@ -565,6 +593,7 @@ var Editor = React.createClass({
     self.setReadOnly(props.readOnly || false);
     self.setAutoComplete();
     self.setFoldGutter(props.foldGutter);
+    self.applyUiScale();
   },
   componentDidUpdate: function () {
     this._init();
