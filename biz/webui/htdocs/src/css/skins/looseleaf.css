@@ -201,6 +201,24 @@ html[data-ui-skin="looseleaf"] .w-ui-refresh .w-left-menu::after {
   filter: none;
 }
 
+/* Left rail: one marker instead of a stack of highlights.
+ * The base refresh layer selects a nav item with orange text, a sage fill,
+ * an inverted orange icon chip and a marker bar all at once. Looseleaf keeps
+ * only the bar, so the paper stays calm and the icon keeps its normal ink. */
+html[data-ui-skin="looseleaf"] .w-ui-refresh .w-left-menu a.w-menu-selected {
+  color: var(--morandi-text) !important;
+  background: transparent !important;
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .w-left-menu a.w-menu-selected:hover {
+  background: var(--ui-hover) !important;
+}
+
+html[data-ui-skin="looseleaf"] .w-ui-refresh .w-left-menu a.w-menu-selected :is(.glyphicon, .bi) {
+  color: var(--morandi-green);
+  background: var(--morandi-sage-soft);
+}
+
 /* The desk is the shell; the sheets are the panels. */
 html[data-ui-skin="looseleaf"] #container.main,
 html[data-ui-skin="looseleaf"] .w-ui-refresh > .w-menu {
