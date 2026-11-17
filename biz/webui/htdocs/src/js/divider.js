@@ -5,7 +5,6 @@ var util = require('./util');
 var uiScale = require('./ui-scale');
 
 var getHideStyle = util.getHideStyle;
-var getBool = util.getBool;
 
 util.addDragEvent('.w-divider', function (target, x, y) {
   target = target.parent();
@@ -50,7 +49,7 @@ var Divider = React.createClass({
     }
     self._needReset = false;
     var props = self.props;
-    var vertical = getBool(props.vertical);
+    var vertical = props.vertical;
     var prop = vertical ? 'height' : 'width';
     var con = $(divider);
     var leftElem = con.children('.w-divider-left');
@@ -80,7 +79,7 @@ var Divider = React.createClass({
   render: function () {
     var self = this;
     var props = self.props;
-    var vertical = getBool(props.vertical);
+    var vertical = props.vertical;
     var divider = <div className="w-divider" onDoubleClick={self.reset} />;
     var hideLeft = props.hideLeft;
     var hideRight = props.hideRight;

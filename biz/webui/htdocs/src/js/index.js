@@ -4472,7 +4472,7 @@ var Index = React.createClass({
               draggable="false"
             >
               <Icon name={networkType} />
-              <i className="w-left-menu-name">Network</i>
+              <i className="w-name">Network</i>
             </a>
             <a
               onClick={showRules}
@@ -4481,7 +4481,7 @@ var Index = React.createClass({
               draggable="false"
             >
               <Icon name="list" className={disabledAllRules ? 'w-disabled' : ''} />
-              <i className="w-left-menu-name">Rules</i>
+              <i className="w-name">Rules</i>
               <i
                 className="w-menu-changed"
                 style={getHideStyle(!state.rules.hasChanged())}
@@ -4496,7 +4496,7 @@ var Index = React.createClass({
               draggable="false"
             >
               <Icon name="folder-close" />
-              <i className="w-left-menu-name">Values</i>
+              <i className="w-name">Values</i>
               <i
                 className="w-menu-changed"
                 style={getHideStyle(!state.values.hasChanged())}
@@ -4511,7 +4511,7 @@ var Index = React.createClass({
               draggable="false"
             >
               <Icon name="th-large" className={disabledAllPlugins ? 'w-disabled' : ''} />
-              <i className="w-left-menu-name">Plugins</i>
+              <i className="w-name">Plugins</i>
             </a>
           </div>
           {state.hasRules ? (
