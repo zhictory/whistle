@@ -101,7 +101,7 @@ function getCmd(addArgv) {
     cmdName = match[1] + ' ';
     g = ' ' + (match[2] || '').trim();
   } else {
-    cmdName = 'w2 ';
+    cmdName = 'w3 ';
   }
   return cmdName + 'install' + g + ' ' + (addArgv ? getArgvs(dataCenter.account, dataCenter.whistleName) : '');
 }
@@ -515,7 +515,7 @@ var Home = React.createClass({
         }).filter(util.noop).join('\n');
         if (spaces && !registry) {
           cmdMsg += spaces;
-        } else if (cmdMsg === 'w2 install') {
+        } else if (cmdMsg === 'w3 install') {
           cmdMsg += ' ';
         }
       } else {

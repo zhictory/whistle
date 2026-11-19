@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 /*
- * update-eruda.js — 把自定义 eruda 构建注入 whistle.inspect 插件（方案 2）
+ * update-eruda.js — 把自定义 eruda 构建注入 whistle.inspect 插件
+ *
+ * 默认定位随 @zhictory/whistle 发布的内置插件（builtin_plugins/whistle.inspect），
+ * 其次才是用户安装的 whistle.inspect。更新 eruda 后重跑本脚本，再发布 whistle 即可。
  *
  * 用法：
  *   node update-eruda.js                      # 默认取 F:\eruda\dist\eruda.js 并自动定位插件
@@ -81,6 +84,8 @@ function findValuesFile(explicit) {
   const candidates = [];
   if (explicit) candidates.push(explicit);
   if (process.env.WHISTLE_INSPECT_VALUES) candidates.push(process.env.WHISTLE_INSPECT_VALUES);
+  // 随 @zhictory/whistle 发布的内置插件优先：更新 eruda 即更新 whistle。
+  candidates.push(path.join(__dirname, 'builtin_plugins', 'whistle.inspect', '_values.txt'));
   candidates.push(path.join(home, '.WhistleAppData', 'custom_plugins', 'whistle.inspect',
     'node_modules', 'whistle.inspect', '_values.txt'));
 

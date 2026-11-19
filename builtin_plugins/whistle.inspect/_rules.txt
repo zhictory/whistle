@@ -1,0 +1,1 @@
+* jsPrepend://`{whistle.inspect/${whistle.inspect.replace(/^([em])?.*/i,$1)}v.js}` enable://strictHtml

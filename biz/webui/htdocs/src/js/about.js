@@ -169,7 +169,7 @@ var About = React.createClass({
                 title={'Built from ' + localSource.root +
                   (localSource.branch ? ' on ' + localSource.branch : '') +
                   (localSource.commit ? ' (' + localSource.commit + '),' : ',') +
-                  ' run npm run w2u there to update'}
+                  ' run npm run w3u there to update'}
               >
                 (local source)
               </span> : null}

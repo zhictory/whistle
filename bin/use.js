@@ -188,7 +188,7 @@ var getNoRunningError = function(storage, isClient) {
   if (isClient) {
     return new Error('No running Whistle client. Please install and start the latest Whistle client: https://github.com/avwo/whistle-client');
   }
-  return new Error('No running Whistle instances. Execute `w2 start' + (storage ? ' -S ' + storage : '') + '` to start Whistle on the cli');
+  return new Error('No running Whistle instances. Execute `w3 start' + (storage ? ' -S ' + storage : '') + '` to start Whistle on the cli');
 };
 
 function getConfig(filepath, storage, force, isClient, cb) {

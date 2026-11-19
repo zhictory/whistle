@@ -91,10 +91,10 @@ function showLocalSource() {
   }
   var rows = [
     colors.bold(local.root) + '  (' + ref + ')',
-    'The web UI is built from this checkout, run ' + colors.bold('npm run w2u') +
+    'The web UI is built from this checkout, run ' + colors.bold('npm run w3u') +
       ' after pulling changes.',
     'To go back to the published release:',
-    '  ' + colors.bold('npm rm -g whistle && npm i -g whistle')
+    '  ' + colors.bold('npm rm -g @zhictory/whistle && npm i -g @zhictory/whistle')
   ];
   var inner = Math.max.apply(null, rows.map(function(row) {
     return colors.stripColors(row).length;

@@ -1,7 +1,12 @@
-# 自定义 eruda 注入 whistle.inspect（方案 2）
+# 自定义 eruda 注入 whistle.inspect
 
 把 `F:\eruda` 的构建产物写进 whistle.inspect 插件的 `_values.txt`（键 `whistle.inspect/ev.js`），
 保留插件原有的 HEADER/FOOTER 桥接，规则里用 `whistle.inspect://eruda` 即可注入你的构建。
+
+脚本**优先定位 `@zhictory/whistle` 随包发布的内置插件**
+（`whistle 安装目录\builtin_plugins\whistle.inspect\_values.txt`），找不到才回退到用户安装的
+`whistle.inspect`。因此更新 eruda 的标准流程是：重建 eruda → 跑本脚本（更新内置插件）
+→ bump whistle 版本并发布；用户更新 `@zhictory/whistle` 即同步获得新 eruda。
 
 ## 日常用法
 
@@ -16,7 +21,7 @@
 
 | 步骤 | 说明 |
 | --- | --- |
-| 定位文件 | 自动找 `%USERPROFILE%\.WhistleAppData\custom_plugins\*\node_modules\whistle.inspect\_values.txt`，并默认在 `F:\eruda\dist\eruda.js` 找构建 |
+| 定位文件 | 优先找 whistle 安装目录下 `builtin_plugins\whistle.inspect\_values.txt`，回退找 `%USERPROFILE%\.WhistleAppData\custom_plugins\*\node_modules\whistle.inspect\_values.txt`，并默认在 `F:\eruda\dist\eruda.js` 找构建 |
 | 构建校验 | 检查是否 UMD（拒绝 ESM / `import.meta`）、体积是否异常、是否含 UMD 入口，读取 `eruda vX.Y.Z` 版本号 |
 | 拼接包装 | HEADER（局部 `module`/`exports`）+ 去掉 `sourceMappingURL` 的 UMD + FOOTER（`window.whistleInspectEruda = eruda; eruda.init();`） |
 | 语法校验 | `new Function(ev)` 整段编译；检查桥接变量与非法 `{{whistlePlugin…}}` 占位符 |

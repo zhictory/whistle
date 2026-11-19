@@ -73,8 +73,8 @@ function showStartupInfo(err, options, debugMode, restart) {
     options = util.formatOptions(options);
     var port = options.port || config.port;
     error('[!] Failed to bind proxy port ' + (options.host ? util.joinIpPort(options.host, port) : port) + ': Port already in use');
-    info('[i] ' + config.appName + ' may already be running. Try: ' + (debugMode ? 'w2 stop' : 'w2 restart') + ' to ' + (debugMode ? 'stop' : 'restart') + ' ' + config.appName);
-    info('    or use a different port with: ' + (debugMode ? '`w2 run -p newPort`\n' : '`w2 start -p newPort`\n'));
+    info('[i] ' + config.appName + ' may already be running. Try: ' + (debugMode ? 'w3 stop' : 'w3 restart') + ' to ' + (debugMode ? 'stop' : 'restart') + ' ' + config.appName);
+    info('    or use a different port with: ' + (debugMode ? '`w3 run -p newPort`\n' : '`w3 start -p newPort`\n'));
   } else if (err.code == 'EACCES' || err.code == 'EPERM') {
     error('[!] Permission denied: Cannot start ' + config.appName + ' as root');
     info('[i] Try running with sudo\n');
@@ -93,9 +93,9 @@ program.setConfig({
   main: function(options) {
     var cmd = process.argv[2];
     if ((cmd === 'start' || cmd === 'restart') && (options.inspect || options.inspectBrk)) {
-      error('[!] Inspector mode only supported with `w2 run` command');
+      error('[!] Inspector mode only supported with `w3 run` command');
       var argv = Array.prototype.slice.call(process.argv, 3);
-      info('[i] Usage: w2 run' + (argv.length ? ' ' + argv.join(' ') : ''));
+      info('[i] Usage: w3 run' + (argv.length ? ' ' + argv.join(' ') : ''));
       return process.exit(1);
     }
     var hash = options && options.storage && encodeURIComponent(options.storage);

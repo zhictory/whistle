@@ -1,7 +1,9 @@
 {
-  "name": "whistle",
+  "name": "@zhictory/whistle",
   "description": "HTTP, HTTP2, HTTPS, Websocket debugging proxy",
   "version": "2.10.15",
+  "appName": "Whistle",
+  "cmdName": "w3",
   "dataDirname": ".whistle",
   "localUIHost": "local.whistlejs.com",
   "port": 8899,
@@ -11,9 +13,9 @@
   "contributors": [],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/avwo/whistle/issues"
+    "url": "https://github.com/zhictory/whistle/issues"
   },
-  "homepage": "https://wproxy.org",
+  "homepage": "https://github.com/zhictory/whistle",
   "keywords": [
     "http-proxy",
     "https-proxy",
@@ -28,13 +30,14 @@
     "charles-alternative"
   ],
   "bin": {
+    "w3": "./bin/whistle.js",
     "whistle": "./bin/whistle.js",
     "w2": "./bin/whistle.js",
     "wproxy": "./bin/whistle.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/avwo/whistle.git"
+    "url": "https://github.com/zhictory/whistle.git"
   },
   "dependencies": {
     "adm-zip": "^0.6.1",
@@ -67,8 +70,10 @@
   "scripts": {
     "dev": "webpack --config ./biz/webui/htdocs/src/webpack.config -w",
     "build:web": "webpack --config ./biz/webui/htdocs/src/webpack.config.js",
-    "w2u": "git fetch upstream --tags && git merge --no-edit upstream/master && npm run build:web && w2 restart",
-    "w2u:deps": "npm install",
+    "w3u": "git fetch upstream --tags && git merge --no-edit upstream/master && npm run build:web && w3 restart",
+    "w2u": "npm run w3u",
+    "w3u:deps": "npm install",
+    "w2u:deps": "npm run w3u:deps",
     "start": "node bin/whistle.js run",
     "test": "npm run lintfix && node test/index.test.js",
     "lint": "eslint *.js ./lib ./bin ./biz ./test ./docs/script",
