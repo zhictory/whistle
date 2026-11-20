@@ -446,6 +446,7 @@ export default defineConfig({
         ]
       },
       { text: '命令行操作', link: '/docs/cli' },
+      { text: '技术栈', link: '/docs/tech-stack' },
       { text: '常见问题', link: '/docs/faq' },
     ],
 

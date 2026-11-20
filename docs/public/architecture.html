@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whistle 运行时架构</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600&family=Noto+Serif+SC:wght@400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper:  #fbf6e9;
+      --color-ink:    #2a2420;
+      --color-muted:  #4a423b;
+      --color-accent: #b34f24;
+      --font-sans:  'Avenir Next', 'Avenir', 'Segoe UI', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-serif: 'Instrument Serif', 'Noto Serif SC', 'Songti SC', serif;
+      --font-mono:  'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .frame { max-width: 1280px; width: 100%; }
+
+    /* The SVG keeps its readable width (min-width == the 1280 viewBox), so the
+       type ramp is never silently scaled down; a narrow screen scrolls the
+       diagram, not the page. */
+    .diagram-container { width: 100%; overflow-x: auto; }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 2.4vw + 0.75rem, 2rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--color-ink);
+      margin-bottom: 1.5rem;
+    }
+
+    svg { width: 100%; min-width: 1280px; display: block; }
+    .fn { font-family: var(--font-sans); }
+    .fm { font-family: var(--font-mono); }
+    .fs { font-family: var(--font-serif); }
+
+    .caption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      line-height: 1.7;
+      color: var(--color-muted);
+      margin-top: 1.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(42, 36, 32, 0.12);
+    }
+
+    /* Paper has no scrollbar, so release the scroller and let the drawing
+       scale to the sheet. Must come after the svg rule above. */
+    @media print {
+      .diagram-container { overflow-x: visible; }
+      svg { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="eyebrow">Architecture · Whistle Tech Stack</p>
+    <h1>Whistle 运行时架构：一条请求的两个面</h1>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="whistle-arch-title whistle-arch-desc">
+        <title id="whistle-arch-title">Whistle 运行时架构</title>
+        <desc id="whistle-arch-desc">客户端经 HTTPS 进入 whistle 代理内核，内核按规则与插件改写到上游服务，并把会话写入进程内的会话数据，由 WebUI 服务通过 XHR 轮询读取后交给 React 前端渲染。</desc>
+        <defs>
+          <marker id="whistle-arch-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#4a423b"/>
+          </marker>
+          <marker id="whistle-arch-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#b34f24"/>
+          </marker>
+          <marker id="whistle-arch-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="#2c4f9e"/>
+          </marker>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#fbf6e9"/>
+
+        <!-- Zone: the single Node.js process. Painted before arrows. -->
+        <rect x="344" y="104" width="600" height="496" rx="8"
+              fill="rgba(42,36,32,0.02)" stroke="rgba(42,36,32,0.10)" stroke-width="0.8"/>
+        <rect x="360" y="108" width="96" height="12" rx="2" fill="#fbf6e9"/>
+        <text class="fm" x="408" y="117" fill="#6b6259" font-size="7" font-weight="500"
+              text-anchor="middle" letter-spacing="0.14em">WHISTLE · NODE.JS</text>
+
+        <!-- Arrows first, so nodes paint on top. -->
+        <line x1="240" y1="176" x2="440" y2="176" fill="none" stroke="#4a423b" stroke-width="1.2" marker-end="url(#whistle-arch-arrow)"/>
+        <line x1="648" y1="176" x2="1000" y2="176" fill="none" stroke="#2c4f9e" stroke-width="1.2" marker-end="url(#whistle-arch-arrow-link)"/>
+        <line x1="480" y1="328" x2="480" y2="216" fill="none" stroke="#4a423b" stroke-width="1.2" marker-end="url(#whistle-arch-arrow)"/>
+        <path d="M 240,360 H 344 Q 352,360 352,352 V 208 Q 352,200 360,200 H 440"
+              fill="none" stroke="#4a423b" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#whistle-arch-arrow)"/>
+        <line x1="616" y1="216" x2="616" y2="504" fill="none" stroke="#4a423b" stroke-width="1.2" marker-end="url(#whistle-arch-arrow)"/>
+        <line x1="672" y1="536" x2="776" y2="536" fill="none" stroke="#4a423b" stroke-width="1.2" marker-end="url(#whistle-arch-arrow)"/>
+        <line x1="928" y1="536" x2="1016" y2="536" fill="none" stroke="#2c4f9e" stroke-width="1.2" marker-end="url(#whistle-arch-arrow-link)"/>
+
+        <!-- Arrow labels: opaque masks, 6–8px clear of the stroke. -->
+        <rect x="304" y="152" width="72" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="340" y="164" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">HTTPS 解密</text>
+
+        <rect x="788" y="152" width="72" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="824" y="164" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">转发 · 隧道</text>
+
+        <rect x="488" y="264" width="60" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="518" y="276" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">规则匹配</text>
+
+        <rect x="360" y="264" width="60" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="390" y="276" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">签发证书</text>
+
+        <rect x="624" y="352" width="60" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="654" y="364" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">会话记录</text>
+
+        <rect x="694" y="514" width="60" height="16" rx="2" fill="#fbf6e9"/>
+        <text class="fn" x="724" y="526" fill="#6b6259" font-size="12" font-weight="500" text-anchor="middle">会话数据</text>
+
+        <rect x="941" y="516" width="62" height="12" rx="2" fill="#fbf6e9"/>
+        <text class="fm" x="972" y="525" fill="#6b6259" font-size="8" text-anchor="middle" letter-spacing="0.06em">HTTP · CGI</text>
+
+        <!-- Nodes: paper mask, box, type tag, name, technical sublabel. -->
+        <!-- 客户端 (external) -->
+        <rect x="88" y="152" width="152" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="88" y="152" width="152" height="64" rx="6" fill="rgba(42,36,32,0.03)" stroke="rgba(42,36,32,0.30)" stroke-width="1"/>
+        <rect x="96" y="158" width="28" height="12" rx="2" fill="transparent" stroke="rgba(42,36,32,0.20)" stroke-width="0.8"/>
+        <text class="fm" x="110" y="167" fill="rgba(42,36,32,0.75)" font-size="7" text-anchor="middle" letter-spacing="0.08em">IN</text>
+        <text class="fn" x="164" y="186" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">客户端</text>
+        <text class="fm" x="164" y="202" fill="#4a423b" font-size="9" text-anchor="middle">browser / app</text>
+
+        <!-- 代理内核 (focal) -->
+        <rect x="440" y="152" width="208" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="440" y="152" width="208" height="64" rx="6" fill="rgba(223,107,60,0.10)" stroke="#b34f24" stroke-width="1"/>
+        <rect x="448" y="158" width="28" height="12" rx="2" fill="transparent" stroke="rgba(179,79,36,0.40)" stroke-width="0.8"/>
+        <text class="fm" x="462" y="167" fill="rgba(179,79,36,0.80)" font-size="7" text-anchor="middle" letter-spacing="0.08em">CORE</text>
+        <text class="fn" x="544" y="186" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">代理内核</text>
+        <text class="fm" x="544" y="202" fill="#4a423b" font-size="9" text-anchor="middle">net · tls · http2 · hparser</text>
+
+        <!-- 上游服务 (external) -->
+        <rect x="1000" y="152" width="192" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="1000" y="152" width="192" height="64" rx="6" fill="rgba(42,36,32,0.03)" stroke="rgba(42,36,32,0.30)" stroke-width="1"/>
+        <rect x="1008" y="158" width="28" height="12" rx="2" fill="transparent" stroke="rgba(42,36,32,0.20)" stroke-width="0.8"/>
+        <text class="fm" x="1022" y="167" fill="rgba(42,36,32,0.75)" font-size="7" text-anchor="middle" letter-spacing="0.08em">EXT</text>
+        <text class="fn" x="1096" y="186" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">上游服务</text>
+        <text class="fm" x="1096" y="202" fill="#4a423b" font-size="9" text-anchor="middle">http / https / ws</text>
+
+        <!-- 规则与插件 (backend) -->
+        <rect x="376" y="328" width="208" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="376" y="328" width="208" height="64" rx="6" fill="#fffdf6" stroke="#2a2420" stroke-width="1"/>
+        <rect x="384" y="334" width="28" height="12" rx="2" fill="transparent" stroke="rgba(42,36,32,0.40)" stroke-width="0.8"/>
+        <text class="fm" x="398" y="343" fill="rgba(42,36,32,0.80)" font-size="7" text-anchor="middle" letter-spacing="0.08em">RULE</text>
+        <text class="fn" x="480" y="362" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">规则与插件</text>
+        <text class="fm" x="480" y="378" fill="#4a423b" font-size="9" text-anchor="middle">rules / values / plugins</text>
+
+        <!-- 本地证书 (optional) -->
+        <rect x="88" y="328" width="152" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="88" y="328" width="152" height="64" rx="6" fill="rgba(42,36,32,0.02)" stroke="rgba(42,36,32,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+        <rect x="96" y="334" width="28" height="12" rx="2" fill="transparent" stroke="rgba(42,36,32,0.16)" stroke-width="0.8"/>
+        <text class="fm" x="110" y="343" fill="rgba(42,36,32,0.60)" font-size="7" text-anchor="middle" letter-spacing="0.08em">CA</text>
+        <text class="fn" x="164" y="362" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">本地证书</text>
+        <text class="fm" x="164" y="378" fill="#4a423b" font-size="9" text-anchor="middle">node-forge · MITM</text>
+
+        <!-- 会话数据 (store) -->
+        <rect x="520" y="504" width="152" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="520" y="504" width="152" height="64" rx="6" fill="rgba(42,36,32,0.05)" stroke="#4a423b" stroke-width="1"/>
+        <rect x="528" y="510" width="28" height="12" rx="2" fill="transparent" stroke="rgba(74,66,59,0.40)" stroke-width="0.8"/>
+        <text class="fm" x="542" y="519" fill="rgba(74,66,59,0.80)" font-size="7" text-anchor="middle" letter-spacing="0.08em">DATA</text>
+        <text class="fn" x="596" y="538" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">会话数据</text>
+        <text class="fm" x="596" y="554" fill="#4a423b" font-size="9" text-anchor="middle">socket-mgr</text>
+
+        <!-- WebUI 服务 (backend) -->
+        <rect x="776" y="504" width="152" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="776" y="504" width="152" height="64" rx="6" fill="#fffdf6" stroke="#2a2420" stroke-width="1"/>
+        <rect x="784" y="510" width="28" height="12" rx="2" fill="transparent" stroke="rgba(42,36,32,0.40)" stroke-width="0.8"/>
+        <text class="fm" x="798" y="519" fill="rgba(42,36,32,0.80)" font-size="7" text-anchor="middle" letter-spacing="0.08em">WEB</text>
+        <text class="fn" x="852" y="538" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">WebUI 服务</text>
+        <text class="fm" x="852" y="554" fill="#4a423b" font-size="9" text-anchor="middle">express · cgi-bin</text>
+
+        <!-- 前端界面 (focal) -->
+        <rect x="1016" y="504" width="160" height="64" rx="6" fill="#fbf6e9"/>
+        <rect x="1016" y="504" width="160" height="64" rx="6" fill="rgba(223,107,60,0.10)" stroke="#b34f24" stroke-width="1"/>
+        <rect x="1024" y="510" width="28" height="12" rx="2" fill="transparent" stroke="rgba(179,79,36,0.40)" stroke-width="0.8"/>
+        <text class="fm" x="1038" y="519" fill="rgba(179,79,36,0.80)" font-size="7" text-anchor="middle" letter-spacing="0.08em">UI</text>
+        <text class="fn" x="1096" y="538" fill="#2a2420" font-size="12" font-weight="600" text-anchor="middle">前端界面</text>
+        <text class="fm" x="1096" y="554" fill="#4a423b" font-size="9" text-anchor="middle">react 15 · bootstrap 5</text>
+
+        <!-- Legend: horizontal strip at the bottom, outside the diagram area. -->
+        <line x1="64" y1="648" x2="1216" y2="648" stroke="rgba(42,36,32,0.10)" stroke-width="0.8"/>
+        <text class="fm" x="64" y="668" fill="#6b6259" font-size="8" font-weight="500" letter-spacing="0.14em">LEGEND</text>
+
+        <rect x="152" y="656" width="12" height="12" rx="2" fill="rgba(223,107,60,0.10)" stroke="#b34f24" stroke-width="1"/>
+        <text class="fn" x="172" y="668" fill="#4a423b" font-size="12" font-weight="500">焦点组件</text>
+
+        <rect x="272" y="656" width="12" height="12" rx="2" fill="#fffdf6" stroke="#2a2420" stroke-width="1"/>
+        <text class="fn" x="292" y="668" fill="#4a423b" font-size="12" font-weight="500">内部模块</text>
+
+        <rect x="392" y="656" width="12" height="12" rx="2" fill="rgba(42,36,32,0.05)" stroke="#4a423b" stroke-width="1"/>
+        <text class="fn" x="412" y="668" fill="#4a423b" font-size="12" font-weight="500">数据存储</text>
+
+        <rect x="512" y="656" width="12" height="12" rx="2" fill="rgba(42,36,32,0.03)" stroke="rgba(42,36,32,0.30)" stroke-width="1"/>
+        <text class="fn" x="532" y="668" fill="#4a423b" font-size="12" font-weight="500">进程外部</text>
+
+        <rect x="632" y="656" width="12" height="12" rx="2" fill="rgba(42,36,32,0.02)" stroke="rgba(42,36,32,0.20)" stroke-width="1" stroke-dasharray="4,3"/>
+        <text class="fn" x="652" y="668" fill="#4a423b" font-size="12" font-weight="500">可选支撑</text>
+
+        <line x1="760" y1="662" x2="798" y2="662" stroke="#4a423b" stroke-width="1.2" marker-end="url(#whistle-arch-arrow)"/>
+        <text class="fn" x="808" y="668" fill="#4a423b" font-size="12" font-weight="500">数据流向</text>
+      </svg>
+    </div>
+
+    <p class="caption">
+      数据面与抓包面同处一个 Node.js 进程：代理内核负责解密与转发，会话数据留在内存，Web UI 通过 XHR 轮询
+      /cgi-bin/socket/data 读取，而不是 WebSocket。蓝色箭头是出站 HTTP 调用，虚线是支撑关系。
+    </p>
+  </div>
+</body>
+</html>
